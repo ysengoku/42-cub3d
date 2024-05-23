@@ -6,28 +6,35 @@
 #    By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/23 08:07:54 by yusengok          #+#    #+#              #
-#    Updated: 2024/05/23 09:07:53 by yusengok         ###   ########.fr        #
+#    Updated: 2024/05/23 15:37:08 by yusengok         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 BOLD = \033[1m
 RESET = \033[0m
 LIGHT_GREEN = \033[32m
-MAGENTA = \033[95m
 BLUE = \033[34m
 
 NAME = cub3D
 
-vpath %c srcs
-FILES = main
+vpath %c srcs \
+		srcs/parsing \
+		srcs/rendering \
+		srcs/event \
+		srcs/error
+FILES = main	\
+		img_rendering	\
+		event_handler	\
+		error_handling
 
 SRCS = $(addsuffix .c, $(FILES))
 
 OBJS_DIR = .objs/
 OBJS = $(addprefix $(OBJS_DIR), $(addsuffix .o, $(FILES)))
 
-HEADERS_DIR = ./includes
-HEADERS = $(HEADERS_DIR)/cub3d.h
+HEADERS_DIR = includes/
+HEADER_FILES = cub3d.h
+HEADERS = $(addprefix $(HEADERS_DIR), $(HEADER_FILES))
 LIB_DIR = ./lib
 LIBFT_DIR = $(LIB_DIR)/libft
 LIBFT = $(LIBFT_DIR)/libft.a
