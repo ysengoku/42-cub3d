@@ -6,7 +6,7 @@
 #    By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/17 13:12:10 by yusengok          #+#    #+#              #
-#    Updated: 2024/02/28 12:07:32 by yusengok         ###   ########.fr        #
+#    Updated: 2024/05/23 10:06:06 by yusengok         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ RM	= rm -f
 FILES = ft_abs	\
 		ft_atoi	\
 		ft_atol	\
+		ft_atoll	\
 		ft_bzero	\
 		ft_calloc	\
 		ft_isalnum	\

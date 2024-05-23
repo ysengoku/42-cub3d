@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atol.c                                          :+:      :+:    :+:   */
+/*   ft_atoll.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/20 07:51:13 by yusengok          #+#    #+#             */
-/*   Updated: 2024/05/23 13:26:45 by yusengok         ###   ########.fr       */
+/*   Created: 2024/05/23 09:39:06 by yusengok          #+#    #+#             */
+/*   Updated: 2024/05/23 13:28:09 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	check_value(const char *s)
 	return (0);
 }
 
-long	ft_atol(const char *s)
+long long	ft_atoll(const char *s)
 {
 	int			i;
 	long long	sign;
@@ -49,9 +49,9 @@ long	ft_atol(const char *s)
 	}
 	while (s[i])
 	{
-		if ((nbr > LONG_MAX / 10)
-			|| (sign == 1 && nbr == LONG_MAX / 10 && (s[i] - '0') > 7)
-			|| (sign == -1 && nbr == LONG_MAX / 10 && (s[i] - '0') > 7))
+		if ((nbr > LLONG_MAX / 10)
+			|| (sign == 1 && nbr == LLONG_MAX / 10 && (s[i] - '0') > 7)
+			|| (sign == -1 && nbr == LLONG_MAX / 10 && (s[i] - '0') > 7))
 			return (-1);
 		nbr = nbr * 10 + (s[i] - '0');
 		i++;
