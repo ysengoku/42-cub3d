@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 14:23:54 by yusengok          #+#    #+#             */
-/*   Updated: 2024/02/26 14:02:59 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/05/23 10:06:57 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ int				ft_strcmp(char *s1, char *s2);
 char			*ft_strstr(const char *big, const char *little);
 char			*ft_strnstr_r(char *big, char *little);
 long			ft_atol(const char *s);
+long long		ft_atoll(const char *s);
 unsigned int	ft_abs(int n);
 
 /* ----- ft_printf ----- */
