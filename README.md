@@ -48,12 +48,11 @@ dir_x = 0, dir_y = -1
 ```
 
 #### plane_x, plane_y (Camera plane vector)
-Caluculate plane vector
-1. Convert FOV° in radian
+1. Convert FOV° in radian  
   fov_radians = FOV * M_PI / 180.0
-2. Calculate plane length
+2. Calculate plane length  
   plane_length = tan(fov_radians / 2)
-3. Calculate plane vector
+3. Calculate plane vector  
   plane_x = dir_y * plane_length
   plane_y = dir_x * plane_length
 ```c
