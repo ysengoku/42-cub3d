@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/05/23 15:16:10 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/05/27 14:30:36 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,24 @@
 #  define M_PI 3.14159265358979323846
 # endif
 
-/* ----- window definition ----- */
+/* ----- macro definition ----- */
 # define WINNAME "cub3D"
 # define WIN_W 1280
 # define WIN_H 720
+# define TEXTURE_W 64
+# define TEXTURE_H 64
+# define FOV 60
+# define MOVE_SPEED 
+# define ROTATE_SPEED
 
-/* ----- enum definition ----- */
-enum	e_direction
-{
-	NORTH = 1,
-	SOUTH = 2,
-	EAST = 3,
-	WEST = 4
-};
+// /* ----- enum definition ----- */
+// enum	e_direction
+// {
+// 	NORTH = 1,
+// 	SOUTH = 2,
+// 	EAST = 3,
+// 	WEST = 4
+// };
 
 /* ----- type definition ----- */
 typedef struct s_imgdata
@@ -62,17 +67,24 @@ typedef struct s_map
 
 typedef struct s_player
 {
-	/* JUST FOR TEST */
-	float				pos_x;
-	float				pos_y;
-	enum e_direction	direction; 
+	double	pos_x;
+	double	pos_y;
+	double	dir_x;
+	double	dir_y;
+	// NORTH : dir_x = 0, dir_y = -1
+	// SOUTH : dir_x = 0, dir_y = 1
+	// EAST : dir_x = 1, dir_y = 0
+	// WEST : dir_x = -1, dir_y = 0
+	double	plane_x;
+	double	plane_y;
+
 }				t_player;
 
 typedef struct s_color
 {
-	float	r;
-	float	g;
-	float	b;
+	double	r;
+	double	g;
+	double	b;
 }				t_color;
 
 typedef struct s_cub3d
@@ -83,10 +95,16 @@ typedef struct s_cub3d
 	/* JUST FOR TEST */
 	t_map		map;
 	t_player	player;
+	t_color		ceiling;
+	t_color		floor;
 }				t_cub3d;
 
 /* ----- Image rendering ----- */
 int		render_image(t_cub3d *data);
+void	draw_floor(t_cub3d *data, int start, int end, int floor_color);
+void	draw_ceiling(t_cub3d *data, int x, int end, int ceiling_color);
+int		convert_color(t_color color);
+void	put_pxl_color(t_imgdata *img, int x, int y, int color);
 
 /* ----- Event handler ----- */
 int		handle_keyevents(int keysym, t_cub3d *data);
