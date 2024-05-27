@@ -6,7 +6,7 @@
 #    By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/23 08:07:54 by yusengok          #+#    #+#              #
-#    Updated: 2024/05/23 15:37:08 by yusengok         ###   ########.fr        #
+#    Updated: 2024/05/27 14:12:21 by yusengok         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,11 +19,14 @@ NAME = cub3D
 
 vpath %c srcs \
 		srcs/parsing \
+		srcs/raycasting	\
 		srcs/rendering \
 		srcs/event \
 		srcs/error
 FILES = main	\
+		raycasting	\
 		img_rendering	\
+		colors	\
 		event_handler	\
 		error_handling
 
@@ -56,7 +59,6 @@ $(NAME): $(OBJS) $(HEADER) $(LIBFT) $(LIBMLX)
 	@printf "$(LIGHT_GREEN)$(BOLD)cub3D is ready to launch\n$(RESET)"
 
 $(OBJS_DIR)%.o: %.c $(HEADERS) $(LIBFT) Makefile
-	@printf "$(BLUE)$(BOLD)Compiling cub3D...\n$(RESET)"
 	@mkdir -p $(OBJS_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDE)
 
