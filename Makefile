@@ -6,7 +6,7 @@
 #    By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/23 08:07:54 by yusengok          #+#    #+#              #
-#    Updated: 2024/05/27 14:12:21 by yusengok         ###   ########.fr        #
+#    Updated: 2024/05/28 08:57:43 by yusengok         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ vpath %c srcs \
 FILES = main	\
 		raycasting	\
 		img_rendering	\
+		draw	\
 		colors	\
 		event_handler	\
 		error_handling

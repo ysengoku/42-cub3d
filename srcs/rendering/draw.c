@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   img_rendering.c                                    :+:      :+:    :+:   */
+/*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/23 15:14:25 by yusengok          #+#    #+#             */
-/*   Updated: 2024/05/28 08:57:58 by yusengok         ###   ########.fr       */
+/*   Created: 2024/05/28 08:57:21 by yusengok          #+#    #+#             */
+/*   Updated: 2024/05/28 08:57:54 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	render_image(t_cub3d *data)
+void	draw_ceiling(t_cub3d *data, int x, int end, int ceiling_color)
 {
-	if (data->win_ptr)
-	{	
-		ft_raycasting(data);
-		mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
-			data->img.img, 0, 0);
-	}
-	return (0);
+	while (end >= 0)
+		put_pxl_color(&data->img, x, end--, ceiling_color);
+}
+
+void	draw_floor(t_cub3d *data, int x, int start, int floor_color)
+{
+	while (start <= WIN_H)
+		put_pxl_color(&data->img, x, start++, floor_color);
 }
