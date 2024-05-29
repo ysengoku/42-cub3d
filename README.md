@@ -80,7 +80,7 @@ dir_x = 0, dir_y = -1
 2. Calculate plane length  
   plane_length = tan(fov_radians / 2)
 3. Calculate plane vector  
-  plane_x = dir_y * plane_length
+  plane_x = dir_y * plane_length  
   plane_y = dir_x * plane_length
 ```c
 In the example,
