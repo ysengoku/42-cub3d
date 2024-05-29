@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:57 by yusengok          #+#    #+#             */
-/*   Updated: 2024/05/28 14:00:47 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/05/29 13:12:21 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,24 @@ int	main(int argc, char **argv)
 	data.floor.r = 52;
 	data.floor.g = 52;
 	data.floor.b = 52;
+	data.colors[0].r = 135;
+	data.colors[0].g = 206;
+	data.colors[0].b = 235;
+	data.colors[1].r = 255;
+	data.colors[1].g = 127;
+	data.colors[1].b = 80;
+	data.colors[2].r = 50;
+	data.colors[2].g = 205;
+	data.colors[2].b = 50;
+	data.colors[3].r = 221;
+	data.colors[3].g = 160;
+	data.colors[3].b = 221;
 
-	data.player.pos_x = 4 * TEXTURE_SIZE + TEXTURE_SIZE / 2;
-	data.player.pos_y = 3 * TEXTURE_SIZE + TEXTURE_SIZE / 2;
-	data.player.angle = 90;
+	data.player.pos_x = 4; //* TEXTURE_SIZE + TEXTURE_SIZE / 2;
+	data.player.pos_y = 3; //* TEXTURE_SIZE + TEXTURE_SIZE / 2;
+	data.player.dir = 90;
+	data.player.fov = FOV * M_PI / 180;
+	data.player.plane_length = tan(data.player.fov / 2);
 /*========================================================================*/
 
 	if (argc != 2 || ft_strnstr_r(argv[1], ".cub") != 0)
