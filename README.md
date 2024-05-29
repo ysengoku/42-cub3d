@@ -59,8 +59,8 @@ t_player	player;
 double 		dir_rad;
 
 dir_rad = player.dir * M_PI / 180;
-player.dir_x = cos(direction);
-player.dir_y = -sin(direction);
+player.dir_x = cos(dir_rad);
+player.dir_y = -sin(dir_rad);
 
 // result
 // NORTH (0, -1)
