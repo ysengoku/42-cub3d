@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/05/28 15:09:07 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/05/29 13:53:21 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,18 +35,29 @@
 # define WIN_W 1280
 # define WIN_H 720
 # define TEXTURE_SIZE 64
-# define FOV 60
+
+# ifndef FOV
+#  define FOV 90
+# endif
 // # define MOVE_SPEED 
 // # define ROTATE_SPEED
 
-// /*===== enum definition =====================================================*/
-// enum	e_direction
-// {
-// 	NORTH = 1,
-// 	SOUTH = 2,
-// 	EAST = 3,
-// 	WEST = 4
-// };
+/*===== enum definition =====================================================*/
+enum	e_direction
+{
+	N = 90,
+	E = 0,
+	S = 270,
+	W = 180
+};
+
+enum	e_wallside
+{
+	NO = 0,
+	SO = 1,
+	WE = 2,
+	EA = 3
+};
 
 /*===== structures ===========================================================*/
 typedef struct s_imgdata
@@ -60,23 +71,22 @@ typedef struct s_imgdata
 
 typedef struct s_map
 {
-	// char	**mapdata;
-	int		**mapdata;
+	char	**mapdata;
+	// int		**mapdata;
 }				t_map;
 
 typedef struct s_player
 {
-	int		pos_x;
-	int		pos_y;
-	double	angle;
-	double	dir_x;
-	double	dir_y;
-	// NORTH : dir_x = 0, dir_y = -1 (270)
-	// SOUTH : dir_x = 0, dir_y = 1 (0)
-	// EAST : dir_x = 1, dir_y = 0 (90)
-	// WEST : dir_x = -1, dir_y = 0 (180)
-	double	plane_x;
-	double	plane_y;
+	double				fov; // FOV in radians
+	int					pos_x;
+	int					pos_y;
+	enum e_direction	initial_dir;
+	double				dir; //direction in degree
+	double				dir_x; 
+	double				dir_y;
+	double				plane_length;
+	double				plane_x;
+	double				plane_y;
 
 }				t_player;
 
@@ -89,24 +99,26 @@ typedef struct s_color
 
 typedef struct s_ray
 {
-	double	angle_rad; // initialize: player's angle - FOV / 2 --> convert in radians
-	// double	dir_x;
-	// double	dir_y;
-	double	inc_angle; // = FOV / WIN_W
-	double	x;
-	double	y;
-	double	inc_x;
-	double	inc_y;
-	double	x_distance;
-	double	y_distance;
-	double	wall_height;
-	/* texture */
-	//--- For TEST -------
-	t_color	wall_color_n;
-	t_color	wall_color_s;
-	t_color	wall_color_e;
-	t_color	wall_color_w;
-	//--------------------
+	// double	angle_rad; // initialize: player.angle - FOV * M_PI / 180
+	// double			inc_angle; // = FOV / WIN_W
+	double			camera_p;
+	double			dir_x;
+	double			dir_y;
+	int				map_x;
+	int				map_y;
+	int				step_x;
+	int				step_y;
+	double			sidedist_x;
+	double			sidedist_y;
+	double			delta_x;
+	double			delta_y;
+	// double			inc_x;
+	// double			inc_y;
+	// double			x_distance;
+	// double			y_distance;
+	double			distance;
+	double			wall_height;
+	enum e_wallside	wall_side;
 }				t_ray;
 
 typedef struct s_cub3d
@@ -119,6 +131,9 @@ typedef struct s_cub3d
 	t_color		ceiling;
 	t_color		floor;
 	// textures
+	//--- For TEST -----------
+	t_color			colors[4];
+	//------------------------
 }				t_cub3d;
 
 /*===== functions ============================================================*/
