@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/05/29 13:53:21 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/05/29 15:36:46 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ typedef struct s_ray
 	// double			x_distance;
 	// double			y_distance;
 	double			distance;
-	double			wall_height;
+	int				wall_height;
 	enum e_wallside	wall_side;
 }				t_ray;
 
@@ -143,6 +143,7 @@ int		ft_raycasting(t_cub3d *data);
 /*----- Image rendering -----*/
 int		render_image(t_cub3d *data);
 void	draw_floor(t_cub3d *data, int start, int end, int floor_color);
+void	draw_wall(t_cub3d *data, int x, t_ray *ray); // Temporary version without texture
 void	draw_ceiling(t_cub3d *data, int x, int end, int ceiling_color);
 int		convert_color(t_color color);
 void	put_pxl_color(t_imgdata *img, int x, int y, int color);
