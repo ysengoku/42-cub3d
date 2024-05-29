@@ -114,7 +114,7 @@ static void check_wall_hit(t_cub3d *data, t_ray *ray)
 			hit = 1;
 		else
 		{
-			if (ray->sidedist_x > ray->sidedist_y)
+			if (ray->sidedist_x < ray->sidedist_y)
 			{
 				ray->sidedist_x += ray->delta_x;
 				ray->map_x += ray->step_x;
