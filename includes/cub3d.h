@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/05/29 15:36:46 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/05/29 15:49:58 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ typedef struct s_imgdata
 typedef struct s_map
 {
 	char	**mapdata;
-	// int		**mapdata;
 }				t_map;
 
 typedef struct s_player
@@ -92,9 +91,9 @@ typedef struct s_player
 
 typedef struct s_color
 {
-	double	r;
-	double	g;
-	double	b;
+	int	r;
+	int	g;
+	int	b;
 }				t_color;
 
 typedef struct s_ray
