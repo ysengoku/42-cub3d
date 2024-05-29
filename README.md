@@ -7,14 +7,25 @@
 #define FOV 60
 #define M_PI 3.14159265358979323846
 
+enum	e_direction
+{
+	NORTH = 90,
+	EAST = 0,
+	SOUTH = 270,
+	WEST = 180
+};
+
 typedef struct s_player
 {
-	double	pos_x;
-	double	pos_y;
-	double	dir_x;
-	double	dir_y;
-	double	plane_x;
-	double	plane_y;
+	double			angle; // FOV in radians
+	int			pos_x;
+	int			pos_y;
+	enum e_direction	initial_dir;
+	double			dir; //direction in degree
+	double			dir_x; 
+	double			dir_y;
+	double			plane_x;
+	double			plane_y;
 	
 }				t_player;
 ```
@@ -28,7 +39,7 @@ typedef struct s_player
 // Player is represented by N (north direction)
 ```
 
-#### pos_x, pos_y
+#### Player's position (pos_x, pos_y)
 Player's initial map coordinates (not pixel coordinate). He must be placed at the center of cell.
 ```c
 In the exemple,  
@@ -36,18 +47,34 @@ pos_x = 4.5, pos_y = 3.5
 // Coordinate on the map is (4, 3)
 ```
 
-#### dir_x, dir_y
+#### Direction vector (dir_x, dir_y)
 Player's initial direction
-- NORTH : dir_x = 0, dir_y = -1
-- SOUTH : dir_x = 0, dir_y = 1
-- EAST : dir_x = 1, dir_y = 0
-- WEST : dir_x = -1, dir_y = 0
+- NORTH : 90°
+- SOUTH : 270°
+- EAST : 0°
+- WEST : 180°  
+
+```c
+t_player	player;
+double 		dir_rad;
+
+dir_rad = player.dir * M_PI / 180;
+player.dir_x = cos(direction);
+player.dir_y = -sin(direction);
+
+// result
+// NORTH (0, -1)
+// SOUTH (0, 1)
+// EAST : (1, 0)
+// WEST : (-1, 0)
+```
+
 ```c
 In the exemple,  
 dir_x = 0, dir_y = -1
 ```
 
-#### plane_x, plane_y (Camera plane vector)
+#### Camera plane vector (plane_x, plane_y)
 1. Convert FOV° in radian  
   fov_radians = FOV * M_PI / 180.0
 2. Calculate plane length  
