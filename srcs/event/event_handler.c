@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 10:42:38 by yusengok          #+#    #+#             */
-/*   Updated: 2024/05/23 14:21:12 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/05/29 16:34:37 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,17 @@ int	handle_keyevents(int keysym, t_cub3d *data)
 	if (keysym == XK_Left)
 		printf("TEST: <--\n"); //TEST
 	if (keysym == XK_w)
-		printf("TEST: w\n"); //TEST
+		data->player.pos_y -= 1; // TEST (to check the direction)
+		// Need to add condition to avid getting out of the map
 	if (keysym == XK_a)
-		printf("TEST: a\n"); //TEST
+		data->player.pos_x -= 1;  // TEST (to check the direction)
+		// Need to add condition to avid getting out of the map
 	if (keysym == XK_s)
-		printf("TEST: s\n"); //TEST
+		data->player.pos_y += 1;  // TEST (to check the direction)
+		// Need to add condition to avid getting out of the map
 	if (keysym == XK_d)
-		printf("TEST: d\n"); //TEST
+		data->player.pos_x += 1;  // TEST (to check the direction)
+		// Need to add condition to avid getting out of the map
 	return (0);
 }
 

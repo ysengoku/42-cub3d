@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/05/29 15:49:58 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/05/29 16:26:28 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,12 @@
 
 /*===== macro definition =====================================================*/
 # define WINNAME "cub3D"
-# define WIN_W 1280
+# define WIN_W 1080
 # define WIN_H 720
 # define TEXTURE_SIZE 64
 
 # ifndef FOV
-#  define FOV 90
+#  define FOV 60
 # endif
 // # define MOVE_SPEED 
 // # define ROTATE_SPEED
@@ -131,7 +131,7 @@ typedef struct s_cub3d
 	t_color		floor;
 	// textures
 	//--- For TEST -----------
-	t_color			colors[4];
+	t_color		colors[4];
 	//------------------------
 }				t_cub3d;
 

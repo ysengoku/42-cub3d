@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 08:30:08 by yusengok          #+#    #+#             */
-/*   Updated: 2024/05/29 15:08:33 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/05/29 16:45:51 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,11 @@ int	ft_raycasting(t_cub3d *data)
 	{	
 		set_ray(data, &ray, x);	
 		check_wall_hit(data, &ray);
-//		Calculate wall_height & check which side
-//			-----> start point of wall = WIN_H / 2 - wall_height / 2
-//			-----> end point of wall = WIN_H / 2 + wall_height / 2
-	/*=== TEST ===========================================================*/
-		ray.wall_height = 0;
-	/*====================================================================*/
 		draw_ceiling(data, x,  WIN_H / 2 - ray.wall_height / 2,
 				convert_color(data->ceiling));
-//		draw wall (texture)
 		draw_floor(data, x, WIN_H / 2 + ray.wall_height / 2,
 				convert_color(data->floor));
+		draw_wall(data, x, &ray);
 		x++;
 	}
 	return (0);
@@ -64,11 +58,11 @@ static void	set_ray(t_cub3d *data, t_ray *ray, int x)
 	ray->sidedist_x = 0;
 	ray->sidedist_y = 0;
 	// if (ray->dir_x == 0)
-	// 	ray->delta_x = -1;
+	// 	ray->delta_x = 1e30;
 	// else
 		ray->delta_x = fabs(1 / ray->dir_x);
 	// if (ray->dir_y == 0)
-	// 	ray->delta_y = -1;
+	// 	ray->delta_y = 1e30;
 	// else
 		ray->delta_y = fabs(1 / ray->dir_y);
 	if (ray->dir_x < 0)
@@ -94,19 +88,23 @@ static void	set_ray(t_cub3d *data, t_ray *ray, int x)
 }
 
 static void check_wall_hit(t_cub3d *data, t_ray *ray)
-{
-	char	test[5][6] = {
-		{"111111"},
-		{"100101"},
-		{"101001"},
-		{"110001"},
-		{"111111"}};
-		
+{	
+	char	test[10][12] = {
+	{"111111111111"},
+	{"100001111101"},
+	{"100000011001"},
+	{"111100000001"},
+	{"111100000001"},
+	{"111100000001"},
+	{"111100000001"},
+	{"111100009001"},
+	{"111100000001"},
+	{"111111111111"}};
+	
 	int		hit;
-	int		side; // 0 = x (north or south), 1 = y (west or east)
+	int		side; // 0 --> x (north or south), 1 --> y (west or east)
 	double	distance;
 
-	(void) data;
 	hit = 0;
 	side = 0;
 	while (!hit)
@@ -130,7 +128,7 @@ static void check_wall_hit(t_cub3d *data, t_ray *ray)
 			}
 		}
 	}
-	if (side == 0)
+	if (side == 1)
 	{
 		distance = ray->sidedist_y - ray->delta_y;
 		if (ray->map_y < data->player.pos_y)
@@ -146,4 +144,5 @@ static void check_wall_hit(t_cub3d *data, t_ray *ray)
 		else
 			ray->wall_side = EA;
 	}
+	ray->wall_height = (int)(WIN_H / distance);
 }
