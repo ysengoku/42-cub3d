@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 08:30:08 by yusengok          #+#    #+#             */
-/*   Updated: 2024/05/29 13:54:32 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/05/29 15:08:33 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,25 @@ static void	set_ray(t_cub3d *data, t_ray *ray, int x)
 	// else
 		ray->delta_y = fabs(1 / ray->dir_y);
 	if (ray->dir_x < 0)
+	{
 		ray->step_x = -1;
+		ray->sidedist_x = (data->player.pos_x - ray->map_x) * ray->delta_x;
+	}
 	else
+	{
 		ray->step_x = 1;
+		ray->sidedist_x = (ray->map_x + 1.0 - data->player.pos_x) * ray->delta_x;
+	}
 	if (ray->dir_y < 0)
+	{
 		ray->step_y = -1;
+		ray->sidedist_y = (data->player.pos_y - ray->map_y) * ray->delta_y;
+	}
 	else
+	{
 		ray->step_y = 1;
+		ray->sidedist_y = (ray->map_y + 1.0 - data->player.pos_y) * ray->delta_y;
+	}
 }
 
 static void check_wall_hit(t_cub3d *data, t_ray *ray)
@@ -90,16 +102,48 @@ static void check_wall_hit(t_cub3d *data, t_ray *ray)
 		{"110001"},
 		{"111111"}};
 		
-	int	hit;
+	int		hit;
+	int		side; // 0 = x (north or south), 1 = y (west or east)
+	double	distance;
 
 	(void) data;
 	hit = 0;
+	side = 0;
 	while (!hit)
 	{
 		if (test[ray->map_y][ray->map_x] == '1')
 		// if (data->map.mapdata[ray->map_y][ray->map_x] == '1')
 			hit = 1;
-		// else
-		// continue loop
+		else
+		{
+			if (ray->sidedist_x > ray->sidedist_y)
+			{
+				ray->sidedist_x += ray->delta_x;
+				ray->map_x += ray->step_x;
+				side = 0;
+			}
+			else
+			{
+				ray->sidedist_y += ray->delta_y;
+				ray->map_y += ray->step_y;
+				side = 1;
+			}
+		}
+	}
+	if (side == 0)
+	{
+		distance = ray->sidedist_y - ray->delta_y;
+		if (ray->map_y < data->player.pos_y)
+			ray->wall_side = NO;
+		else
+			ray->wall_side = SO;
+	}
+	else
+	{
+		distance = ray->sidedist_x - ray->delta_x;
+		if (ray->map_x < data->player.pos_x)
+			ray->wall_side = WE;
+		else
+			ray->wall_side = EA;
 	}
 }
