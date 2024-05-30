@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 09:59:51 by yusengok          #+#    #+#             */
-/*   Updated: 2024/05/30 12:40:56 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/05/30 14:36:09 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	move_forward(t_cub3d *data, double player_dir, int *x, int *y)
 	// if (((player_dir >= 0 && player_dir < 22.5) || (player_dir >= 337.5 && player_dir < 360))
 	// 	&& *x + 1 < data->map.w - 2 && data->map.mapdata[*y][*x + 1] != '1')
 	if (((player_dir >= 0 && player_dir < 22.5) || (player_dir >= 337.5 && player_dir < 360))
-		&& *x + 1 < data->map.w - 2 && test[*y][*x + 1] != '1')
+		&& test[*y][*x + 1] != '1')
 		*x += MOVE;
 	if (player_dir >= 22.5 && player_dir < 67.5)
 		move_north_east(data, x, y);

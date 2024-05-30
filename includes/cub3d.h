@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/05/30 14:05:40 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/05/30 16:55:08 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,13 @@
 # define MOVE 1 
 # define ROTATE 5
 
-# define MMAP_H	150
-# define MMAP_WALL 139
+# define MMAP_H	180
+# define MMAP_WALL 100
 # define MMAP_FLOOR 13808800
 # define MMAP_P 16711680
 # define MMAP_R 9490256
+# define MMAP_DIR 16776960
+# define TRANSPARENT (int)0xFF000000
 /// TEST /////////////////////////////////////////////////////////////
 extern char	test[26][26];
 //////////////////////////////////////////////////////////////////////
@@ -81,8 +83,8 @@ typedef struct s_imgdata
 typedef struct s_map
 {
 	char	**mapdata;
-	int		w;
-	int		h;
+	int		maxh;
+	int		maxw;
 }				t_map;
 
 typedef struct s_player
@@ -129,9 +131,9 @@ typedef struct s_ray
 typedef struct s_minimap
 {
 	t_imgdata	img;
-	int			height; // in pixel - fixed to MMAP_H
-	int			width; // in pixel - calculate from scale * height
-	double		scale;
+	// int			height; // in pixel - fixed to MMAP_H
+	// int			width; // in pixel - calculate from scale * height
+	int			scale;
 	int			minimap_x;
 	int			minimap_y;
 }				t_minimap;
