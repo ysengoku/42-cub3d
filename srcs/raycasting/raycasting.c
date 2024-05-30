@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 08:30:08 by yusengok          #+#    #+#             */
-/*   Updated: 2024/05/30 11:20:11 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/05/30 16:04:55 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	ft_raycasting(t_cub3d *data)
 			draw_wall(data, x, &ray);
 			x++;
 		}
+		set_minimap(data);
 		data->player.moved = 0;
 	}
 	return (0);
@@ -126,8 +127,8 @@ static void check_wall_hit(t_cub3d *data, t_ray *ray)
 	// {"100111111000000000000001"},
 	// {"100000000000000000000001"},
 	// {"111111111111111111111111"}};
-	data->map.w = 26;
-	data->map.h = 26;
+	data->map.maxw = 26;
+	data->map.maxh = 26;
 	
 	int		hit;
 	int		side; // 0 --> x (north or south), 1 --> y (west or east)

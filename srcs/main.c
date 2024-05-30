@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:57 by yusengok          #+#    #+#             */
-/*   Updated: 2024/05/30 13:05:54 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/05/30 16:20:23 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char test[26][26] = {
 	{"100000000000000000000001"},
 	{"111111111111111111111111"}};
 /*============================================================================*/
-	
+
 static int	ft_init_mlx(t_cub3d *data)
 {
 	data->mlx_ptr = mlx_init();
@@ -78,7 +78,7 @@ int	main(int argc, char **argv)
 	data.colors[2] = 11393254;
 	data.colors[3] = 9419927;
 
-	data.player.pos_x = 10; //* TEXTURE_SIZE + TEXTURE_SIZE / 2;
+	data.player.pos_x = 8; //* TEXTURE_SIZE + TEXTURE_SIZE / 2;
 	data.player.pos_y = 5; //* TEXTURE_SIZE + TEXTURE_SIZE / 2;
 	data.player.dir = N;
 	data.player.fov = FOV * M_PI / 180;
@@ -94,9 +94,10 @@ int	main(int argc, char **argv)
 	data.img.img = mlx_new_image(data.mlx_ptr, WIN_W, WIN_H);
 	data.img.addr = mlx_get_data_addr(data.img.img, &data.img.bits_per_pxl,
 			&data.img.line_len, &data.img.endian);
-	data.mmap.img.img = mlx_new_image(data.mlx_ptr, WIN_W, MMAP_H);
+	data.mmap.img.img = mlx_new_image(data.mlx_ptr, MMAP_H, MMAP_H);
 	data.mmap.img.addr = mlx_get_data_addr(data.mmap.img.img,
-		&data.img.bits_per_pxl, &data.img.line_len, &data.img.endian);
+		&data.mmap.img.bits_per_pxl, &data.mmap.img.line_len,
+		&data.mmap.img.endian);
 	mlx_key_hook(data.win_ptr, &handle_keyevents, &data);
 	mlx_mouse_hook(data.win_ptr, &handle_mouseevents, &data.map); // For bonus
 	mlx_hook(data.win_ptr, DestroyNotify, StructureNotifyMask,
