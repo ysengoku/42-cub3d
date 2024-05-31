@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 10:42:38 by yusengok          #+#    #+#             */
-/*   Updated: 2024/05/30 14:06:28 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/05/31 12:06:39 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,11 @@ static void	close_window(t_cub3d *data)
 	mlx_destroy_display(data->mlx_ptr);
 	free(data->mlx_ptr);
 	// free other things if needed
+	/*== For test =============================*/
+	for (int i = 0; data->map.mapdata[i]; i++)
+		free(data->map.mapdata[i]);
+	free(data->map.mapdata);
+	/*=========================================*/
 	exit(1);
 }
 
@@ -31,23 +36,18 @@ int	handle_keyevents(int keysym, t_cub3d *data)
 		rotate_counterclockwise(data);
 	if (keysym == XK_Right)
 		rotate_clockwise(data);
-	if (keysym == XK_w) // forward
-		move_forward(data, data->player.dir, &data->player.pos_x, &data->player.pos_y);
-	// if (keysym == XK_a) //right
-	// {
-	// 	data->player.pos_x -= 1;  // TEST
-	// 	data->player.moved = 1;
-	// }
-	// if (keysym == XK_s) // back
-	// {
-	// 	data->player.pos_y += 1;  // TEST
-	// 	data->player.moved = 1;
-	// }
-	// if (keysym == XK_d) // left
-	// {
-	// 	data->player.pos_x += 1;  // TEST
-	// 	data->player.moved = 1;
-	// }
+	if (keysym == XK_w)
+		move_forward(data, data->player.dir, &data->player.pos_x,
+			&data->player.pos_y);
+	if (keysym == XK_a)
+		move_left(data, data->player.dir, &data->player.pos_x,
+			&data->player.pos_y);
+	if (keysym == XK_s)
+		move_backward(data, data->player.dir, &data->player.pos_x,
+			&data->player.pos_y);
+	if (keysym == XK_d)
+		move_right(data, data->player.dir, &data->player.pos_x,
+			&data->player.pos_y);
 	return (0);
 }
 
@@ -58,13 +58,13 @@ int	handle_closebutton(t_cub3d *data)
 }
 
 // For bonus
-int	handle_mouseevents(int mousecode, int x, int y)
+int	handle_mouseevents(int mousecode, int x, int y, t_cub3d *data)
 {
-	(void)x;
 	(void)y;
+	(void)x;
 	if (mousecode == 4) //mouse down
-		printf("TEST: mouse down\n"); //TEST
+		rotate_counterclockwise(data);
 	if (mousecode == 5) //mouse up
-		printf("TEST: mouse up\n"); //TEST
+		rotate_clockwise(data);
 	return (0);
 }

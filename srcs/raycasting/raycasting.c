@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 08:30:08 by yusengok          #+#    #+#             */
-/*   Updated: 2024/05/31 09:06:42 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/05/31 12:15:02 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	init_camera(t_cub3d *data);
 static void	set_ray(t_cub3d *data, t_ray *ray, int x);
-static void check_wall_hit(t_cub3d *data, t_ray *ray);
+static void	check_wall_hit(t_cub3d *data, t_ray *ray);
 
 int	ft_raycasting(t_cub3d *data)
 {
@@ -26,13 +26,11 @@ int	ft_raycasting(t_cub3d *data)
 	{
 		init_camera(data);
 		while (x < WIN_W)
-		{	
-			set_ray(data, &ray, x);	
+		{
+			draw_ceiling(data, x, WIN_H / 2, data->ceiling_color);
+			draw_floor(data, x, WIN_H / 2, data->floor_color);
+			set_ray(data, &ray, x);
 			check_wall_hit(data, &ray);
-			draw_ceiling(data, x,  WIN_H / 2 - ray.wall_height / 2,
-					data->ceiling_color);
-			draw_floor(data, x, WIN_H / 2 + ray.wall_height / 2,
-					data->floor_color);
 			draw_wall(data, x, &ray);
 			x++;
 		}
@@ -44,8 +42,8 @@ int	ft_raycasting(t_cub3d *data)
 
 static void	init_camera(t_cub3d *data)
 {
-	double direction_rad;
-	
+	double	direction_rad;
+
 	direction_rad = data->player.dir * M_PI / 180;
 	data->player.dir_x = cos(direction_rad);
 	data->player.dir_y = -sin(direction_rad);
@@ -86,8 +84,8 @@ static void	set_ray(t_cub3d *data, t_ray *ray, int x)
 	}
 }
 
-static void check_wall_hit(t_cub3d *data, t_ray *ray)
-{	
+static void	check_wall_hit(t_cub3d *data, t_ray *ray)
+{
 	int		hit;
 	int		side; // 0 --> x (north or south), 1 --> y (west or east)
 	double	distance;
@@ -96,8 +94,7 @@ static void check_wall_hit(t_cub3d *data, t_ray *ray)
 	side = 0;
 	while (!hit)
 	{
-		if (test[ray->map_y][ray->map_x] == '1')
-		// if (data->map.mapdata[ray->map_y][ray->map_x] == '1')
+		if (data->map.mapdata[ray->map_y][ray->map_x] == '1')
 			hit = 1;
 		else
 		{

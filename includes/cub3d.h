@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/05/31 09:44:27 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/05/31 11:48:01 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@
 # ifndef FOV
 #  define FOV 90
 # endif
-# define MOVE 1 
+# define MOVE 1
 # define ROTATE 5
 
 # define MMAP_SCALE	8
@@ -48,9 +48,6 @@
 # define MMAP_P (int)0xC51162
 # define MMAP_DIR (int)0xD50000
 # define MMAP_SPACE (int)0xE3F2FD
-/// TEST /////////////////////////////////////////////////////////////
-extern char	test[26][24];
-//////////////////////////////////////////////////////////////////////
 
 /*===== enum definition =====================================================*/
 enum	e_direction
@@ -168,9 +165,13 @@ void	put_pxl_color(t_imgdata *img, int x, int y, int color);
 
 /*----- Event handler -----*/
 int		handle_keyevents(int keysym, t_cub3d *data);
-int		handle_mouseevents(int mousecode, int x, int y);
+// int		handle_mouseevents(int mousecode, t_cub3d *data);
+int		handle_mouseevents(int mousecode, int x, int y, t_cub3d *data);
 int		handle_closebutton(t_cub3d *data);
-void	move_forward(t_cub3d *data, double dir, int *x, int *y);
+void	move_forward(t_cub3d *data, double player_dir, int *x, int *y);
+void	move_backward(t_cub3d *data, double player_dir, int *x, int *y);
+void	move_right(t_cub3d *data, double player_dir, int *x, int *y);
+void	move_left(t_cub3d *data, double player_dir, int *x, int *y);
 void	move_north_east(t_cub3d *data, int *x, int *y);
 void	move_north_west(t_cub3d *data, int *x, int *y);
 void	move_south_east(t_cub3d *data, int *x, int *y);
