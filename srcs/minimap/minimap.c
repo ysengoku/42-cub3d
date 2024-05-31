@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 13:08:42 by yusengok          #+#    #+#             */
-/*   Updated: 2024/05/31 09:05:53 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/05/31 09:51:53 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,13 @@ void	set_minimap(t_cub3d *data)
 	{
 		map_x = 0;
 		data->mmap.minimap_x = 0;
-		// while (data->map.mapdata[map_y][map_x])
-		while (test[map_y][map_x])
+		while (map_x < data->map.maxw)
 		{
 			// if (data->map.mapdata[map_y][map_x] == '1')
 			if (test[map_y][map_x] == '1')
 				draw_tile(&data->mmap, MMAP_WALL);
+			// else if  (data->map.mapdata[map_y][map_x] == ' ')
 			else if  (test[map_y][map_x] == ' ')
-			// // else if  (data->map.mapdata[map_y][map_x] == ' ')
 				draw_tile(&data->mmap, MMAP_SPACE);
 			else
 				draw_tile(&data->mmap, MMAP_FLOOR);
@@ -81,7 +80,6 @@ static void	draw_player(t_cub3d *data)
 		i++;
 		y++;
 	}
-	// draw_player_dir(data);
 }
 
 static void	draw_player_dir(t_cub3d *data)
