@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/05/30 16:55:08 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/05/31 09:34:06 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 
 /*===== macro definition =====================================================*/
 # define WINNAME "cub3D"
-# define WIN_W 1080
+# define WIN_W 960
 # define WIN_H 720
 # define TEXTURE_SIZE 64
 
@@ -42,13 +42,12 @@
 # define MOVE 1 
 # define ROTATE 5
 
-# define MMAP_H	180
-# define MMAP_WALL 100
-# define MMAP_FLOOR 13808800
-# define MMAP_P 16711680
-# define MMAP_R 9490256
-# define MMAP_DIR 16776960
-# define TRANSPARENT (int)0xFF000000
+# define MMAP_SCALE	8
+# define MMAP_WALL (int)0x006064
+# define MMAP_FLOOR (int)0xB0BEC5
+# define MMAP_P (int)0xC51162
+# define MMAP_DIR (int)0xD50000
+# define MMAP_SPACE (int)0xE3F2FD
 /// TEST /////////////////////////////////////////////////////////////
 extern char	test[26][26];
 //////////////////////////////////////////////////////////////////////
@@ -133,7 +132,6 @@ typedef struct s_minimap
 	t_imgdata	img;
 	// int			height; // in pixel - fixed to MMAP_H
 	// int			width; // in pixel - calculate from scale * height
-	int			scale;
 	int			minimap_x;
 	int			minimap_y;
 }				t_minimap;
