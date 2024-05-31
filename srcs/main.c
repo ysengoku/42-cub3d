@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:57 by yusengok          #+#    #+#             */
-/*   Updated: 2024/05/30 16:20:23 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/05/31 09:06:25 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,12 +78,15 @@ int	main(int argc, char **argv)
 	data.colors[2] = 11393254;
 	data.colors[3] = 9419927;
 
-	data.player.pos_x = 8; //* TEXTURE_SIZE + TEXTURE_SIZE / 2;
-	data.player.pos_y = 5; //* TEXTURE_SIZE + TEXTURE_SIZE / 2;
+	data.player.pos_x = 8;
+	data.player.pos_y = 5;
 	data.player.dir = N;
 	data.player.fov = FOV * M_PI / 180;
 	data.player.plane_length = tan(data.player.fov / 2);
 	data.player.moved = 1;
+
+	data.map.maxw = 26;
+	data.map.maxh = 26;
 /*========================================================================*/
 
 	if (argc != 2 || ft_strnstr_r(argv[1], ".cub") != 0)
@@ -94,7 +97,8 @@ int	main(int argc, char **argv)
 	data.img.img = mlx_new_image(data.mlx_ptr, WIN_W, WIN_H);
 	data.img.addr = mlx_get_data_addr(data.img.img, &data.img.bits_per_pxl,
 			&data.img.line_len, &data.img.endian);
-	data.mmap.img.img = mlx_new_image(data.mlx_ptr, MMAP_H, MMAP_H);
+	data.mmap.img.img = mlx_new_image(data.mlx_ptr,
+			data.map.maxw * MMAP_SCALE, data.map.maxw * MMAP_SCALE);
 	data.mmap.img.addr = mlx_get_data_addr(data.mmap.img.img,
 		&data.mmap.img.bits_per_pxl, &data.mmap.img.line_len,
 		&data.mmap.img.endian);
