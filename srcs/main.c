@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:57 by yusengok          #+#    #+#             */
-/*   Updated: 2024/05/31 12:05:38 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/05/31 13:38:24 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,8 @@ int	main(int argc, char **argv)
 		&data.mmap.img.bits_per_pxl, &data.mmap.img.line_len,
 		&data.mmap.img.endian);
 	mlx_key_hook(data.win_ptr, &handle_keyevents, &data);
-	mlx_mouse_hook(data.win_ptr, &handle_mouseevents, &data); // For bonus
+	// mlx_mouse_hook(data.win_ptr, &handle_mouseevents, &data); // ---> Doesn't need ??
+	mlx_hook(data.win_ptr, MotionNotify, PointerMotionMask, &handle_mousemove, &data); // bonus
 	mlx_hook(data.win_ptr, DestroyNotify, StructureNotifyMask,
 		&handle_closebutton, &data);
 	mlx_loop_hook(data.mlx_ptr, &render_image, &data);
