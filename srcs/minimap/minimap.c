@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 13:08:42 by yusengok          #+#    #+#             */
-/*   Updated: 2024/05/31 09:51:53 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/05/31 12:12:19 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ void	set_minimap(t_cub3d *data)
 		data->mmap.minimap_x = 0;
 		while (map_x < data->map.maxw)
 		{
-			// if (data->map.mapdata[map_y][map_x] == '1')
-			if (test[map_y][map_x] == '1')
+			if (data->map.mapdata[map_y][map_x] == '1')
+			// if (test[map_y][map_x] == '1')
 				draw_tile(&data->mmap, MMAP_WALL);
-			// else if  (data->map.mapdata[map_y][map_x] == ' ')
-			else if  (test[map_y][map_x] == ' ')
+			else if (data->map.mapdata[map_y][map_x] == ' ')
+			// else if  (test[map_y][map_x] == ' ')
 				draw_tile(&data->mmap, MMAP_SPACE);
 			else
 				draw_tile(&data->mmap, MMAP_FLOOR);
@@ -87,7 +87,7 @@ static void	draw_player_dir(t_cub3d *data)
 	double	dir_x;
 	double	dir_y;
 	int		steps;
-	
+
 	dir_x = (double)data->player.pos_x * MMAP_SCALE + MMAP_SCALE / 2 - 1;
 	dir_y = (double)data->player.pos_y * MMAP_SCALE + MMAP_SCALE / 2 - 1;
 	steps = MMAP_SCALE * 2;

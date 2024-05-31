@@ -6,14 +6,36 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:57 by yusengok          #+#    #+#             */
-/*   Updated: 2024/05/31 09:50:54 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/05/31 12:05:38 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-/*== TEST MAP ================================================================*/
-char test[26][24] = {
+static int	ft_init_mlx(t_cub3d *data)
+{
+	data->mlx_ptr = mlx_init();
+	if (!(data->mlx_ptr))
+	{
+		ft_putendl_fd("MLX: Initialization failed", 2);
+		return (1);
+	}
+	data->win_ptr = mlx_new_window(data->mlx_ptr, WIN_W, WIN_H, WINNAME);
+	if (!(data->win_ptr))
+	{
+		perror("MLX");
+		mlx_destroy_display(data->mlx_ptr);
+		return (1);
+	}
+	return (0);
+}
+
+int	main(int argc, char **argv)
+{
+	t_cub3d	data;
+
+/*=== TEST ===============================================================*/
+	char test[26][24] = {
 	{"111111111111111111111111"},
 	{"100000000000000000000001"},
 	{"100000000000000000000001"},
@@ -40,31 +62,7 @@ char test[26][24] = {
 	{"100111111000000000000001"},
 	{"100000000000000000000001"},
 	{"111111111111111111111111"}};
-/*============================================================================*/
-
-static int	ft_init_mlx(t_cub3d *data)
-{
-	data->mlx_ptr = mlx_init();
-	if (!(data->mlx_ptr))
-	{
-		ft_putendl_fd("MLX: Initialization failed", 2);
-		return (1);
-	}
-	data->win_ptr = mlx_new_window(data->mlx_ptr, WIN_W, WIN_H, WINNAME);
-	if (!(data->win_ptr))
-	{
-		perror("MLX");
-		mlx_destroy_display(data->mlx_ptr);
-		return (1);
-	}
-	return (0);
-}
-
-int	main(int argc, char **argv)
-{
-	t_cub3d	data;
-
-/*=== TEST ===============================================================*/
+	
 	data.ceiling.r = 169;
 	data.ceiling.g = 169;
 	data.ceiling.b = 169;
@@ -80,13 +78,16 @@ int	main(int argc, char **argv)
 
 	data.player.pos_x = 8;
 	data.player.pos_y = 5;
-	data.player.dir = N;
+	data.player.dir = (double)N;
 	data.player.fov = FOV * M_PI / 180;
 	data.player.plane_length = tan(data.player.fov / 2);
 	data.player.moved = 1;
 
 	data.map.maxw = 24;
 	data.map.maxh = 26;
+	data.map.mapdata = ft_calloc(data.map.maxh + 1, sizeof(char*));
+	for (int i = 0; i < data.map.maxh; i++)
+		data.map.mapdata[i] = ft_strdup(test[i]);
 /*========================================================================*/
 
 	if (argc != 2 || ft_strnstr_r(argv[1], ".cub") != 0)
@@ -103,7 +104,7 @@ int	main(int argc, char **argv)
 		&data.mmap.img.bits_per_pxl, &data.mmap.img.line_len,
 		&data.mmap.img.endian);
 	mlx_key_hook(data.win_ptr, &handle_keyevents, &data);
-	mlx_mouse_hook(data.win_ptr, &handle_mouseevents, &data.map); // For bonus
+	mlx_mouse_hook(data.win_ptr, &handle_mouseevents, &data); // For bonus
 	mlx_hook(data.win_ptr, DestroyNotify, StructureNotifyMask,
 		&handle_closebutton, &data);
 	mlx_loop_hook(data.mlx_ptr, &render_image, &data);

@@ -6,7 +6,7 @@
 #    By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/23 08:07:54 by yusengok          #+#    #+#              #
-#    Updated: 2024/05/30 13:56:26 by yusengok         ###   ########.fr        #
+#    Updated: 2024/05/31 11:20:21 by yusengok         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -89,6 +89,8 @@ fclean: clean
 re: fclean
 	@$(MAKE) all
 
+bonus:
+
 FORCE:
 
-.PHONY: all clean fclean re lib
+.PHONY: all clean fclean re lib bonus
