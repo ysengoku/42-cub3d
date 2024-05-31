@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/05/31 11:48:01 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/05/31 13:38:39 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,8 +165,8 @@ void	put_pxl_color(t_imgdata *img, int x, int y, int color);
 
 /*----- Event handler -----*/
 int		handle_keyevents(int keysym, t_cub3d *data);
-// int		handle_mouseevents(int mousecode, t_cub3d *data);
-int		handle_mouseevents(int mousecode, int x, int y, t_cub3d *data);
+// int		handle_mouseevents(int mousecode, int x, int y, t_cub3d *data);
+int 	handle_mousemove(int x, int y, t_cub3d *data);
 int		handle_closebutton(t_cub3d *data);
 void	move_forward(t_cub3d *data, double player_dir, int *x, int *y);
 void	move_backward(t_cub3d *data, double player_dir, int *x, int *y);
