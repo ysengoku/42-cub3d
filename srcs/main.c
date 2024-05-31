@@ -6,14 +6,14 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:57 by yusengok          #+#    #+#             */
-/*   Updated: 2024/05/31 09:06:25 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/05/31 09:50:54 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 /*== TEST MAP ================================================================*/
-char test[26][26] = {
+char test[26][24] = {
 	{"111111111111111111111111"},
 	{"100000000000000000000001"},
 	{"100000000000000000000001"},
@@ -85,7 +85,7 @@ int	main(int argc, char **argv)
 	data.player.plane_length = tan(data.player.fov / 2);
 	data.player.moved = 1;
 
-	data.map.maxw = 26;
+	data.map.maxw = 24;
 	data.map.maxh = 26;
 /*========================================================================*/
 
@@ -98,7 +98,7 @@ int	main(int argc, char **argv)
 	data.img.addr = mlx_get_data_addr(data.img.img, &data.img.bits_per_pxl,
 			&data.img.line_len, &data.img.endian);
 	data.mmap.img.img = mlx_new_image(data.mlx_ptr,
-			data.map.maxw * MMAP_SCALE, data.map.maxw * MMAP_SCALE);
+			data.map.maxw * MMAP_SCALE, data.map.maxh * MMAP_SCALE);
 	data.mmap.img.addr = mlx_get_data_addr(data.mmap.img.img,
 		&data.mmap.img.bits_per_pxl, &data.mmap.img.line_len,
 		&data.mmap.img.endian);
