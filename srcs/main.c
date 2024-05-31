@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:57 by yusengok          #+#    #+#             */
-/*   Updated: 2024/05/31 13:38:24 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/05/31 17:14:10 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,10 @@ int	main(int argc, char **argv)
 	data.map.mapdata = ft_calloc(data.map.maxh + 1, sizeof(char*));
 	for (int i = 0; i < data.map.maxh; i++)
 		data.map.mapdata[i] = ft_strdup(test[i]);
+	// data.textures[NO].img = mlx_xpm_file_to_image(data.mlx_ptr, "../textures/test/north.xpm", TEX_SIZE, TEX_SIZE);
+	// data.textures[SO].img = mlx_xpm_file_to_image(data.mlx_ptr, "../textures/test/south.xpm", TEX_SIZE, TEX_SIZE);
+	// data.textures[WE].img = mlx_xpm_file_to_image(data.mlx_ptr, "../textures/test/west.xpm", TEX_SIZE, TEX_SIZE);
+	// data.textures[EA].img = mlx_xpm_file_to_image(data.mlx_ptr, "../textures/test/east.xpm", TEX_SIZE, TEX_SIZE);
 /*========================================================================*/
 
 	if (argc != 2 || ft_strnstr_r(argv[1], ".cub") != 0)

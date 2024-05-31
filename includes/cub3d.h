@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/05/31 13:38:39 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/05/31 17:19:16 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 # define WINNAME "cub3D"
 # define WIN_W 960
 # define WIN_H 720
-# define TEXTURE_SIZE 64
+# define TEX_SIZE 64
 
 # ifndef FOV
 #  define FOV 90
@@ -48,6 +48,7 @@
 # define MMAP_P (int)0xC51162
 # define MMAP_DIR (int)0xD50000
 # define MMAP_SPACE (int)0xE3F2FD
+# define MMAP_F "../textures/minimap/floor.xpm"
 
 /*===== enum definition =====================================================*/
 enum	e_direction
@@ -76,12 +77,27 @@ typedef struct s_imgdata
 	int		endian;
 }				t_imgdata;
 
+typedef struct 	s_xpm_img
+{
+	// void	*img;
+    // int		*data;
+	t_imgdata	img;
+    int			w;
+    int			h;
+}				t_xpm_img;
+
 typedef struct s_map
 {
 	char	**mapdata;
 	int		maxh;
 	int		maxw;
 }				t_map;
+
+// typedef struct s_texture
+// {
+// 	t_imgdata	img;
+// 	char		*path;
+// }				t_texture;
 
 typedef struct s_player
 {
@@ -122,15 +138,24 @@ typedef struct s_ray
 	double			distance;
 	int				wall_height;
 	enum e_wallside	wall_side;
-}				t_ray;
+}			t_ray;
+
+typedef struct s_line
+{
+	int	y;
+	int	y_start;
+	int	y_end;
+	int	tex_x;
+	int	tex_y;
+	int	span;
+}				t_line;
 
 typedef struct s_minimap
 {
 	t_imgdata	img;
-	// int			height; // in pixel - fixed to MMAP_H
-	// int			width; // in pixel - calculate from scale * height
 	int			minimap_x;
 	int			minimap_y;
+	t_xpm_img	floor;
 }				t_minimap;
 
 typedef struct s_cub3d
@@ -144,7 +169,9 @@ typedef struct s_cub3d
 	int			ceiling_color;
 	t_color		floor;
 	int			floor_color;
-	// textures
+	// t_texture	textures[4];
+	// t_imgdata	textures[4];
+	t_xpm_img	textures[4];
 	//--- For TEST -----------
 	int			colors[4];
 	//------------------------
@@ -158,7 +185,7 @@ int		ft_raycasting(t_cub3d *data);
 /*----- Image rendering -----*/
 int		render_image(t_cub3d *data);
 void	draw_floor(t_cub3d *data, int start, int end, int floor_color);
-void	draw_wall(t_cub3d *data, int x, t_ray *ray); // Temporary version without texture
+void	draw_wall_tmp(t_cub3d *data, int x, t_ray *ray); // Temporary version without texture
 void	draw_ceiling(t_cub3d *data, int x, int end, int ceiling_color);
 int		convert_color(t_color color);
 void	put_pxl_color(t_imgdata *img, int x, int y, int color);

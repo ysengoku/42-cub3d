@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 08:30:08 by yusengok          #+#    #+#             */
-/*   Updated: 2024/05/31 12:15:02 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/05/31 14:55:01 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	ft_raycasting(t_cub3d *data)
 			draw_floor(data, x, WIN_H / 2, data->floor_color);
 			set_ray(data, &ray, x);
 			check_wall_hit(data, &ray);
-			draw_wall(data, x, &ray);
+			draw_wall_tmp(data, x, &ray);
 			x++;
 		}
 		set_minimap(data);
