@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/05/28 10:58:13 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/01 17:05:12 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,22 @@
 # include <string.h>
 # include <math.h>
 # include <errno.h>
+#include <stdbool.h>
 # include "libft.h"
 # include "mlx.h"
 # include "mlx_int.h"
+
+/*===== paths sprits ======================================================*/
+
+# define NO "./path_to_the_north_texture"
+# define SO "./path_to_the_south_texture"
+# define WE "./path_to_the_west_texture"
+# define EA "./path_to_the_east_texture"
+
+/*===== colors ======================================================*/
+
+# define F "220,100,0"
+# define C "225,30,0"
 
 /*===== math definition ======================================================*/
 # ifndef M_PI
@@ -60,9 +73,19 @@ typedef struct s_imgdata
 
 typedef struct s_map
 {
-	/* JUST FOR TEST */
-	char	**mapdata;
-	int		**data;
+	char	**data_map;
+	char	**map;
+	char	**dup_map;
+	char	*sprite_NO;
+	char	*sprite_SO;
+	char	*sprite_WE;
+	char	*sprite_EA;
+	int		F_RGB[3];
+	int		C_RGB[3];
+	int		map_len_x;
+	int		map_len_y;
+	int		pos_x;
+	int		pos_y;
 }				t_map;
 
 typedef struct s_player
@@ -136,5 +159,17 @@ int		handle_closebutton(t_cub3d *data);
 /*----- Error handling -----*/
 void	ft_perror_exit(char *message, int code);
 void	ft_error_exit(char *message, int code);
+
+/*----- Parsing -----*/
+int		parsing(char *file, t_map *data_map);
+char	**get_file(char *file);
+int		get_data(t_map *data_map);
+int		get_sprites_path(t_map *data_map);
+int		get_colors_rgb(t_map *data_map);
+int		get_maps(t_map *data_map);
+int		check_map(t_map *data_map);
+void	free_split(char **map);
+void	free_data_map(t_map *data_map);
+void	ft_exit_parsing(t_map *data_map, char *message);
 
 #endif
