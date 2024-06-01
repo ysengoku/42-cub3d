@@ -6,7 +6,7 @@
 /*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:57 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/01 17:23:34 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/01 17:24:03 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ static int	ft_init_mlx(t_cub3d *data)
 int	main(int argc, char **argv)
 {
 	t_cub3d	data;
+	t_map	data_map;
 
 /*=== TEST ===============================================================*/
 	data.ceiling.r = 169;
