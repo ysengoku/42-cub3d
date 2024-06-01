@@ -6,7 +6,7 @@
 /*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:57 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/01 17:24:03 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/01 17:27:37 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 // };
 /*============================================================================*/
 
-static int	ft_init_mlx(t_cub3d *data)
+/* static int	ft_init_mlx(t_cub3d *data)
 {
 	data->mlx_ptr = mlx_init();
 	if (!(data->mlx_ptr))
@@ -46,7 +46,7 @@ static int	ft_init_mlx(t_cub3d *data)
 		return (1);
 	}
 	return (0);
-}
+} */
 
 int	main(int argc, char **argv)
 {
@@ -79,7 +79,6 @@ int	main(int argc, char **argv)
 	data.player.fov = FOV * M_PI / 180;
 	data.player.plane_length = tan(data.player.fov / 2);
 /*========================================================================*/
-
 	if (argc != 2 || ft_strnstr_r(argv[1], ".cub") != 0)
 		ft_error_exit("Usage: ./cub3D <path/map_name.cub>", 1);
 	if (parsing(argv[1], &data_map) == EXIT_FAILURE)

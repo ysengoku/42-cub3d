@@ -6,7 +6,7 @@
 /*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 16:38:40 by jmougel           #+#    #+#             */
-/*   Updated: 2024/06/01 16:39:46 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/01 17:27:18 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,23 @@
 static void	write_data_map(int fd)
 {
 	write(fd, "NO ", 3);
-	write(fd, NO, ft_strlen(NO));
+	write(fd, SPRITE_NO, ft_strlen(SPRITE_NO));
 	write(fd, "\n", 1);
 	write(fd, "SO ", 3);
-	write(fd, SO, ft_strlen(SO));
+	write(fd, SPRITE_SO, ft_strlen(SPRITE_SO));
 	write(fd, "\n", 1);
 	write(fd, "WE ", 3);
-	write(fd, WE, ft_strlen(WE));
+	write(fd, SPRITE_WE, ft_strlen(SPRITE_WE));
 	write(fd, "\n", 1);
 	write(fd, "EA ", 3);
-	write(fd, EA, ft_strlen(EA));
+	write(fd, SPRITE_EA, ft_strlen(SPRITE_EA));
 	write(fd, "\n", 1);
 	write(fd, "\n", 1);
 	write(fd, "F ", 2);
-	write(fd, F, ft_strlen(F));
+	write(fd, RGB_F, ft_strlen(RGB_F));
 	write(fd, "\n", 1);
 	write(fd, "C ", 2);
-	write(fd, C, ft_strlen(C));
+	write(fd, RGB_C, ft_strlen(RGB_C));
 	write(fd, "\n", 1);
 	write(fd, "\n", 1);
 }
