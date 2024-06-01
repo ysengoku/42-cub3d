@@ -6,7 +6,7 @@
 /*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/01 17:22:26 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/01 17:27:08 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,15 @@
 
 /*===== paths sprits ======================================================*/
 
-# define NO "./path_to_the_north_texture"
-# define SO "./path_to_the_south_texture"
-# define WE "./path_to_the_west_texture"
-# define EA "./path_to_the_east_texture"
+# define SPRITE_NO "./path_to_the_north_texture"
+# define SPRITE_SO "./path_to_the_south_texture"
+# define SPRITE_WE "./path_to_the_west_texture"
+# define SPRITE_EA "./path_to_the_east_texture"
 
 /*===== colors ======================================================*/
 
-# define F "220,100,0"
-# define C "225,30,0"
+# define RGB_F "220,100,0"
+# define RGB_C "225,30,0"
 
 /*===== math definition ======================================================*/
 # ifndef M_PI
