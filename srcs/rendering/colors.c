@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 13:59:02 by yusengok          #+#    #+#             */
-/*   Updated: 2024/05/27 14:00:39 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/05/29 15:42:22 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	convert_color(t_color color)
 {
-	return (((int)color.r << 16) + ((int)color.g << 8) + (int)color.b);
+	return ((color.r << 16) + (color.g << 8) + color.b);
 }
 
 void	put_pxl_color(t_imgdata *img, int x, int y, int color)
