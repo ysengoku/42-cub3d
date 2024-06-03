@@ -6,14 +6,14 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 13:08:42 by yusengok          #+#    #+#             */
-/*   Updated: 2024/05/31 17:22:29 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/03 08:11:53 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 static void	draw_tile_color(t_minimap *mmap, int color);
-static void	draw_tile(t_cub3d *data, t_minimap *mmap);
+static void	draw_tile(t_cub3d *data, t_minimap *mmap, t_xpm_img *texture);
 static void	draw_player(t_cub3d *data);
 static void	draw_player_dir(t_cub3d *data);
 
@@ -31,11 +31,13 @@ void	set_minimap(t_cub3d *data)
 		while (map_x < data->map.maxw)
 		{
 			if (data->map.mapdata[map_y][map_x] == '1')
-				draw_tile_color(&data->mmap, MMAP_WALL);
+				draw_tile(data, &data->mmap, &data->mmap.wall);
+			//	draw_tile_color(&data->mmap, MMAP_WALL);
 			else if (data->map.mapdata[map_y][map_x] == ' ')
 				draw_tile_color(&data->mmap, MMAP_SPACE);
 			else
-				draw_tile(data, &data->mmap);
+				draw_tile(data, &data->mmap, &data->mmap.floor);
+			//	draw_tile_color(&data->mmap, MMAP_SPACE);
 			map_x++;
 		}
 		map_y++;
@@ -61,7 +63,7 @@ static void	draw_tile_color(t_minimap *mmap, int color)
 	mmap->minimap_x += MMAP_SCALE;
 }
 
-static void	draw_tile(t_cub3d *data, t_minimap *mmap)
+static void	draw_tile(t_cub3d *data, t_minimap *mmap, t_xpm_img *texture)
 { 
 	int	x;
 	int	y;
@@ -69,10 +71,8 @@ static void	draw_tile(t_cub3d *data, t_minimap *mmap)
 	int	src_y;
 	int	color;
 
+	(void) data;
 	y = mmap->minimap_y;
-	mmap->floor.img.img = mlx_xpm_file_to_image(data->mlx_ptr, MMAP_F, &mmap->minimap_x, &mmap->minimap_y);
-	mmap->floor.img.addr = mlx_get_data_addr(mmap->floor.img.img,
-		&mmap->floor.img.bits_per_pxl, &mmap->floor.img.line_len, &mmap->floor.img.endian);
 	src_y = 0;
 	while (y < mmap->minimap_y + MMAP_SCALE)
 	{
@@ -80,7 +80,8 @@ static void	draw_tile(t_cub3d *data, t_minimap *mmap)
 		src_x = 0;
 		while (x < mmap->minimap_x + MMAP_SCALE)
 		{
-			color = mmap->floor.img.addr[src_y * mmap->minimap_x + src_x];
+			color = *(int *)(texture->addr + (src_y * texture->line_len
+				+ src_x * (texture->bits_per_pxl / 8)));
 			put_pxl_color(&mmap->img, x++, y, color);
 			src_x++;
 		}
@@ -90,12 +91,14 @@ static void	draw_tile(t_cub3d *data, t_minimap *mmap)
 	mmap->minimap_x += MMAP_SCALE;
 }
 
+
 static void	draw_player(t_cub3d *data)
 {
 	int	x;
 	int	y;
 	int	i;
 	int	j;
+	int	color;
 
 	y = data->player.pos_y * MMAP_SCALE;
 	i = 0;
@@ -104,7 +107,13 @@ static void	draw_player(t_cub3d *data)
 		j = -1;
 		x = data->player.pos_x * MMAP_SCALE;
 		while (++j < MMAP_SCALE)
-			put_pxl_color(&data->mmap.img, x++, y, MMAP_P);
+		{
+			color = *(int *)(data->mmap.player.addr
+				+ (i * data->mmap.player.line_len
+				+ j * (data->mmap.player.bits_per_pxl / 8)));
+			put_pxl_color(&data->mmap.img, x++, y, color);
+//			put_pxl_color(&data->mmap.img, x++, y, MMAP_P);
+		}
 		i++;
 		y++;
 	}
@@ -118,7 +127,7 @@ static void	draw_player_dir(t_cub3d *data)
 
 	dir_x = (double)data->player.pos_x * MMAP_SCALE + MMAP_SCALE / 2 - 1;
 	dir_y = (double)data->player.pos_y * MMAP_SCALE + MMAP_SCALE / 2 - 1;
-	steps = MMAP_SCALE * 2;
+	steps = (int)MMAP_SCALE * 1.5;
 	while (steps > 0)
 	{
 		put_pxl_color(&data->mmap.img, (int)dir_x, (int)dir_y, MMAP_DIR);
@@ -127,8 +136,3 @@ static void	draw_player_dir(t_cub3d *data)
 		steps--;
 	}
 }
-
-// static void	set_xpmimg()
-// {
-	
-// }

@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/05/31 17:19:16 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/03 08:01:28 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@
 # define WIN_W 960
 # define WIN_H 720
 # define TEX_SIZE 64
+# define DEFAULT_CEILING (int)0xA9A9A9
+# define DEFAULT_FLOOR (int)0x343434
 
 # ifndef FOV
 #  define FOV 90
@@ -48,7 +50,13 @@
 # define MMAP_P (int)0xC51162
 # define MMAP_DIR (int)0xD50000
 # define MMAP_SPACE (int)0xE3F2FD
-# define MMAP_F "../textures/minimap/floor.xpm"
+# define MMAP_F "./textures/minimap/floor.xpm"
+# define MMAP_PL "./textures/minimap/player.xpm"
+# define MMAP_WL "./textures/minimap/wall.xpm"
+
+# ifndef BONUS
+#  define BONUS 1
+# endif
 
 /*===== enum definition =====================================================*/
 enum	e_direction
@@ -79,11 +87,14 @@ typedef struct s_imgdata
 
 typedef struct 	s_xpm_img
 {
-	// void	*img;
-    // int		*data;
-	t_imgdata	img;
+	void		*img;
+	char		*addr;
+	int			bits_per_pxl;
+	int			line_len;
+	int			endian;
     int			w;
     int			h;
+	char		*path;
 }				t_xpm_img;
 
 typedef struct s_map
@@ -92,12 +103,6 @@ typedef struct s_map
 	int		maxh;
 	int		maxw;
 }				t_map;
-
-// typedef struct s_texture
-// {
-// 	t_imgdata	img;
-// 	char		*path;
-// }				t_texture;
 
 typedef struct s_player
 {
@@ -156,12 +161,14 @@ typedef struct s_minimap
 	int			minimap_x;
 	int			minimap_y;
 	t_xpm_img	floor;
+	t_xpm_img	player;
+	t_xpm_img	wall;
 }				t_minimap;
 
 typedef struct s_cub3d
 {
-	t_xvar		*mlx_ptr;
-	t_win_list	*win_ptr;
+	void		*mlx_ptr;
+	void		*win_ptr;
 	t_imgdata	img;
 	t_map		map;
 	t_player	player;
@@ -169,21 +176,22 @@ typedef struct s_cub3d
 	int			ceiling_color;
 	t_color		floor;
 	int			floor_color;
-	// t_texture	textures[4];
-	// t_imgdata	textures[4];
 	t_xpm_img	textures[4];
 	//--- For TEST -----------
 	int			colors[4];
 	//------------------------
+	int			key_pressed_left;
+	int			key_pressed_right;
 	t_minimap	mmap;
 }				t_cub3d;
 
 /*===== functions ============================================================*/
 /*----- Ray casting -----*/
 int		ft_raycasting(t_cub3d *data);
+void	check_wall_hit(t_cub3d *data, t_ray *ray);
 
 /*----- Image rendering -----*/
-int		render_image(t_cub3d *data);
+int		game_loop(t_cub3d *data);
 void	draw_floor(t_cub3d *data, int start, int end, int floor_color);
 void	draw_wall_tmp(t_cub3d *data, int x, t_ray *ray); // Temporary version without texture
 void	draw_ceiling(t_cub3d *data, int x, int end, int ceiling_color);
@@ -192,9 +200,12 @@ void	put_pxl_color(t_imgdata *img, int x, int y, int color);
 
 /*----- Event handler -----*/
 int		handle_keyevents(int keysym, t_cub3d *data);
+int		handle_keypress(int keysym, t_cub3d *data);
+int		handle_keyrelease(int keysym, t_cub3d *data);
 // int		handle_mouseevents(int mousecode, int x, int y, t_cub3d *data);
 int 	handle_mousemove(int x, int y, t_cub3d *data);
 int		handle_closebutton(t_cub3d *data);
+void	close_window(t_cub3d *data);
 void	move_forward(t_cub3d *data, double player_dir, int *x, int *y);
 void	move_backward(t_cub3d *data, double player_dir, int *x, int *y);
 void	move_right(t_cub3d *data, double player_dir, int *x, int *y);

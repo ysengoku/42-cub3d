@@ -6,7 +6,7 @@
 #    By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/23 08:07:54 by yusengok          #+#    #+#              #
-#    Updated: 2024/05/31 11:20:21 by yusengok         ###   ########.fr        #
+#    Updated: 2024/06/03 08:00:38 by yusengok         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,14 +25,16 @@ vpath %c srcs \
 		srcs/error	\
 		srcs/minimap
 FILES = main	\
-		raycasting	\
-		img_rendering	\
+		game_loop	\
 		draw	\
 		colors	\
+		raycasting	\
+		check_wall_hit	\
 		event_handler	\
 		move	\
 		move_utils	\
 		rotate	\
+		quit	\
 		error_handling	\
 		minimap #bonus
 
@@ -49,6 +51,9 @@ LIBFT_DIR = $(LIB_DIR)/libft
 LIBFT = $(LIBFT_DIR)/libft.a
 LIBMLX_DIR = $(LIB_DIR)/minilibx-linux
 LIBMLX = $(LIBMLX_DIR)/libmlx.a
+
+
+BONUS = 0
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
@@ -90,7 +95,8 @@ re: fclean
 	@$(MAKE) all
 
 bonus:
+	$(MAKE) all BONUS=1
 
 FORCE:
 
-.PHONY: all clean fclean re lib bonus
+.PHONY: all lib clean fclean re bonus
