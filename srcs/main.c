@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:57 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/03 15:33:05 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/03 15:48:19 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static int	ft_init_mlx(t_cub3d *data)
 	if (!(data->mlx_ptr))
 	{
 		ft_putendl_fd("MLX: Initialization failed", 2);
-		free_mapdata(data); // to check
+		free_mapdata(&data->map); // to check
 		return (1);
 	}
 	data->win_ptr = mlx_new_window(data->mlx_ptr, WIN_W, WIN_H, WINNAME);
@@ -74,7 +74,7 @@ static int	ft_init_mlx(t_cub3d *data)
 	{
 		perror("MLX");
 		free(data->mlx_ptr);
-		free_mapdata(data);  // to check
+		free_mapdata(&data->map); // to check
 		return (1);
 	}
 	return (0);
@@ -88,7 +88,7 @@ static int	create_main_image(t_cub3d *data)
 		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
 		mlx_destroy_display(data->mlx_ptr);
 		free(data->mlx_ptr);
-		free_mapdata(data);  // to check
+		free_mapdata(&data->map);  // to check
 		return (1);
 	}
 	data->img.addr = mlx_get_data_addr(data->img.img, &data->img.bits_per_pxl,
@@ -111,6 +111,8 @@ int	main(int argc, char **argv)
 	if (create_main_image(&data) == 1)
 		return (1);
 	if (set_wall_texture(&data, data.wall) == 1)
+		return (1);
+	if (create_minimap_img(&data, &data.mmap) == 1)
 		return (1);
 	mlx_hook(data.win_ptr, DestroyNotify, StructureNotifyMask, handle_closebutton, &data);
 	mlx_hook(data.win_ptr, KeyPress, KeyPressMask, handle_keypress, &data);
