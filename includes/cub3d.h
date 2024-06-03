@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/03 15:26:59 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/03 15:53:30 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ typedef struct 	s_xpm_img
 {
 	void		*img;
 	char		*addr;
-	int			bits_per_pxl;
+	int			bpp;
 	int			line_len;
 	int			endian;
     int			w;
@@ -252,8 +252,10 @@ void	rotate_clockwise(t_cub3d *data);
 void	ft_perror_exit(char *message, int code);
 void	ft_error_exit(char *message, int code);
 void	free_mapdata(t_map *map);
+int		free_all(t_cub3d *data, int status);
 
 /*----- Minimap -----*/
+int		create_minimap_img(t_cub3d *data, t_minimap *mmap);
 void	set_minimap(t_cub3d *data);
 
 #endif

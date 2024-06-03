@@ -6,7 +6,7 @@
 #    By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/23 08:07:54 by yusengok          #+#    #+#              #
-#    Updated: 2024/06/03 15:27:32 by yusengok         ###   ########.fr        #
+#    Updated: 2024/06/03 15:47:06 by yusengok         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,8 @@ FILES = main	\
 		quit	\
 		error_handling	\
 		ft_free	\
-		minimap_bonus
+		minimap_bonus	\
+		minimap_img_bonus
 
 SRCS = $(addsuffix .c, $(FILES))
 
