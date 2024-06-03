@@ -3,26 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmougel <jmougel@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:57 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/03 12:11:37 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/03 19:15:27 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int	ft_init_mlx(t_cub3d *data)
+/* static int	ft_init_mlx(t_cub3d *data)
 {
 	data->mlx_ptr = mlx_init();
 	if (!(data->mlx_ptr))
 	{
 		ft_putendl_fd("MLX: Initialization failed", 2);
-		/*== For test =============================*/
+		//== For test =============================
 		for (int i = 0; data->map.map[i]; i++)
 		free(data->map.map[i]);
 		free(data->map.map);
-		/*=========================================*/
+		//=========================================
 		return (1);
 	}
 	data->win_ptr = mlx_new_window(data->mlx_ptr, WIN_W, WIN_H, WINNAME);
@@ -30,11 +30,11 @@ static int	ft_init_mlx(t_cub3d *data)
 	{
 		perror("MLX");
 		free(data->mlx_ptr);
-		/*== For test =============================*/
+		//== For test =============================
 		for (int i = 0; data->map.map[i]; i++)
 		free(data->map.map[i]);
 		free(data->map.map);
-		/*=========================================*/
+		//=========================================
 		return (1);
 	}
 
@@ -89,7 +89,7 @@ static void	set_data(t_cub3d *data, t_player *player, t_map *map)
 	data->floor_color = convert_color(data->map.f_rgb);
 }
 
-/* temporary code */
+//temporary code
 static int	set_texture(t_cub3d *data, t_xpm_img wall[4])
 {
 	int		i;
@@ -125,23 +125,23 @@ static int	set_texture(t_cub3d *data, t_xpm_img wall[4])
 			&wall[i].endian);
 	}
 	return (0);
-}
+} */
 
 int	main(int argc, char **argv)
 {
 	t_cub3d	data;
 
-/*=== TEST ===============================================================*/
+//=== TEST ===============================================================
 	data.colors[0] = 9852907;
 	data.colors[1] = 16775920;
 	data.colors[2] = 11393254;
 	data.colors[3] = 9419927;
-/*========================================================================*/
+//========================================================================
 	if (argc != 2 || ft_strnstr_r(argv[1], ".cub") != 0)
 		ft_error_exit("Usage: ./cub3D <path/map_name.cub>", 1);
-	init_cub3d_data(&data);
 	if (parsing(argv[1], &data.map) == EXIT_FAILURE)
 		return (2);
+	/*init_cub3d_data(&data);
 	set_data(&data, &data.player, &data.map);
 	if (ft_init_mlx(&data) == 1)
 		return(1);
@@ -151,11 +151,11 @@ int	main(int argc, char **argv)
 		mlx_destroy_window(data.mlx_ptr, data.win_ptr);
 		mlx_destroy_display(data.mlx_ptr);
 		free(data.mlx_ptr);
-		/*== For test =============================*/
+		//== For test =============================
 		for (int i = 0; data.map.map[i]; i++)
 			free(data.map.map[i]);
 		free(data.map.map);
-		/*=========================================*/
+		//=========================================
 		return (1);
 	}
 	data.img.addr = mlx_get_data_addr(data.img.img, &data.img.bits_per_pxl,
@@ -171,7 +171,7 @@ int	main(int argc, char **argv)
 			&data.mmap.img.bits_per_pxl, &data.mmap.img.line_len,
 			&data.mmap.img.endian);
 	}
-	/*=== TEST ===============================================================*/
+	//=== TEST ===============================================================
 	if (BONUS)
 	{
 		data.mmap.floor.img = mlx_xpm_file_to_image(data.mlx_ptr, MMAP_F,
@@ -190,13 +190,13 @@ int	main(int argc, char **argv)
 				&data.mmap.wall.bits_per_pxl, &data.mmap.wall.line_len,
 				&data.mmap.wall.endian);
 	}
-	/*========================================================================*/
+	//========================================================================
 	mlx_hook(data.win_ptr, DestroyNotify, StructureNotifyMask, handle_closebutton, &data);
 	mlx_hook(data.win_ptr, KeyPress, KeyPressMask, handle_keypress, &data);
 	mlx_hook(data.win_ptr, KeyRelease, KeyReleaseMask, handle_keyrelease, &data);
 	// mlx_mouse_hook(data.win_ptr, &handle_mouseevents, &data); // ---> Doesn't need ??
 	mlx_loop_hook(data.mlx_ptr, game_loop, &data);
-	mlx_loop(data.mlx_ptr);
+	mlx_loop(data.mlx_ptr); */
 	return (0);
 }
 

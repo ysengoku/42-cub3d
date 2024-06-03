@@ -6,7 +6,7 @@
 /*   By: jmougel <jmougel@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/03 15:29:50 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/03 19:47:11 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ typedef struct s_map
 	char				*sprite_so;
 	char				*sprite_we;
 	char				*sprite_ea;
+	char				player;
 	int					f_rgb[3];
 	int					c_rgb[3];
 	int					map_len_x;
