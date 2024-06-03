@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/03 13:20:39 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/03 15:26:59 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,11 @@
 # define ROTATE 5
 
 # define MMAP_SCALE	8
-# define MMAP_WALL (int)0x006064
-# define MMAP_FLOOR (int)0xB0BEC5
-# define MMAP_P (int)0xC51162
-# define MMAP_DIR (int)0xD50000
-# define MMAP_SPACE (int)0xE3F2FD
+# define MMAP_WALL 24676 //(int)0x006064
+# define MMAP_FLOOR 11583173 //(int)0xB0BEC5
+# define MMAP_P 12915042 //(int)0xC51162
+# define MMAP_DIR 13959168 //(int)0xD50000
+# define MMAP_SPACE 11977418 //(int)0xB6C2CA
 # define MMAP_F "./textures/minimap/floor.xpm"
 # define MMAP_PL "./textures/minimap/player.xpm"
 # define MMAP_WL "./textures/minimap/wall.xpm"
@@ -214,6 +214,8 @@ int		check_map(t_map *data_map);
 void	free_split(char **map);
 void	free_data_map(t_map *data_map);
 void	ft_exit_parsing(t_map *data_map, char *message);
+void	set_data(t_cub3d *data, t_player *player, t_map *map);
+int		set_wall_texture(t_cub3d *data, t_xpm_img wall[4]);
 
 /*----- Ray casting -----*/
 int		ft_raycasting(t_cub3d *data);
@@ -249,6 +251,7 @@ void	rotate_clockwise(t_cub3d *data);
 /*----- Error handling -----*/
 void	ft_perror_exit(char *message, int code);
 void	ft_error_exit(char *message, int code);
+void	free_mapdata(t_map *map);
 
 /*----- Minimap -----*/
 void	set_minimap(t_cub3d *data);

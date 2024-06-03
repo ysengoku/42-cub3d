@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 10:42:38 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/03 13:35:50 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/03 13:37:43 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,16 +48,11 @@ int	handle_keyrelease(int keysym, t_cub3d *data)
 	return (0);
 }
 
-// int	handle_mouseevents(int mousecode, int x, int y, t_cub3d *data)
-// {
-// 	(void)y;
-// 	(void)x;
-// 	if (mousecode == 4) //scroll up
-// 		rotate_counterclockwise(data);
-// 	if (mousecode == 5) //scroll down
-// 		rotate_clockwise(data);
-// 	return (0);
-// }
+int	handle_closebutton(t_cub3d *data)
+{
+	close_window(data);
+	return (0);
+}
 
 // For bonus
 int handle_mousemove(int x, int y, t_cub3d *data)
@@ -71,3 +66,14 @@ int handle_mousemove(int x, int y, t_cub3d *data)
 	}
 	return (0);
 }
+
+// int	handle_mouseevents(int mousecode, int x, int y, t_cub3d *data)
+// {
+// 	(void)y;
+// 	(void)x;
+// 	if (mousecode == 4) //scroll up
+// 		rotate_counterclockwise(data);
+// 	if (mousecode == 5) //scroll down
+// 		rotate_clockwise(data);
+// 	return (0);
+// }

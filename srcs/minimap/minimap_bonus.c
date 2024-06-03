@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 13:08:42 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/03 12:09:32 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/03 14:22:35 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,36 @@ void	set_minimap(t_cub3d *data)
 	int			map_x;
 	int			map_y;
 
+	data->mmap.img.img = mlx_new_image(data->mlx_ptr,
+		(data->map.map_len_x - 1) * MMAP_SCALE, data->map.map_len_y * MMAP_SCALE);
+	// NULL check
+	data->mmap.img.addr = mlx_get_data_addr(data->mmap.img.img,
+		&data->mmap.img.bits_per_pxl, &data->mmap.img.line_len,
+		&data->mmap.img.endian);
+	/*===== If minimap with texture ==========================================*/
+	data->mmap.floor.img = mlx_xpm_file_to_image(data->mlx_ptr, MMAP_F,
+			&data->mmap.floor.w, &data->mmap.floor.h);
+	data->mmap.floor.addr = mlx_get_data_addr(data->mmap.floor.img,
+			&data->mmap.floor.bits_per_pxl, &data->mmap.floor.line_len,
+			&data->mmap.floor.endian);
+	data->mmap.player.img = mlx_xpm_file_to_image(data->mlx_ptr, MMAP_PL,
+			&data->mmap.player.w, &data->mmap.player.h);
+	data->mmap.player.addr = mlx_get_data_addr(data->mmap.player.img,
+			&data->mmap.player.bits_per_pxl, &data->mmap.player.line_len,
+			&data->mmap.player.endian);
+	data->mmap.wall.img = mlx_xpm_file_to_image(data->mlx_ptr, MMAP_WL,
+			&data->mmap.wall.w, &data->mmap.wall.h);
+	data->mmap.wall.addr = mlx_get_data_addr(data->mmap.wall.img,
+			&data->mmap.wall.bits_per_pxl, &data->mmap.wall.line_len,
+			&data->mmap.wall.endian);
+	/*========================================================================*/
 	map_y = 0;
 	data->mmap.minimap_y = 0;
 	while (map_y < data->map.map_len_y)
 	{
 		map_x = 0;
 		data->mmap.minimap_x = 0;
-		while (map_x < data->map.map_len_x - 1)
+		while (data->map.map[map_y][map_x])
 		{
 			if (data->map.map[map_y][map_x] == '1')
 				draw_tile(data, &data->mmap, &data->mmap.wall);
@@ -38,6 +61,11 @@ void	set_minimap(t_cub3d *data)
 			else
 				draw_tile(data, &data->mmap, &data->mmap.floor);
 			//	draw_tile_color(&data->mmap, MMAP_SPACE);
+			map_x++;
+		}
+		while (map_x < data->map.map_len_x - 1)
+		{
+			draw_tile_color(&data->mmap, MMAP_SPACE);
 			map_x++;
 		}
 		map_y++;
