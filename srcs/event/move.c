@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 09:59:51 by yusengok          #+#    #+#             */
-/*   Updated: 2024/05/31 12:11:39 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/03 08:05:29 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,11 @@ void	move_right(t_cub3d *data, double player_dir, int *x, int *y)
 {
 	if (((player_dir >= 0 && player_dir < 22.5)
 			|| (player_dir >= 337.5 && player_dir < 360))
-		&& data->map.mapdata[*y + MOVE][*x] != '1') //ok
+		&& data->map.mapdata[*y + MOVE][*x] != '1')
 		*y += MOVE;
 	if (player_dir >= 22.5 && player_dir < 67.5)
 		move_south_east(data, x, y);
-	if ((player_dir >= 67.5 && player_dir < 112.5) //ok
+	if ((player_dir >= 67.5 && player_dir < 112.5)
 		&& data->map.mapdata[*y][*x + MOVE] != '1')
 		*x += MOVE;
 	if (player_dir >= 112.5 && player_dir < 157.5)
@@ -94,11 +94,11 @@ void	move_left(t_cub3d *data, double player_dir, int *x, int *y)
 {
 	if (((player_dir >= 0 && player_dir < 22.5)
 			|| (player_dir >= 337.5 && player_dir < 360))
-		&& data->map.mapdata[*y - MOVE][*x] != '1') //ok
+		&& data->map.mapdata[*y - MOVE][*x] != '1')
 		*y -= MOVE;
 	if (player_dir >= 22.5 && player_dir < 67.5)
 		move_north_west(data, x, y);
-	if ((player_dir >= 67.5 && player_dir < 112.5) //ok
+	if ((player_dir >= 67.5 && player_dir < 112.5)
 		&& data->map.mapdata[*y][*x - MOVE] != '1')
 		*x -= MOVE;
 	if (player_dir >= 112.5 && player_dir < 157.5)
