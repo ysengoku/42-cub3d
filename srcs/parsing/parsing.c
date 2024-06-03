@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 16:54:57 by jmougel           #+#    #+#             */
-/*   Updated: 2024/06/01 17:12:49 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/03 11:08:11 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,12 @@ static void	display_data(t_map *data_map)
 	printf("\n\n");
 	printf("[max len x] : %d\n", data_map->map_len_x);
 	printf("[max len y] : %d\n", data_map->map_len_y);
-	printf("[sprite_NO] : %s\n", data_map->sprite_NO);
-	printf("[sprite_SO] : %s\n", data_map->sprite_SO);
-	printf("[sprite_WE] : %s\n", data_map->sprite_WE);
-	printf("[sprite_EA] : %s\n", data_map->sprite_EA);
-	printf("[F_RGB]     : [R]%d, [G]%d, [B]%d\n", data_map->F_RGB[0], data_map->F_RGB[1], data_map->F_RGB[2]);
-	printf("[C_RGB]     : [R]%d, [G]%d, [B]%d\n", data_map->C_RGB[0], data_map->C_RGB[1], data_map->C_RGB[2]);
+	printf("[sprite_NO] : %s\n", data_map->sprite_no);
+	printf("[sprite_SO] : %s\n", data_map->sprite_so);
+	printf("[sprite_WE] : %s\n", data_map->sprite_we);
+	printf("[sprite_EA] : %s\n", data_map->sprite_ea);
+	printf("[F_RGB]     : [R]%d, [G]%d, [B]%d\n", data_map->f_rgb[0], data_map->f_rgb[1], data_map->f_rgb[2]);
+	printf("[C_RGB]     : [R]%d, [G]%d, [B]%d\n", data_map->c_rgb[0], data_map->c_rgb[1], data_map->c_rgb[2]);
 }
 
 int	parsing(char *file, t_map *data_map)

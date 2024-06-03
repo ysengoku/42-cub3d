@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_sprites_path.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 16:53:25 by jmougel           #+#    #+#             */
-/*   Updated: 2024/06/01 17:13:49 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/03 11:03:50 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,12 @@ static char	*get_sprite_path(char *sprite, t_map *data_map)
 
 int	get_sprites_path(t_map *data_map)
 {
-	data_map->sprite_NO = get_sprite_path("NO", data_map);
-	data_map->sprite_SO = get_sprite_path("SO", data_map);
-	data_map->sprite_WE = get_sprite_path("WE", data_map);
-	data_map->sprite_EA = get_sprite_path("EA", data_map);
-	if (!data_map->sprite_NO || !data_map->sprite_SO
-		|| !data_map->sprite_WE || !data_map->sprite_EA)
-		return (ft_exit_parsing(data_map, "Error\nCub3D: invalid sprit"),EXIT_FAILURE);
+	data_map->sprite_no = get_sprite_path("NO", data_map);
+	data_map->sprite_so = get_sprite_path("SO", data_map);
+	data_map->sprite_we = get_sprite_path("WE", data_map);
+	data_map->sprite_ea = get_sprite_path("EA", data_map);
+	if (!data_map->sprite_no || !data_map->sprite_so
+		|| !data_map->sprite_we || !data_map->sprite_ea)
+		return (ft_exit_parsing(data_map, "Error\nCub3D: invalid sprite"),EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }

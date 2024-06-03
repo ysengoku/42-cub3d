@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_color_rgb.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 16:52:08 by jmougel           #+#    #+#             */
-/*   Updated: 2024/06/01 17:14:02 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/03 11:07:11 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,15 +79,15 @@ static int	get_color_rgb(t_map *data_map, char *c, int index)
 
 int	get_colors_rgb(t_map *data_map)
 {
-	data_map->F_RGB[0] = get_color_rgb(data_map,"F", 0);
-	data_map->F_RGB[1] = get_color_rgb(data_map,"F", 1);
-	data_map->F_RGB[2] = get_color_rgb(data_map,"F", 2);
-	data_map->C_RGB[0] = get_color_rgb(data_map,"C", 0);
-	data_map->C_RGB[1] = get_color_rgb(data_map,"C", 1);
-	data_map->C_RGB[2] = get_color_rgb(data_map,"C", 2);
-	if (data_map->F_RGB[0] == -1 || data_map->F_RGB[1] == -1
-		|| data_map->F_RGB[2] == -1 || data_map->C_RGB[0] == -1
-		|| data_map->C_RGB[1] == -1 || data_map->C_RGB[2] == -1)
+	data_map->f_rgb[0] = get_color_rgb(data_map,"F", 0);
+	data_map->f_rgb[1] = get_color_rgb(data_map,"F", 1);
+	data_map->f_rgb[2] = get_color_rgb(data_map,"F", 2);
+	data_map->c_rgb[0] = get_color_rgb(data_map,"C", 0);
+	data_map->c_rgb[1] = get_color_rgb(data_map,"C", 1);
+	data_map->c_rgb[2] = get_color_rgb(data_map,"C", 2);
+	if (data_map->f_rgb[0] == -1 || data_map->f_rgb[1] == -1
+		|| data_map->f_rgb[2] == -1 || data_map->c_rgb[0] == -1
+		|| data_map->c_rgb[1] == -1 || data_map->c_rgb[2] == -1)
 		return (ft_exit_parsing(data_map, "Error\nCub3D: invalid RGB"), EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
