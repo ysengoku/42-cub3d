@@ -6,7 +6,7 @@
 #    By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/23 08:07:54 by yusengok          #+#    #+#              #
-#    Updated: 2024/06/03 10:49:56 by yusengok         ###   ########.fr        #
+#    Updated: 2024/06/03 15:27:32 by yusengok         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ FILES = main	\
 		get_maps \
 		check_map \
 		handle_errors	\
+		set_data	\
 		game_loop	\
 		draw	\
 		colors	\
@@ -44,6 +45,7 @@ FILES = main	\
 		rotate	\
 		quit	\
 		error_handling	\
+		ft_free	\
 		minimap_bonus
 
 SRCS = $(addsuffix .c, $(FILES))
