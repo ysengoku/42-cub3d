@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:57 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/03 08:11:01 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/03 10:29:33 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,15 @@ static int	set_texture(t_cub3d *data, t_xpm_img textures[4])
 				mlx_destroy_image(data->mlx_ptr, textures[i--].img);
 			while (i < 4)
 				free(textures[i++].path);
+			mlx_destroy_image(data->mlx_ptr, data->img.img);
+			mlx_destroy_window(data->mlx_ptr, data->win_ptr);
+			mlx_destroy_display(data->mlx_ptr);
+			free(data->mlx_ptr);
+			//== For test =============================
+			for (int i = 0; data->map.mapdata[i]; i++)
+				free(data->map.mapdata[i]);
+			free(data->map.mapdata);
+			//=========================================
 			return (1);
 		}
 		textures[i].addr = mlx_get_data_addr(textures[i].img,
@@ -125,33 +134,33 @@ int	main(int argc, char **argv)
 	t_cub3d	data;
 
 /*=== TEST ===============================================================*/
-	char test[26][24] = {
-	{"111111111111111111111111"},
-	{"100000000000000000000001"},
-	{"100000000000000000000001"},
-	{"100000000000000000000001"},
-	{"100000000000000000000001"},
-	{"10000000N000000000000001"},
-	{"100000000000000000000001"},
-	{"100000111110000101010001"},
-	{"100000100010000000000001"},
-	{"100000100010000100010001"},
-	{"100000100010000000000001"},
-	{"100000111100001010100001"},
-	{"100000000000000000000001"},
-	{"100000000000000000000001"},
-	{"100000000000000000000001"},
-	{"100000000000000000000001"},
- 	{"100000000000000000000001"},
-	{"100000000000000000000001"},
-	{"100000000000000000000001"},
- 	{"111111111000000000000001"},
-	{"100100001000000000000001"},
-	{"100000101000000000000001"},
-	{"100100001000000000000001"},
-	{"100111111000000000000001"},
-	{"100000000000000000000001"},
-	{"111111111111111111111111"}};
+	char test[26][25] = {
+	"111111111111111111111111",
+	"100000000000000000000001",
+	"100000000000000000000001",
+	"100000000000000000000001",
+	"100000000000000000000001",
+	"10000000N000000000000001",
+	"100000000000000000000001",
+	"100000111110000101010001",
+	"100000100010000000000001",
+	"100000100010000100010001",
+	"100000100010000000000001",
+	"100000111100001010100001",
+	"100000000000000000000001",
+	"100000000000000000000001",
+	"100000000000000000000001",
+	"100000000000000000000001",
+ 	"100000000000000000000001",
+	"100000000000000000000001",
+	"100000000000000000000001",
+ 	"111111111000000000000001",
+	"100100001000000000000001",
+	"100000101000000000000001",
+	"100100001000000000000001",
+	"100111111000000000000001",
+	"100000000000000000000001",
+	"111111111111111111111111"};
 	data.colors[0] = 9852907;
 	data.colors[1] = 16775920;
 	data.colors[2] = 11393254;
@@ -164,18 +173,21 @@ int	main(int argc, char **argv)
 	// parsing
 	set_player(&data.player);
 	/*=== TEST ===============================================================*/
+	// set map
 	data.map.maxw = 24;
 	data.map.maxh = 26;
 	data.map.mapdata = ft_calloc(data.map.maxh + 1, sizeof(char*));
 	for (int i = 0; i < data.map.maxh; i++)
 		data.map.mapdata[i] = ft_strdup(test[i]);
 	/*========================================================================*/
+	
 	if (ft_init_mlx(&data) == 1)
 		return(1);
 	data.img.img = mlx_new_image(data.mlx_ptr, WIN_W, WIN_H);
 	if (data.img.img == NULL)
 	{
 		mlx_destroy_window(data.mlx_ptr, data.win_ptr);
+		mlx_destroy_display(data.mlx_ptr);
 		free(data.mlx_ptr);
 		/*== For test =============================*/
 		for (int i = 0; data.map.mapdata[i]; i++)
@@ -187,17 +199,7 @@ int	main(int argc, char **argv)
 	data.img.addr = mlx_get_data_addr(data.img.img, &data.img.bits_per_pxl,
 			&data.img.line_len, &data.img.endian);
 	if (set_texture(&data, data.textures) == 1)
-	{
-		mlx_destroy_image(data.mlx_ptr, data.img.img);
-		mlx_destroy_window(data.mlx_ptr, data.win_ptr);
-		free(data.mlx_ptr);
-		//== For test =============================
-		for (int i = 0; data.map.mapdata[i]; i++)
-			free(data.map.mapdata[i]);
-		free(data.map.mapdata);
-		//=========================================
 		return (1);
-	}
 	if (BONUS)
 	{
 		data.mmap.img.img = mlx_new_image(data.mlx_ptr,
@@ -227,10 +229,9 @@ int	main(int argc, char **argv)
 				&data.mmap.wall.endian);
 	}
 	/*========================================================================*/
-	mlx_key_hook(data.win_ptr, handle_keyevents, &data);
 	mlx_hook(data.win_ptr, DestroyNotify, StructureNotifyMask, handle_closebutton, &data);
-//	mlx_hook(data.mlx_ptr, KeyPress, KeyPressMask, handle_keypress, &data);
-//	mlx_hook(data.mlx_ptr, KeyRelease, KeyReleaseMask, handle_keyrelease, &data);
+	mlx_hook(data.win_ptr, KeyPress, KeyPressMask, handle_keypress, &data);
+	mlx_hook(data.win_ptr, KeyRelease, KeyReleaseMask, handle_keyrelease, &data);
 	// mlx_mouse_hook(data.win_ptr, &handle_mouseevents, &data); // ---> Doesn't need ??
 	mlx_loop_hook(data.mlx_ptr, game_loop, &data);
 	mlx_loop(data.mlx_ptr);

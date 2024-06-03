@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/03 08:01:28 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/03 10:28:14 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,7 +199,6 @@ int		convert_color(t_color color);
 void	put_pxl_color(t_imgdata *img, int x, int y, int color);
 
 /*----- Event handler -----*/
-int		handle_keyevents(int keysym, t_cub3d *data);
 int		handle_keypress(int keysym, t_cub3d *data);
 int		handle_keyrelease(int keysym, t_cub3d *data);
 // int		handle_mouseevents(int mousecode, int x, int y, t_cub3d *data);

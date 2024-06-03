@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 08:02:02 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/03 08:23:17 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/03 08:50:42 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@ void	close_window(t_cub3d *data)
 	mlx_destroy_display(data->mlx_ptr);
 	free(data->mlx_ptr);
 	// free other things if needed
-	exit(0);
 	/*== For test =============================*/
-	for (int i = 0; i < data->map.maxh; i++)
+	for (int i = 0; i < data->map.maxh + 1; i++)
 		free(data->map.mapdata[i]);
 	free(data->map.mapdata);
 	/*=========================================*/
+	exit(0);
 }
 
 int	handle_closebutton(t_cub3d *data)

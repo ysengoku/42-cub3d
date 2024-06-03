@@ -6,34 +6,11 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 10:42:38 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/03 08:04:54 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/03 10:28:10 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-int	handle_keyevents(int keysym, t_cub3d *data)
-{
-	if (keysym == XK_Escape)
-		close_window(data);
-	if (keysym == XK_Left)
-		rotate_counterclockwise(data);
-	if (keysym == XK_Right)
-		rotate_clockwise(data);
-	if (keysym == XK_w)
-		move_forward(data, data->player.dir, &data->player.pos_x,
-			&data->player.pos_y);
-	if (keysym == XK_a)
-		move_left(data, data->player.dir, &data->player.pos_x,
-			&data->player.pos_y);
-	if (keysym == XK_s)
-		move_backward(data, data->player.dir, &data->player.pos_x,
-			&data->player.pos_y);
-	if (keysym == XK_d)
-		move_right(data, data->player.dir, &data->player.pos_x,
-			&data->player.pos_y);
-	return (0);
-}
 
 int	handle_keypress(int keysym, t_cub3d *data)
 {
