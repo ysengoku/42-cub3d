@@ -6,7 +6,7 @@
 /*   By: jmougel <jmougel@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 16:54:57 by jmougel           #+#    #+#             */
-/*   Updated: 2024/06/03 14:47:48 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/03 19:27:24 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,10 @@ int	parsing(char *file, t_map *data_map)
 	get_data(data_map);
 	get_maps(data_map);
 	check_map(data_map);
+	/* Test */
+	
 	display_data(data_map);
+	
+	/********/
 	return (EXIT_SUCCESS);
 }
