@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/03 12:22:13 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/03 13:20:39 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,6 +195,10 @@ typedef struct s_cub3d
 	//------------------------
 	int			key_pressed_left;
 	int			key_pressed_right;
+	int			key_pressed_w;
+	int			key_pressed_s;
+	int			key_pressed_a;
+	int			key_pressed_d;
 	t_minimap	mmap;
 }				t_cub3d;
 

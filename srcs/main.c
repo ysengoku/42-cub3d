@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:57 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/03 12:11:37 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/03 13:21:33 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,10 @@ static void init_cub3d_data(t_cub3d *data)
 	ft_bzero(&data->mmap.player, sizeof(data->mmap.player)); // if we use texture for minimap
 	data->key_pressed_left = 0;
 	data->key_pressed_right = 0;
+	data->key_pressed_w = 0;
+	data->key_pressed_s = 0;
+	data->key_pressed_a = 0;
+	data->key_pressed_d = 0;
 }
 
 static void	set_data(t_cub3d *data, t_player *player, t_map *map)

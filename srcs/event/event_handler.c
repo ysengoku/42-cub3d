@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 10:42:38 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/03 10:28:10 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/03 13:35:50 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,13 @@ int	handle_keypress(int keysym, t_cub3d *data)
 	if (keysym == XK_Left)
 		data->key_pressed_left = 1;
 	if (keysym == XK_w)
-		move_forward(data, data->player.dir, &data->player.pos_x,
-			&data->player.pos_y);
+		data->key_pressed_w = 1;
 	if (keysym == XK_a)
-		move_left(data, data->player.dir, &data->player.pos_x,
-			&data->player.pos_y);
+		data->key_pressed_a = 1;
 	if (keysym == XK_s)
-		move_backward(data, data->player.dir, &data->player.pos_x,
-			&data->player.pos_y);
+		data->key_pressed_s = 1;
 	if (keysym == XK_d)
-		move_right(data, data->player.dir, &data->player.pos_x,
-			&data->player.pos_y);
+		data->key_pressed_d = 1;
 	return (0);
 }
 
@@ -41,6 +37,14 @@ int	handle_keyrelease(int keysym, t_cub3d *data)
 		data->key_pressed_right = 0;
 	if (keysym == XK_Left)
 		data->key_pressed_left = 0;
+	if (keysym == XK_w)
+		data->key_pressed_w = 0;
+	if (keysym == XK_a)
+		data->key_pressed_a = 0;
+	if (keysym == XK_s)
+		data->key_pressed_s = 0;
+	if (keysym == XK_d)
+		data->key_pressed_d = 0;
 	return (0);
 }
 
