@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmougel <jmougel@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/03 12:22:13 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/03 15:29:50 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,15 @@
 
 /*===== paths sprits ======================================================*/
 
-# define SPRITE_NO "./path_to_the_north_texture"
-# define SPRITE_SO "./path_to_the_south_texture"
-# define SPRITE_WE "./path_to_the_west_texture"
-# define SPRITE_EA "./path_to_the_east_texture"
+# define SPRITE_NO "./textures/test/north.xpm"
+# define SPRITE_SO "./textures/test/south.xpm"
+# define SPRITE_WE "./textures/test/west.xpm"
+# define SPRITE_EA "./textures/test/east.xpm"
 
 /*===== colors ======================================================*/
 
-# define RGB_F "220,100,0"
-# define RGB_C "225,30,0"
+# define RGB_F "169,169,169"
+# define RGB_C "52,52,52"
 
 /*===== math definition ======================================================*/
 # ifndef M_PI
@@ -209,7 +209,7 @@ int		get_maps(t_map *data_map);
 int		check_map(t_map *data_map);
 void	free_split(char **map);
 void	free_data_map(t_map *data_map);
-void	ft_exit_parsing(t_map *data_map, char *message);
+void	exit_parsing(t_map *data_map, char *message);
 
 /*----- Ray casting -----*/
 int		ft_raycasting(t_cub3d *data);

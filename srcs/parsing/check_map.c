@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmougel <jmougel@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 16:59:04 by jmougel           #+#    #+#             */
-/*   Updated: 2024/06/01 16:59:40 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/03 15:35:06 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,14 @@ static int	check(int *player, int *i, int j, t_map *data_map)
 	else if (data_map->dup_map[j][*i] == '1'
 		|| data_map->dup_map[j][*i] == '0'
 		|| data_map->dup_map[j][*i] == 32)
-		{
-			*i += 1;
-		}
+	{
+		*i += 1;
+	}
 	else
+	{
+		exit_parsing(data_map, "Error\nCub3D: invalid map");
 		return (EXIT_FAILURE);
+	}
 	return (EXIT_SUCCESS);
 }
 
@@ -47,15 +50,15 @@ int	check_valid_char(t_map *data_map)
 	while (data_map->dup_map[j])
 	{
 		while (data_map->dup_map[j][i])
-		{
-			if (check(&player, &i, j, data_map) == EXIT_FAILURE)
-				return (ft_exit_parsing(data_map, "Error\nCub3D: invalid map"), EXIT_FAILURE);
-		}
+			check(&player, &i, j, data_map);
 		i = 0;
 		j++;
 	}
 	if (player != 1 || data_map->pos_x == 0 || data_map->pos_y == 0)
-		return (ft_exit_parsing(data_map, "Error\nCub3D: invalid player"), EXIT_FAILURE);
+	{
+		exit_parsing(data_map, "Error\nCub3D: invalid player");
+		return (EXIT_FAILURE);
+	}
 	return (EXIT_SUCCESS);
 }
 
@@ -100,7 +103,10 @@ static int	algo_flood_fill(t_map *data_map)
 	pos_y = data_map->pos_y;
 	flood_fill(dup_map, pos_x, pos_y, &valid);
 	if (valid == false)
-		return (ft_exit_parsing(data_map, "Error\nCub3D: map not close"), EXIT_FAILURE);
+	{
+		exit_parsing(data_map, "Error\nCub3D: map not close");
+		return (EXIT_FAILURE);
+	}
 	return (EXIT_SUCCESS);
 }
 

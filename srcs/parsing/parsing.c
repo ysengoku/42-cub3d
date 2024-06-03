@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmougel <jmougel@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 16:54:57 by jmougel           #+#    #+#             */
-/*   Updated: 2024/06/03 11:08:11 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/03 14:47:48 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,12 @@
 static void	display_map(char **map)
 {
 	int	i;
-	int	j;
 
 	i = 0;
-	j = 0;
-	while (map[j])
+	while (map[i])
 	{
-		printf("%s\n", map[j]);
-		j++;
+		printf("%s\n", map[i]);
+		i++;
 	}
 }
 
