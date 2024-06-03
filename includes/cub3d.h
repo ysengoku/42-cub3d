@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/03 11:58:47 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/03 12:22:13 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,13 +142,6 @@ typedef struct s_player
 
 }				t_player;
 
-typedef struct s_color
-{
-	int	r;
-	int	g;
-	int	b;
-}				t_color;
-
 typedef struct s_ray
 {
 	double			camera_p;
@@ -194,9 +187,7 @@ typedef struct s_cub3d
 	t_imgdata	img;
 	t_map		map;
 	t_player	player;
-	// t_color		ceiling;
 	int			ceiling_color;
-	// t_color		floor;
 	int			floor_color;
 	t_xpm_img	wall[4];
 	//--- For TEST -----------
