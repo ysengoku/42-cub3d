@@ -1,34 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   colors.c                                           :+:      :+:    :+:   */
+/*   rotate.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/27 13:59:02 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/03 11:47:22 by yusengok         ###   ########.fr       */
+/*   Created: 2024/05/30 08:43:31 by yusengok          #+#    #+#             */
+/*   Updated: 2024/06/03 10:26:18 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-// int	convert_color(t_color color)
-// {
-// 	return ((color.r << 16) + (color.g << 8) + color.b);
-// }
-
-int	convert_color(int rgb[3])
+void	rotate_counterclockwise(t_cub3d *data)
 {
-	return ((rgb[0] << 16) + (rgb[1] << 8) + rgb[2]);
+	data->player.dir += ROTATE;
+	if (data->player.dir >= 360)
+		data->player.dir = 0;
+	data->player.moved = 1;
 }
 
-void	put_pxl_color(t_imgdata *img, int x, int y, int color)
+void	rotate_clockwise(t_cub3d *data)
 {
-	char	*pxl;
-
-	if (x >= 0 && x < WIN_W && y >= 0 && y < WIN_H)
-	{
-		pxl = img->addr + (y * img->line_len + x * (img->bits_per_pxl / 8));
-		*(int *)pxl = color;
-	}
+	data->player.dir -= ROTATE;
+	if (data->player.dir < 0)
+		data->player.dir = 360 - ROTATE;
+	data->player.moved = 1;
 }
