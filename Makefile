@@ -6,7 +6,7 @@
 #    By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/23 08:07:54 by yusengok          #+#    #+#              #
-#    Updated: 2024/06/03 08:00:38 by yusengok         ###   ########.fr        #
+#    Updated: 2024/06/03 08:30:53 by yusengok         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,7 +52,6 @@ LIBFT = $(LIBFT_DIR)/libft.a
 LIBMLX_DIR = $(LIB_DIR)/minilibx-linux
 LIBMLX = $(LIBMLX_DIR)/libmlx.a
 
-
 BONUS = 0
 
 CC = cc
@@ -66,12 +65,12 @@ all: lib
 
 $(NAME): $(OBJS) $(HEADER) $(LIBFT) $(LIBMLX)
 	@printf "$(BLUE)$(BOLD)Building cub3D...\n$(RESET)"
-	$(CC) $(CFLAGS) $(MLXFLAGS) $^ -o $@ -L $(LIBFT_DIR) -L $(LIBMLX_DIR)
+	$(CC) $(CFLAGS) $(MLXFLAGS) $^ -o $@ -L $(LIBFT_DIR) -L $(LIBMLX_DIR) -DBONUS=$(BONUS)
 	@printf "$(LIGHT_GREEN)$(BOLD)cub3D is ready to launch\n$(RESET)"
 
 $(OBJS_DIR)%.o: %.c $(HEADERS) $(LIBFT) Makefile
 	@mkdir -p $(OBJS_DIR)
-	$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDE)
+	$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDE) -DBONUS=$(BONUS)
 
 lib: $(FORCE)
 	@printf "$(BLUE)$(BOLD)Compiling Libft...\n$(RESET)"
@@ -94,7 +93,9 @@ fclean: clean
 re: fclean
 	@$(MAKE) all
 
-bonus:
+bonus: lib
+	@$(RM) -r $(OBJS_DIR)
+	@$(RM) $(NAME)
 	$(MAKE) all BONUS=1
 
 FORCE:
