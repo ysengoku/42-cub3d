@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmougel <jmougel@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 16:59:04 by jmougel           #+#    #+#             */
-/*   Updated: 2024/06/03 19:57:43 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/04 16:14:44 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,13 @@ static void	flood_fill(char **dup_map, int pos_x, int pos_y, bool *valid)
 	flood_fill(dup_map, pos_x + 1, pos_y, valid);
 	flood_fill(dup_map, pos_x - 1, pos_y, valid);
 	flood_fill(dup_map, pos_x, pos_y + 1, valid);
-	flood_fill(dup_map, pos_x, pos_y - 1, valid);
+	if (pos_y - 1 >= 0)
+		flood_fill(dup_map, pos_x, pos_y - 1, valid);
+	else
+	{
+		*valid = false;
+		return ;
+	}
 }
 
 static int	algo_flood_fill(t_map *data_map)
@@ -120,6 +126,5 @@ int	check_map(t_map *data_map)
 {
 	check_valid_char(data_map);
 	algo_flood_fill(data_map);
-	printf("[player : %c] [enum : %d]\n", data_map->player, data_map->p_dir);
 	return (EXIT_SUCCESS);
 }

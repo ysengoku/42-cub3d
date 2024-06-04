@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_maps.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmougel <jmougel@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 16:57:09 by jmougel           #+#    #+#             */
-/*   Updated: 2024/06/03 15:38:52 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/04 10:51:49 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static char	**get_map(t_map *data_map)
 		return (exit_parsing(data_map, "Error\nCub3D: map not found"), NULL);
 	while (data_map->data_map[i])
 		i++;
-	map = (char **)malloc(sizeof(char *) * (i - index_start_map) + 1);
+	map = ft_calloc((i - index_start_map) + 1, sizeof(char *));//(char **)malloc(sizeof(char *) * (i - index_start_map) + 1);
 	if (!map)
 		return (NULL);
 	i = 0;

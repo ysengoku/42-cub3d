@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmougel <jmougel@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 16:54:57 by jmougel           #+#    #+#             */
-/*   Updated: 2024/06/03 19:27:24 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/04 16:05:45 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	display_map(char **map)
+/* static void	display_map(char **map)
 {
 	int	i;
 
@@ -41,7 +41,7 @@ static void	display_data(t_map *data_map)
 	printf("[sprite_EA] : %s\n", data_map->sprite_ea);
 	printf("[F_RGB]     : [R]%d, [G]%d, [B]%d\n", data_map->f_rgb[0], data_map->f_rgb[1], data_map->f_rgb[2]);
 	printf("[C_RGB]     : [R]%d, [G]%d, [B]%d\n", data_map->c_rgb[0], data_map->c_rgb[1], data_map->c_rgb[2]);
-}
+} */
 
 int	parsing(char *file, t_map *data_map)
 {
@@ -56,7 +56,8 @@ int	parsing(char *file, t_map *data_map)
 	check_map(data_map);
 	/* Test */
 	
-	display_data(data_map);
+	//display_data(data_map);
+	//free_data_map(data_map);
 	
 	/********/
 	return (EXIT_SUCCESS);
