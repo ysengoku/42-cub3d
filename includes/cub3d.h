@@ -6,7 +6,7 @@
 /*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/04 15:53:48 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/04 16:47:35 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,15 +61,15 @@
 # ifndef FOV
 #  define FOV 90
 # endif
-# define MOVE 1
+# define MOVE 0.33
 # define ROTATE 5
 
 # define MMAP_SCALE	8
-# define MMAP_WALL (int)0x006064
-# define MMAP_FLOOR (int)0xB0BEC5
-# define MMAP_P (int)0xC51162
-# define MMAP_DIR (int)0xD50000
-# define MMAP_SPACE (int)0xE3F2FD
+# define MMAP_WALL 24676 //(int)0x006064
+# define MMAP_FLOOR 11583173 //(int)0xB0BEC5
+# define MMAP_P 12915042 //(int)0xC51162
+# define MMAP_DIR 13959168 //(int)0xD50000
+# define MMAP_SPACE 11977418 //(int)0xB6C2CA
 # define MMAP_F "./textures/minimap/floor.xpm"
 # define MMAP_PL "./textures/minimap/player.xpm"
 # define MMAP_WL "./textures/minimap/wall.xpm"
@@ -109,7 +109,7 @@ typedef struct 	s_xpm_img
 {
 	void		*img;
 	char		*addr;
-	int			bits_per_pxl;
+	int			bpp;
 	int			line_len;
 	int			endian;
     int			w;
@@ -139,8 +139,8 @@ typedef struct s_map
 typedef struct s_player
 {
 	double				fov; // FOV in radians
-	int					pos_x;
-	int					pos_y;
+	double				pos_x;
+	double				pos_y;
 	enum e_direction	initial_dir;
 	double				dir; //direction in degree
 	double				dir_x;
@@ -172,12 +172,12 @@ typedef struct s_ray
 
 typedef struct s_line
 {
-	int	y;
-	int	y_start;
-	int	y_end;
-	int	tex_x;
-	int	tex_y;
-	int	span;
+	int		y;
+	int		y_start;
+	int		y_end;
+	int		tex_x;
+	int		tex_y;
+	double	span;
 }				t_line;
 
 typedef struct s_minimap
@@ -205,6 +205,10 @@ typedef struct s_cub3d
 	//------------------------
 	int			key_pressed_left;
 	int			key_pressed_right;
+	int			key_pressed_w;
+	int			key_pressed_s;
+	int			key_pressed_a;
+	int			key_pressed_d;
 	t_minimap	mmap;
 }				t_cub3d;
 
@@ -220,6 +224,8 @@ int		check_map(t_map *data_map);
 void	free_split(char **map);
 void	free_data_map(t_map *data_map);
 void	exit_parsing(t_map *data_map, char *message);
+void	set_data(t_cub3d *data, t_player *player, t_map *map);
+int		set_wall_texture(t_cub3d *data, t_xpm_img wall[4]);
 
 /*----- Ray casting -----*/
 int		ft_raycasting(t_cub3d *data);
@@ -227,10 +233,10 @@ void	check_wall_hit(t_cub3d *data, t_ray *ray);
 
 /*----- Image rendering -----*/
 int		game_loop(t_cub3d *data);
-void	draw_floor(t_cub3d *data, int start, int end, int floor_color);
 void	draw_wall_tmp(t_cub3d *data, int x, t_ray *ray); // Temporary version without texture
+void	draw_wall(t_cub3d *data, int x, t_ray *ray);
 void	draw_ceiling(t_cub3d *data, int x, int end, int ceiling_color);
-// int		convert_color(t_color color);
+void	draw_floor(t_cub3d *data, int start, int end, int floor_color);
 int		convert_color(int rgb[3]);
 void	put_pxl_color(t_imgdata *img, int x, int y, int color);
 
@@ -241,22 +247,28 @@ int		handle_keyrelease(int keysym, t_cub3d *data);
 int 	handle_mousemove(int x, int y, t_cub3d *data);
 int		handle_closebutton(t_cub3d *data);
 void	close_window(t_cub3d *data);
-void	move_forward(t_cub3d *data, double player_dir, int *x, int *y);
-void	move_backward(t_cub3d *data, double player_dir, int *x, int *y);
-void	move_right(t_cub3d *data, double player_dir, int *x, int *y);
-void	move_left(t_cub3d *data, double player_dir, int *x, int *y);
-void	move_north_east(t_cub3d *data, int *x, int *y);
-void	move_north_west(t_cub3d *data, int *x, int *y);
-void	move_south_east(t_cub3d *data, int *x, int *y);
-void	move_south_west(t_cub3d *data, int *x, int *y);
+// void	move_forward(t_cub3d *data, double player_dir, int *x, int *y);
+void	move_forward(t_cub3d *data, t_player *player, t_map *map);
+void	move_backward(t_cub3d *data, t_player *player, t_map *map);
+void	move_right(t_cub3d *data, t_player *player, t_map *map);
+void	move_left(t_cub3d *data, t_player *player, t_map *map);
+// void	move_right(t_cub3d *data, double player_dir, int *x, int *y);
+// void	move_left(t_cub3d *data, double player_dir, int *x, int *y);
+// void	move_north_east(t_cub3d *data, int *x, int *y);
+// void	move_north_west(t_cub3d *data, int *x, int *y);
+// void	move_south_east(t_cub3d *data, int *x, int *y);
+// void	move_south_west(t_cub3d *data, int *x, int *y);
 void	rotate_counterclockwise(t_cub3d *data);
 void	rotate_clockwise(t_cub3d *data);
 
 /*----- Error handling -----*/
 void	ft_perror_exit(char *message, int code);
 void	ft_error_exit(char *message, int code);
+void	free_mapdata(t_map *map);
+int		free_all(t_cub3d *data, int status);
 
 /*----- Minimap -----*/
+int		create_minimap_img(t_cub3d *data, t_minimap *mmap);
 void	set_minimap(t_cub3d *data);
 
 #endif

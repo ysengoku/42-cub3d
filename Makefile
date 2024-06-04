@@ -6,7 +6,7 @@
 #    By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/23 08:07:54 by yusengok          #+#    #+#              #
-#    Updated: 2024/06/04 10:26:43 by jmougel          ###   ########.fr        #
+#    Updated: 2024/06/04 16:47:27 by jmougel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ FILES = main	\
 		get_maps \
 		check_map \
 		handle_errors	\
+		set_data	\
 		game_loop	\
 		draw	\
 		colors	\
@@ -44,7 +45,9 @@ FILES = main	\
 		rotate	\
 		quit	\
 		error_handling	\
-		minimap_bonus
+		ft_free	\
+		minimap_bonus	\
+		minimap_img_bonus
 
 SRCS = $(addsuffix .c, $(FILES))
 
@@ -64,6 +67,7 @@ BONUS = 0
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
+INCLUDE = -I$(HEADERS_DIR) -I$(LIBFT_DIR) -I$(LIBMLX_DIR) -I/usr/include -g3
 INCLUDE = -I$(HEADERS_DIR) -I$(LIBFT_DIR) -I$(LIBMLX_DIR) -I/usr/include -g3
 MLXFLAGS = -lmlx -lXext -lX11 -lm
 RM = rm -f
