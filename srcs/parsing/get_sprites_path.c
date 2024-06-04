@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   get_sprites_path.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmougel <jmougel@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 16:53:25 by jmougel           #+#    #+#             */
-/*   Updated: 2024/06/03 11:03:50 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/03 15:36:51 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "cub3d.h"
 
@@ -42,7 +41,7 @@ static char	*get_sprite_path(char *sprite, t_map *data_map)
 
 	i = 0;
 	path = NULL;
-	while(data_map->data_map[i])
+	while (data_map->data_map[i])
 	{
 		if (ft_strncmp(data_map->data_map[i], sprite, 2) == 0)
 		{
@@ -62,6 +61,9 @@ int	get_sprites_path(t_map *data_map)
 	data_map->sprite_ea = get_sprite_path("EA", data_map);
 	if (!data_map->sprite_no || !data_map->sprite_so
 		|| !data_map->sprite_we || !data_map->sprite_ea)
-		return (ft_exit_parsing(data_map, "Error\nCub3D: invalid sprite"),EXIT_FAILURE);
+	{
+		exit_parsing(data_map, "Error\nCub3D: invalid sprite");
+		return (EXIT_FAILURE);
+	}
 	return (EXIT_SUCCESS);
 }
