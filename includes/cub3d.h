@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/03 15:53:30 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/04 07:54:54 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,12 +162,12 @@ typedef struct s_ray
 
 typedef struct s_line
 {
-	int	y;
-	int	y_start;
-	int	y_end;
-	int	tex_x;
-	int	tex_y;
-	int	span;
+	int		y;
+	int		y_start;
+	int		y_end;
+	int		tex_x;
+	int		tex_y;
+	double	span;
 }				t_line;
 
 typedef struct s_minimap
@@ -223,10 +223,10 @@ void	check_wall_hit(t_cub3d *data, t_ray *ray);
 
 /*----- Image rendering -----*/
 int		game_loop(t_cub3d *data);
-void	draw_floor(t_cub3d *data, int start, int end, int floor_color);
 void	draw_wall_tmp(t_cub3d *data, int x, t_ray *ray); // Temporary version without texture
+void	draw_wall(t_cub3d *data, int x, t_ray *ray);
 void	draw_ceiling(t_cub3d *data, int x, int end, int ceiling_color);
-// int		convert_color(t_color color);
+void	draw_floor(t_cub3d *data, int start, int end, int floor_color);
 int		convert_color(int rgb[3]);
 void	put_pxl_color(t_imgdata *img, int x, int y, int color);
 

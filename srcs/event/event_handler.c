@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 10:42:38 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/03 13:37:43 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/04 08:24:56 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	handle_closebutton(t_cub3d *data)
 }
 
 // For bonus
-int handle_mousemove(int x, int y, t_cub3d *data)
+int	handle_mousemove(int x, int y, t_cub3d *data)
 {
 	// to code
 	if (BONUS)
