@@ -6,7 +6,7 @@
 #    By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/23 08:07:54 by yusengok          #+#    #+#              #
-#    Updated: 2024/06/04 16:47:27 by jmougel          ###   ########.fr        #
+#    Updated: 2024/06/04 17:22:46 by jmougel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ FILES = main	\
 		get_color_rgb \
 		get_maps \
 		check_map \
+		algo_flood_fill \
 		handle_errors	\
 		set_data	\
 		game_loop	\

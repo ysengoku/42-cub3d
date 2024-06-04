@@ -6,7 +6,7 @@
 /*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/04 16:47:35 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/04 17:24:35 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,6 +221,8 @@ int		get_sprites_path(t_map *data_map);
 int		get_colors_rgb(t_map *data_map);
 int		get_maps(t_map *data_map);
 int		check_map(t_map *data_map);
+int		algo_flood_fill(t_map *data_map);
+void	flood_fill(char **dup_map, int pos_x, int pos_y, bool *valid);
 void	free_split(char **map);
 void	free_data_map(t_map *data_map);
 void	exit_parsing(t_map *data_map, char *message);
