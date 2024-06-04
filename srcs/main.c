@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmougel <jmougel@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:57 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/03 19:15:27 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/04 16:35:46 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-/* static int	ft_init_mlx(t_cub3d *data)
+static int	ft_init_mlx(t_cub3d *data)
 {
 	data->mlx_ptr = mlx_init();
 	if (!(data->mlx_ptr))
@@ -41,19 +41,27 @@
 	return (0);
 }
 
-static void	init_player(t_player *player)
+static void	init_player(t_cub3d *data)
 {
-	player->fov = FOV * M_PI / 180;
-	player->pos_x = 0; // will be set after parsing
-	player->pos_y = 0; // will be set after parsing
-	player->initial_dir = 0; // will be set after parsing
-	player->dir = 0.0; // will be set after parsing
-	player->dir_x = 0; // will be set in init_camera
-	player->dir_y = 0; // will be set in init_camera
-	player->plane_length = tan(player->fov / 2);
-	player->plane_x = 0; // will be set in init_camera
-	player->plane_y = 0; // will be set in init_camera
-	player->moved = 1; // must be always initialized to 1 to show initial view
+	if (data->map.player == 'N')
+		data->player.initial_dir = N;
+	else if (data->map.player == 'S')
+		data->player.initial_dir = S;
+	else if (data->map.player == 'W')
+		data->player.initial_dir = W;
+	else if (data->map.player == 'E')
+		data->player.initial_dir = E;
+	data->player.fov = FOV * M_PI / 180;
+	data->player.pos_x = 0; // will be set after parsing
+	data->player.pos_y = 0; // will be set after parsing
+	data->player.initial_dir = 0; // will be set after parsing
+	data->player.dir = 0.0; // will be set after parsing
+	data->player.dir_x = 0; // will be set in init_camera
+	data->player.dir_y = 0; // will be set in init_camera
+	data->player.plane_length = tan(data->player.fov / 2);
+	data->player.plane_x = 0; // will be set in init_camera
+	data->player.plane_y = 0; // will be set in init_camera
+	data->player.moved = 1; // must be always initialized to 1 to show initial view
 }
 
 static void init_cub3d_data(t_cub3d *data)
@@ -63,18 +71,18 @@ static void init_cub3d_data(t_cub3d *data)
 	i = -1;
 	//void		*mlx_ptr; ?
 	//void		*win_ptr; ?
-	ft_bzero(&data->img, sizeof(data->img));
-	ft_bzero(&data->map, sizeof(data->map));
-	init_player(&data->player);
+	ft_memset(&data->img, 0, sizeof(data->img));
+	ft_memset(&data->map, 0, sizeof(data->map));
+	init_player(data);
 	data->ceiling_color = 0;
 	data->floor_color = 0;
 	while (++i < 4)
-		ft_bzero(&data->wall[i], sizeof(data->wall[i]));
-	ft_bzero(&data->mmap, sizeof(data->mmap));
-	ft_bzero(&data->mmap.img, sizeof(data->mmap.img));
-	ft_bzero(&data->mmap.floor, sizeof(data->mmap.floor)); // if we use texture for minimap
-	ft_bzero(&data->mmap.wall, sizeof(data->mmap.wall)); // if we use texture for minimap
-	ft_bzero(&data->mmap.player, sizeof(data->mmap.player)); // if we use texture for minimap
+		ft_memset(&data->wall[i], 0, sizeof(data->wall[i]));
+	ft_memset(&data->mmap, 0, sizeof(data->mmap));
+	ft_memset(&data->mmap.img, 0, sizeof(data->mmap.img));
+	ft_memset(&data->mmap.floor, 0, sizeof(data->mmap.floor)); // if we use texture for minimap
+	ft_memset(&data->mmap.wall, 0, sizeof(data->mmap.wall)); // if we use texture for minimap
+	ft_memset(&data->mmap.player, 0, sizeof(data->mmap.player)); // if we use texture for minimap
 	data->key_pressed_left = 0;
 	data->key_pressed_right = 0;
 }
@@ -83,13 +91,12 @@ static void	set_data(t_cub3d *data, t_player *player, t_map *map)
 {
 	player->pos_x = map->pos_x;
 	player->pos_y = map->pos_y;
-	player->initial_dir = N; // from map ---------> Need to change
-	player->dir = (double)player->initial_dir;
+	player->dir = (double)data->map.p_dir;
 	data->ceiling_color = convert_color(data->map.c_rgb);
 	data->floor_color = convert_color(data->map.f_rgb);
 }
 
-//temporary code
+/* //temporary code
 static int	set_texture(t_cub3d *data, t_xpm_img wall[4])
 {
 	int		i;
@@ -141,7 +148,7 @@ int	main(int argc, char **argv)
 		ft_error_exit("Usage: ./cub3D <path/map_name.cub>", 1);
 	if (parsing(argv[1], &data.map) == EXIT_FAILURE)
 		return (2);
-	/*init_cub3d_data(&data);
+	init_cub3d_data(&data);
 	set_data(&data, &data.player, &data.map);
 	if (ft_init_mlx(&data) == 1)
 		return(1);
@@ -158,7 +165,7 @@ int	main(int argc, char **argv)
 		//=========================================
 		return (1);
 	}
-	data.img.addr = mlx_get_data_addr(data.img.img, &data.img.bits_per_pxl,
+	/* data.img.addr = mlx_get_data_addr(data.img.img, &data.img.bits_per_pxl,
 			&data.img.line_len, &data.img.endian);
 	if (set_texture(&data, data.wall) == 1)
 		return (1);
@@ -190,13 +197,13 @@ int	main(int argc, char **argv)
 				&data.mmap.wall.bits_per_pxl, &data.mmap.wall.line_len,
 				&data.mmap.wall.endian);
 	}
-	//========================================================================
+	//======================================================================== */
 	mlx_hook(data.win_ptr, DestroyNotify, StructureNotifyMask, handle_closebutton, &data);
 	mlx_hook(data.win_ptr, KeyPress, KeyPressMask, handle_keypress, &data);
 	mlx_hook(data.win_ptr, KeyRelease, KeyReleaseMask, handle_keyrelease, &data);
 	// mlx_mouse_hook(data.win_ptr, &handle_mouseevents, &data); // ---> Doesn't need ??
-	mlx_loop_hook(data.mlx_ptr, game_loop, &data);
-	mlx_loop(data.mlx_ptr); */
+	//mlx_loop_hook(data.mlx_ptr, game_loop, &data);
+	mlx_loop(data.mlx_ptr);
 	return (0);
 }
 

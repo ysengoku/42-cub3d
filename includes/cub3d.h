@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmougel <jmougel@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/03 19:47:11 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/04 15:53:48 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,18 @@
 
 /*===== macro definition =====================================================*/
 # define WINNAME "cub3D"
+# define MINI_MAP_W 100
+# define MINI_MAP_H 100
 # define WIN_W 960
 # define WIN_H 720
 # define TEX_SIZE 64
+
+# define ESC			65307
+# define UP				119
+# define DOWN			115
+# define RIGHT			100
+# define LEFT			97
+# define CLOSE_WINDOW	17
 
 # ifndef FOV
 #  define FOV 90
