@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 13:08:42 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/03 12:09:32 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/03 15:59:02 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	set_minimap(t_cub3d *data)
 	{
 		map_x = 0;
 		data->mmap.minimap_x = 0;
-		while (map_x < data->map.map_len_x - 1)
+		while (data->map.map[map_y][map_x])
 		{
 			if (data->map.map[map_y][map_x] == '1')
 				draw_tile(data, &data->mmap, &data->mmap.wall);
@@ -38,6 +38,11 @@ void	set_minimap(t_cub3d *data)
 			else
 				draw_tile(data, &data->mmap, &data->mmap.floor);
 			//	draw_tile_color(&data->mmap, MMAP_SPACE);
+			map_x++;
+		}
+		while (map_x < data->map.map_len_x - 1)
+		{
+			draw_tile_color(&data->mmap, MMAP_SPACE);
 			map_x++;
 		}
 		map_y++;
@@ -64,7 +69,7 @@ static void	draw_tile_color(t_minimap *mmap, int color)
 }
 
 static void	draw_tile(t_cub3d *data, t_minimap *mmap, t_xpm_img *texture)
-{ 
+{
 	int	x;
 	int	y;
 	int	src_x;
@@ -81,7 +86,7 @@ static void	draw_tile(t_cub3d *data, t_minimap *mmap, t_xpm_img *texture)
 		while (x < mmap->minimap_x + MMAP_SCALE)
 		{
 			color = *(int *)(texture->addr + (src_y * texture->line_len
-				+ src_x * (texture->bits_per_pxl / 8)));
+						+ src_x * (texture->bpp / 8)));
 			put_pxl_color(&mmap->img, x++, y, color);
 			src_x++;
 		}
@@ -90,7 +95,6 @@ static void	draw_tile(t_cub3d *data, t_minimap *mmap, t_xpm_img *texture)
 	}
 	mmap->minimap_x += MMAP_SCALE;
 }
-
 
 static void	draw_player(t_cub3d *data)
 {
@@ -109,8 +113,8 @@ static void	draw_player(t_cub3d *data)
 		while (++j < MMAP_SCALE)
 		{
 			color = *(int *)(data->mmap.player.addr
-				+ (i * data->mmap.player.line_len
-				+ j * (data->mmap.player.bits_per_pxl / 8)));
+					+ (i * data->mmap.player.line_len
+						+ j * (data->mmap.player.bpp / 8)));
 			put_pxl_color(&data->mmap.img, x++, y, color);
 //			put_pxl_color(&data->mmap.img, x++, y, MMAP_P);
 		}
