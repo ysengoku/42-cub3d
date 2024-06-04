@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 14:30:34 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/03 15:55:21 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/04 16:51:53 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,11 @@ void	set_data(t_cub3d *data, t_player *player, t_map *map)
 {
 	player->pos_x = map->pos_x;
 	player->pos_y = map->pos_y;
-	player->initial_dir = N; // get from map ---------> Need to change
+	/*=== To change ================================*/
+	player->initial_dir = N; // get from map
 	player->dir = (double)player->initial_dir;
+	// player->dir = (double)map->p_dir; // To use this one
+	/*==============================================*/
 	data->ceiling_color = convert_color(data->map.c_rgb);
 	data->floor_color = convert_color(data->map.f_rgb);
 }

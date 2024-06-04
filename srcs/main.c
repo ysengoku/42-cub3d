@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:57 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/04 10:45:22 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/04 16:49:03 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	init_player(t_player *player)
 	player->fov = FOV * M_PI / 180;
 	player->pos_x = 0;
 	player->pos_y = 0;
-	player->initial_dir = 0;
+	// player->initial_dir = 0;
 	player->dir = 0.0;
 	player->dir_x = 0;
 	player->dir_y = 0;
