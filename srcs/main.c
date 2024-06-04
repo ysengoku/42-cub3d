@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:57 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/04 08:49:47 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/04 10:11:09 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ static void init_cub3d_data(t_cub3d *data)
 	data->mlx_ptr = 0;
 	data->win_ptr = 0;
  	ft_memset(&data->img, 0, sizeof(data->img));
-	ft_memset(&data->map, 0, sizeof(data->map));
 	init_player(&data->player);
 	data->ceiling_color = 0;
 	data->floor_color = 0;
@@ -102,9 +101,9 @@ int	main(int argc, char **argv)
 	
 	if (argc != 2 || ft_strnstr_r(argv[1], ".cub") != 0)
 		ft_error_exit("Usage: ./cub3D <path/map_name.cub>", 1);
-	init_cub3d_data(&data);
 	if (parsing(argv[1], &data.map) == EXIT_FAILURE)
 		return (2);
+	init_cub3d_data(&data);
 	set_data(&data, &data.player, &data.map);
 	if (ft_init_mlx(&data) == 1)
 		return(1);

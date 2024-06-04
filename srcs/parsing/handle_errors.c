@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_errors.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmougel <jmougel@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 17:00:58 by jmougel           #+#    #+#             */
-/*   Updated: 2024/06/03 11:07:52 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/03 15:29:50 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	free_data_map(t_map *data_map)
 	data_map->sprite_ea = NULL;
 }
 
-void	ft_exit_parsing(t_map *data_map, char *message)
+void	exit_parsing(t_map *data_map, char *message)
 {
 	free_data_map(data_map);
 	ft_error_exit(message, EXIT_FAILURE);
