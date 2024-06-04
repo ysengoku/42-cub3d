@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+         #
+#    By: jmougel <jmougel@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/17 13:12:10 by yusengok          #+#    #+#              #
-#    Updated: 2024/05/23 10:06:06 by yusengok         ###   ########.fr        #
+#    Updated: 2024/06/04 19:06:05 by jmougel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,6 +76,7 @@ FILES = ft_abs	\
 		ft_printf_uint	\
 		ft_printf_hex	\
 		get_next_line	\
+		get_next_line_utils	\
 
 SRCS = $(addsuffix .c, $(FILES))
 OBJS_DIR = .objs/

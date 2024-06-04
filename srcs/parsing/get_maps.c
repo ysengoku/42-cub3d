@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_maps.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmougel <jmougel@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 16:57:09 by jmougel           #+#    #+#             */
-/*   Updated: 2024/06/04 17:33:51 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/04 19:22:50 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static char	**get_map(t_map *data_map)
 	i = index_start_map;
 	while (data_map->data_map[i])
 		i++;
-	map = ft_calloc(i + 1, sizeof(char *));//(char **)malloc(sizeof(char *) * (i - index_start_map) + 1);
+	map = ft_calloc(i + 1, sizeof(char *));
 	if (!map)
 		return (NULL);
 	i = 0;
