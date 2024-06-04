@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 08:30:08 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/04 08:50:34 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/04 10:52:15 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ static void	set_ray(t_cub3d *data, t_ray *ray, int x)
 	ray->camera_p = 2 * x / (double)WIN_W - 1;
 	ray->dir_x = data->player.dir_x + data->player.plane_x * ray->camera_p;
 	ray->dir_y = data->player.dir_y + data->player.plane_y * ray->camera_p;
-	ray->map_x = data->player.pos_x;
-	ray->map_y = data->player.pos_y;
+	ray->map_x = (int)data->player.pos_x;
+	ray->map_y = (int)data->player.pos_y;
 	ray->delta_x = fabs(1 / ray->dir_x);
 	ray->delta_y = fabs(1 / ray->dir_y);
 	if (ray->dir_x < 0)
