@@ -6,7 +6,7 @@
 #    By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/23 08:07:54 by yusengok          #+#    #+#              #
-#    Updated: 2024/06/04 17:22:46 by jmougel          ###   ########.fr        #
+#    Updated: 2024/06/05 14:48:20 by jmougel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,7 +68,6 @@ BONUS = 0
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-INCLUDE = -I$(HEADERS_DIR) -I$(LIBFT_DIR) -I$(LIBMLX_DIR) -I/usr/include -g3
 INCLUDE = -I$(HEADERS_DIR) -I$(LIBFT_DIR) -I$(LIBMLX_DIR) -I/usr/include -g3
 MLXFLAGS = -lmlx -lXext -lX11 -lm
 RM = rm -f

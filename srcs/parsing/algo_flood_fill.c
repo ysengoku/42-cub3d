@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   algo_flood_fill.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmougel <jmougel@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 17:19:54 by jmougel           #+#    #+#             */
-/*   Updated: 2024/06/04 19:22:29 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/05 15:30:23 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,15 @@
 
 static void	recursive(char **dup_map, int pos_x, int pos_y, bool *valid)
 {
-	if (dup_map[pos_y][pos_x + 1])
+	if (dup_map[pos_y] && dup_map[pos_y][pos_x + 1])
 		flood_fill(dup_map, pos_x + 1, pos_y, valid);
-	if (dup_map[pos_y][pos_x - 1])
+	if (dup_map[pos_y] && dup_map[pos_y][pos_x - 1])
 		flood_fill(dup_map, pos_x - 1, pos_y, valid);
-	if (dup_map[pos_y + 1] && dup_map[pos_y + 1][pos_x])
+	if (dup_map[pos_y + 1]
+		&& ((int)ft_strlen(dup_map[pos_y + 1]) >= pos_x))
 		flood_fill(dup_map, pos_x, pos_y + 1, valid);
-	if (dup_map[pos_y - 1] && dup_map[pos_y - 1][pos_x])
+	if (pos_y && dup_map[pos_y - 1]
+		&& ((int)ft_strlen(dup_map[pos_y - 1]) >= pos_x))
 		flood_fill(dup_map, pos_x, pos_y - 1, valid);
 	else
 	{
@@ -36,8 +38,7 @@ void	flood_fill(char **dup_map, int pos_x, int pos_y, bool *valid)
 
 	old_char = '0';
 	new_char = 'x';
-	if (!dup_map[pos_y] || dup_map[pos_y][pos_x] == '1'
-		|| dup_map[pos_y][pos_x] == new_char)
+	if (dup_map[pos_y][pos_x] == '1' || dup_map[pos_y][pos_x] == new_char)
 		return ;
 	else if (dup_map[pos_y][pos_x] == old_char)
 		dup_map[pos_y][pos_x] = new_char;
