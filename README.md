@@ -125,6 +125,11 @@ plane_y = dir_x * plane_length = 0 * 1.000000 = 0
 * [42 Docs - cub3d](https://harm-smits.github.io/42docs/projects/cub3d)
 
 ### Videos
+* [Make Your Own Raycaster Part 1](https://youtu.be/gYRrGTC7GtA?si=7KRnt_PSqn4lz4DD)
+* [Make Your Own Raycaster Part 2](https://youtu.be/PC1RaETIx3Y?si=7rDwE_DvbRc79vQm)
+* [Make Your Own Raycaster Part 3](https://youtu.be/w0Bm4IA-Ii8?si=aKqqxShLYT1G48O2)
+* [Super Fast Ray Casting in Tiled Worlds using DDA](https://youtu.be/NbSee-XM7WA?si=HxCH4AbdRUjJhC7v)
+* [Making my First RAYCASTING Game in C++ - SFML Gamedev - Devlog 1](https://youtu.be/LUYxLjic0Bc?si=18f9-hw6lV903EaB)
 
 ### Turorial in Japanese
 * [42Tokyo C言語で一人称視点のゲームを作った](https://qiita.com/susasaki/items/c74a228d7ddd48b818bd)
