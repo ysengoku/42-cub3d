@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/05 11:41:01 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/05 15:07:31 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ typedef struct s_map
 	char				*sprite_so;
 	char				*sprite_we;
 	char				*sprite_ea;
+	// t_xpm_img			wall[4];
 	char				player;
 	int					f_rgb[3];
 	int					c_rgb[3];
@@ -129,16 +130,16 @@ typedef struct s_map
 
 typedef struct s_player
 {
-	double				fov; // FOV in radians
-	double				pos_x; // X coordinate on the map
-	double				pos_y; // Y coordinate on the map
-	double				dir; // direction in degree
-	double				dir_x; // direction vector
-	double				dir_y; // direction vector
+	double				fov;
+	double				pos_x;
+	double				pos_y;
+	double				dir;
+	double				dir_x;
+	double				dir_y;
 	double				plane_length;
 	double				plane_x;
 	double				plane_y;
-	int					moved; // will be set to 1 when the player moves
+	int					moved;
 
 }				t_player;
 
@@ -189,7 +190,7 @@ typedef struct s_cub3d
 	t_player	player;
 	int			ceiling_color;
 	int			floor_color;
-	t_xpm_img	wall[4];
+	t_xpm_img	wall[4]; /////////////////
 	int			key_pressed_left;
 	int			key_pressed_right;
 	int			key_pressed_w;
