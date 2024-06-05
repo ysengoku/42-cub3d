@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 14:23:54 by yusengok          #+#    #+#             */
-/*   Updated: 2024/05/23 10:06:57 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/05 08:41:36 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,5 +116,11 @@ int				ft_printf_hex(int n, char sp);
 
 /* ----- get_next_line ----- */
 char			*get_next_line(int fd);
+size_t			ft_verifn_gnl(char	*stash);
+char			*ft_error_gnl(char **buf, char **stash);
+char			*ft_strdup_gnl(const char *str);
+char			*ft_strjoin_gnl(char *buf, char *stash);
+char			*ft_extract_line_gnl(char *stash);
+char			*ft_rebuild_stash_gnl(char *stash);
 
 #endif
