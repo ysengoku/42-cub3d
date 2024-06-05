@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmougel <jmougel@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 16:59:04 by jmougel           #+#    #+#             */
-/*   Updated: 2024/06/03 19:57:43 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/04 17:20:32 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,58 +68,9 @@ int	check_valid_char(t_map *data_map)
 	return (EXIT_SUCCESS);
 }
 
-static void	flood_fill(char **dup_map, int pos_x, int pos_y, bool *valid)
-{
-	char	old_char;
-	char	new_char;
-
-	old_char = '0';
-	new_char = 'x';
-	if (dup_map[pos_y][pos_x] == '1'
-		|| dup_map[pos_y][pos_x] == new_char)
-		return ;
-	else if (dup_map[pos_y][pos_x] == old_char)
-		dup_map[pos_y][pos_x] = new_char;
-	else if (dup_map[pos_y][pos_x] == 'N'
-		|| dup_map[pos_y][pos_x] == 'S'
-		|| dup_map[pos_y][pos_x] == 'E'
-		|| dup_map[pos_y][pos_x] == 'W')
-		dup_map[pos_y][pos_x] = new_char;
-	else
-	{
-		*valid = false;
-		return ;
-	}
-	flood_fill(dup_map, pos_x + 1, pos_y, valid);
-	flood_fill(dup_map, pos_x - 1, pos_y, valid);
-	flood_fill(dup_map, pos_x, pos_y + 1, valid);
-	flood_fill(dup_map, pos_x, pos_y - 1, valid);
-}
-
-static int	algo_flood_fill(t_map *data_map)
-{
-	char	**dup_map;
-	int		pos_x;
-	int		pos_y;
-	bool	valid;	
-
-	valid = true;
-	dup_map = data_map->dup_map;
-	pos_x = data_map->pos_x;
-	pos_y = data_map->pos_y;
-	flood_fill(dup_map, pos_x, pos_y, &valid);
-	if (valid == false)
-	{
-		exit_parsing(data_map, "Error\nCub3D: map not close");
-		return (EXIT_FAILURE);
-	}
-	return (EXIT_SUCCESS);
-}
-
 int	check_map(t_map *data_map)
 {
 	check_valid_char(data_map);
 	algo_flood_fill(data_map);
-	printf("[player : %c] [enum : %d]\n", data_map->player, data_map->p_dir);
 	return (EXIT_SUCCESS);
 }

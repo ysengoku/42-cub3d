@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmougel <jmougel@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 16:54:57 by jmougel           #+#    #+#             */
-/*   Updated: 2024/06/03 19:27:24 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/05 14:36:12 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,39 +24,40 @@ static void	display_map(char **map)
 	}
 }
 
-static void	display_data(t_map *data_map)
+static void	display_data(t_cub3d *data)
 {
 	printf("\n[DATA MAP]\n\n");
-	display_map(data_map->data_map);
+	display_map(data->map.data_map);
 	printf("\n[DUP MAP]\n\n");
-	display_map(data_map->dup_map);
+	display_map(data->map.dup_map);
 	printf("\n[MAP]\n\n");
-	display_map(data_map->map);
+	display_map(data->map.map);
 	printf("\n\n");
-	printf("[max len x] : %d\n", data_map->map_len_x);
-	printf("[max len y] : %d\n", data_map->map_len_y);
-	printf("[sprite_NO] : %s\n", data_map->sprite_no);
-	printf("[sprite_SO] : %s\n", data_map->sprite_so);
-	printf("[sprite_WE] : %s\n", data_map->sprite_we);
-	printf("[sprite_EA] : %s\n", data_map->sprite_ea);
-	printf("[F_RGB]     : [R]%d, [G]%d, [B]%d\n", data_map->f_rgb[0], data_map->f_rgb[1], data_map->f_rgb[2]);
-	printf("[C_RGB]     : [R]%d, [G]%d, [B]%d\n", data_map->c_rgb[0], data_map->c_rgb[1], data_map->c_rgb[2]);
+	printf("[max len x] : %d\n", data->map.map_len_x);
+	printf("[max len y] : %d\n", data->map.map_len_y);
+	printf("[sprite_NO] : %s\n", data->wall[NO].path);
+	printf("[sprite_SO] : %s\n", data->wall[SO].path);
+	printf("[sprite_EA] : %s\n", data->wall[WE].path);
+	printf("[sprite_WE] : %s\n", data->wall[EA].path);
+	printf("[F_RGB]     : [R]%d, [G]%d, [B]%d\n", data->map.f_rgb[0], data->map.f_rgb[1], data->map.f_rgb[2]);
+	printf("[C_RGB]     : [R]%d, [G]%d, [B]%d\n", data->map.c_rgb[0], data->map.c_rgb[1], data->map.c_rgb[2]);
 }
 
-int	parsing(char *file, t_map *data_map)
+int	parsing(char *file, t_cub3d *data)
 {
 	if (!file)
 		return (EXIT_FAILURE);
-	ft_memset(data_map, 0, sizeof(t_map));
-	data_map->data_map = get_file(file);
-	if (!data_map->data_map)
+	ft_memset(&data->map, 0, sizeof(t_map));
+	data->map.data_map = get_file(file);
+	if (!data->map.data_map)
 		return (ft_perror_exit("Error\nCub3D", EXIT_FAILURE), EXIT_FAILURE);
-	get_data(data_map);
-	get_maps(data_map);
-	check_map(data_map);
+	get_data(data);
+	get_maps(&data->map);
+	check_map(&data->map);
 	/* Test */
 	
-	display_data(data_map);
+	display_data(data);
+	//free_data_map(&data->map);
 	
 	/********/
 	return (EXIT_SUCCESS);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/04 13:57:03 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/05 14:30:33 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,18 @@
 
 /*===== macro definition =====================================================*/
 # define WINNAME "cub3D"
+# define MINI_MAP_W 100
+# define MINI_MAP_H 100
 # define WIN_W 960
 # define WIN_H 720
 # define TEX_SIZE 64
+
+# define ESC			65307
+# define UP				119
+# define DOWN			115
+# define RIGHT			100
+# define LEFT			97
+# define CLOSE_WINDOW	17
 
 # ifndef FOV
 #  define FOV 90
@@ -205,13 +214,15 @@ typedef struct s_cub3d
 
 /*===== functions ============================================================*/
 /*----- Parsing -----*/
-int		parsing(char *file, t_map *data_map);
+int		parsing(char *file, t_cub3d *map);
 char	**get_file(char *file);
-int		get_data(t_map *data_map);
-int		get_sprites_path(t_map *data_map);
+int		get_data(t_cub3d *data);
+int		get_sprites_path(t_cub3d *map);
 int		get_colors_rgb(t_map *data_map);
 int		get_maps(t_map *data_map);
 int		check_map(t_map *data_map);
+int		algo_flood_fill(t_map *data_map);
+void	flood_fill(char **dup_map, int pos_x, int pos_y, bool *valid);
 void	free_split(char **map);
 void	free_data_map(t_map *data_map);
 void	exit_parsing(t_map *data_map, char *message);

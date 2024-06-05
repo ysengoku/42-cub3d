@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+         #
+#    By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/23 08:07:54 by yusengok          #+#    #+#              #
-#    Updated: 2024/06/04 10:07:08 by yusengok         ###   ########.fr        #
+#    Updated: 2024/06/05 14:48:20 by jmougel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ FILES = main	\
 		get_color_rgb \
 		get_maps \
 		check_map \
+		algo_flood_fill \
 		handle_errors	\
 		set_data	\
 		game_loop	\
