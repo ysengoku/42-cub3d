@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:57 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/05 10:09:20 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/05 15:07:14 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ static void	init_player(t_player *player)
 	player->fov = FOV * M_PI / 180;
 	player->pos_x = 0;
 	player->pos_y = 0;
-	// player->initial_dir = 0;
 	player->dir = 0.0;
 	player->dir_x = 0;
 	player->dir_y = 0;
@@ -42,9 +41,11 @@ static void init_cub3d_data(t_cub3d *data)
 		ft_memset(&data->wall[i], 0, sizeof(data->wall[i]));
 	ft_memset(&data->mmap, 0, sizeof(data->mmap));
 	ft_memset(&data->mmap.img, 0, sizeof(data->mmap.img));
-	ft_memset(&data->mmap.floor, 0, sizeof(data->mmap.floor)); // if we use texture for minimap
-	ft_memset(&data->mmap.wall, 0, sizeof(data->mmap.wall)); // if we use texture for minimap
-	ft_memset(&data->mmap.player, 0, sizeof(data->mmap.player)); // if we use texture for minimap
+	//------ if we use texture for minimap ----------------------
+	ft_memset(&data->mmap.floor, 0, sizeof(data->mmap.floor)); 
+	ft_memset(&data->mmap.wall, 0, sizeof(data->mmap.wall));
+	ft_memset(&data->mmap.player, 0, sizeof(data->mmap.player));
+	//-----------------------------------------------------------
 	data->key_pressed_left = 0;
 	data->key_pressed_right = 0;
 	data->key_pressed_w = 0;
@@ -107,6 +108,7 @@ int	main(int argc, char **argv)
 	if (create_main_image(&data) == 1)
 		return (1);
 	if (set_wall_texture(&data, data.wall) == 1)
+	// if (set_wall_texture(&data, data.map.wall) == 1)
 		return (1);
 	if (create_minimap_img(&data, &data.mmap) == 1)
 		return (1);
