@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+         #
+#    By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/23 08:07:54 by yusengok          #+#    #+#              #
-#    Updated: 2024/06/05 14:48:20 by jmougel          ###   ########.fr        #
+#    Updated: 2024/06/05 15:35:54 by yusengok         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,14 +16,14 @@ LIGHT_GREEN = \033[32m
 BLUE = \033[34m
 
 NAME = cub3D
+#NAME_B = cub3D_bonus
 
 vpath %c srcs \
 		srcs/parsing \
-		srcs/raycasting	\
 		srcs/rendering \
 		srcs/event \
 		srcs/error	\
-		srcs/minimap
+		srcs_bonus/minimap
 FILES = main	\
 		parsing \
 		get_file \
@@ -42,7 +42,6 @@ FILES = main	\
 		check_wall_hit	\
 		event_handler	\
 		move	\
-		move_utils	\
 		rotate	\
 		quit	\
 		error_handling	\
@@ -50,10 +49,16 @@ FILES = main	\
 		minimap_bonus	\
 		minimap_img_bonus
 
+#FILES_B = minimap_bonus	\
+		minimap_img_bonus
+
 SRCS = $(addsuffix .c, $(FILES))
+#SRCS_B = $(addsuffix .c, $(FILES_B))
 
 OBJS_DIR = .objs/
 OBJS = $(addprefix $(OBJS_DIR), $(addsuffix .o, $(FILES)))
+#OBJS_DIR_B = .objs_bonus/
+#OBJS_B = $(addprefix $(OBJS_DIR_B), $(addsuffix .o, $(FILES_B)))
 
 HEADERS_DIR = includes/
 HEADER_FILES = cub3d.h

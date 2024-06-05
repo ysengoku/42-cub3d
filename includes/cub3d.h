@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/05 14:30:33 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/05 15:43:38 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@
 # ifndef FOV
 #  define FOV 90
 # endif
-# define MOVE 0.33
+# define MOVE 0.1
 # define ROTATE 5
 
 # define MMAP_SCALE	8
@@ -122,10 +122,6 @@ typedef struct s_map
 	char				**data_map;
 	char				**map;
 	char				**dup_map;
-	char				*sprite_no;
-	char				*sprite_so;
-	char				*sprite_we;
-	char				*sprite_ea;
 	char				player;
 	int					f_rgb[3];
 	int					c_rgb[3];
@@ -138,11 +134,10 @@ typedef struct s_map
 
 typedef struct s_player
 {
-	double				fov; // FOV in radians
+	double				fov;
 	double				pos_x;
 	double				pos_y;
-	enum e_direction	initial_dir;
-	double				dir; //direction in degree
+	double				dir;
 	double				dir_x;
 	double				dir_y;
 	double				plane_length;
@@ -199,10 +194,7 @@ typedef struct s_cub3d
 	t_player	player;
 	int			ceiling_color;
 	int			floor_color;
-	t_xpm_img	wall[4];
-	//--- For TEST -----------
-	int			colors[4];
-	//------------------------
+	t_xpm_img	wall[4]; /////////////////
 	int			key_pressed_left;
 	int			key_pressed_right;
 	int			key_pressed_w;
@@ -235,7 +227,6 @@ void	check_wall_hit(t_cub3d *data, t_ray *ray);
 
 /*----- Image rendering -----*/
 int		game_loop(t_cub3d *data);
-void	draw_wall_tmp(t_cub3d *data, int x, t_ray *ray); // Temporary version without texture
 void	draw_wall(t_cub3d *data, int x, t_ray *ray);
 void	draw_ceiling(t_cub3d *data, int x, int end, int ceiling_color);
 void	draw_floor(t_cub3d *data, int start, int end, int floor_color);
@@ -249,24 +240,17 @@ int		handle_keyrelease(int keysym, t_cub3d *data);
 int 	handle_mousemove(int x, int y, t_cub3d *data);
 int		handle_closebutton(t_cub3d *data);
 void	close_window(t_cub3d *data);
-// void	move_forward(t_cub3d *data, double player_dir, int *x, int *y);
 void	move_forward(t_cub3d *data, t_player *player, t_map *map);
 void	move_backward(t_cub3d *data, t_player *player, t_map *map);
 void	move_right(t_cub3d *data, t_player *player, t_map *map);
 void	move_left(t_cub3d *data, t_player *player, t_map *map);
-// void	move_right(t_cub3d *data, double player_dir, int *x, int *y);
-// void	move_left(t_cub3d *data, double player_dir, int *x, int *y);
-// void	move_north_east(t_cub3d *data, int *x, int *y);
-// void	move_north_west(t_cub3d *data, int *x, int *y);
-// void	move_south_east(t_cub3d *data, int *x, int *y);
-// void	move_south_west(t_cub3d *data, int *x, int *y);
 void	rotate_counterclockwise(t_cub3d *data);
 void	rotate_clockwise(t_cub3d *data);
 
 /*----- Error handling -----*/
 void	ft_perror_exit(char *message, int code);
 void	ft_error_exit(char *message, int code);
-void	free_mapdata(t_map *map);
+// void	free_mapdata(t_map *map);
 int		free_all(t_cub3d *data, int status);
 
 /*----- Minimap -----*/
