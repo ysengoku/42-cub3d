@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/05 10:10:08 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/05 11:41:01 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@
 # ifndef FOV
 #  define FOV 90
 # endif
-# define MOVE 0.33
+# define MOVE 0.1
 # define ROTATE 5
 
 # define MMAP_SCALE	8
@@ -130,15 +130,15 @@ typedef struct s_map
 typedef struct s_player
 {
 	double				fov; // FOV in radians
-	double				pos_x;
-	double				pos_y;
-	double				dir; //direction in degree
-	double				dir_x;
-	double				dir_y;
+	double				pos_x; // X coordinate on the map
+	double				pos_y; // Y coordinate on the map
+	double				dir; // direction in degree
+	double				dir_x; // direction vector
+	double				dir_y; // direction vector
 	double				plane_length;
 	double				plane_x;
 	double				plane_y;
-	int					moved;
+	int					moved; // will be set to 1 when the player moves
 
 }				t_player;
 
