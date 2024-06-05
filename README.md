@@ -59,16 +59,12 @@ typedef struct s_map
 101001
 1100N1
 111111
-// Player is represented by N : cordinates (4, 3), face to north
-N = North 
-E = East
-S = South
-W = West
 
-- NORTH : 90°
-- SOUTH : 270°
-- EAST : 0°
-- WEST : 180° 
+// Player is represented by N : cordinates (4, 3), face to north
+// N = North (90°)
+// E = East (270°)
+// S = South (0°)
+// W = West (180°)
 ```
 
 ### Player
