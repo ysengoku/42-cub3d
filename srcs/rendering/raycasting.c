@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 08:30:08 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/05 14:00:37 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/05 16:24:43 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ static void	init_camera(t_cub3d *data)
 	data->player.plane_x = data->player.dir_y * data->player.plane_length;
 	data->player.plane_y = data->player.dir_x * data->player.plane_length;
 }
-
 
 static void	set_ray(t_cub3d *data, t_ray *ray, int x)
 {
