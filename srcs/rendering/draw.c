@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 08:57:21 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/04 08:28:23 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/05 08:56:39 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,6 @@ void	draw_floor(t_cub3d *data, int x, int start, int floor_color)
 	while (start < WIN_H)
 		put_pxl_color(&data->img, x, start++, floor_color);
 }
-
-/* Temporary version without texture */
-// void	draw_wall_tmp(t_cub3d *data, int x, t_ray *ray)
-// {
-// 	int	start;
-// 	int	end;
-
-// 	start = WIN_H / 2 - ray->wall_height / 2;
-// 	end = WIN_H / 2 + ray->wall_height / 2;
-// 	while (start <= end)
-// 		put_pxl_color(&data->img, x, start++, data->colors[ray->wall_side]);
-// }
 
 static unsigned int	get_tex_color(t_xpm_img *texture, int x, int y)
 {
@@ -53,11 +41,7 @@ void	draw_wall(t_cub3d *data, int x, t_ray *ray)
 	line.y_end = WIN_H / 2 + ray->wall_height / 2;
 	line.y = line.y_start;
 	if (ray->wall_side == WE || ray->wall_side == EA)
-	{
-		// printf("WE/EA pos_y: %d | distance %f | dir_y %f | ", data->player.pos_y, ray->distance, ray->dir_y);
 		wall_x = data->player.pos_y + ray->distance * ray->dir_y;
-		// printf("wall_x: %f\n", wall_x);
-	}
 	else
 		wall_x = data->player.pos_x + ray->distance * ray->dir_x;
 	wall_x -= floor(wall_x);

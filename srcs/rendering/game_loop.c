@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:14:25 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/04 13:48:22 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/05 08:09:14 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,20 +25,12 @@ int	game_loop(t_cub3d *data)
 	if (data->key_pressed_left)
 		rotate_counterclockwise(data);
 	if (data->key_pressed_w)
-		// move_forward(data, data->player.dir, &data->player.pos_x,
-		// 	&data->player.pos_y);
 		move_forward(data, &data->player, &data->map);
 	if (data->key_pressed_a)
-	// 	move_left(data, data->player.dir, &data->player.pos_x,
-	// 		&data->player.pos_y);
 		move_left(data, &data->player, &data->map);
 	if (data->key_pressed_s)
-		// move_backward(data, data->player.dir, &data->player.pos_x,
-		// 	&data->player.pos_y);
 		move_backward(data, &data->player, &data->map);
 	if (data->key_pressed_d)
-	// 	move_right(data, data->player.dir, &data->player.pos_x,
-	// 		&data->player.pos_y);
 		move_right(data, &data->player, &data->map);
 	return (0);
 }

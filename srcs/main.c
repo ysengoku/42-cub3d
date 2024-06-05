@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:57 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/04 16:49:03 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/05 10:09:20 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,6 @@ static void init_cub3d_data(t_cub3d *data)
 	data->key_pressed_s = 0;
 	data->key_pressed_a = 0;
 	data->key_pressed_d = 0;
-	/*=== FOR TEST ===================*/
-	data->colors[0] = 9852907;
-	data->colors[1] = 16775920;
-	data->colors[2] = 11393254;
-	data->colors[3] = 9419927;
-	/*================================*/
 }
 
 static int	ft_init_mlx(t_cub3d *data)
@@ -65,7 +59,8 @@ static int	ft_init_mlx(t_cub3d *data)
 	if (!(data->mlx_ptr))
 	{
 		ft_putendl_fd("MLX: Initialization failed", 2);
-		free_mapdata(&data->map); // to check
+		// free_mapdata(&data->map); // to check
+		free_data_map(&data->map);
 		return (1);
 	}
 	data->win_ptr = mlx_new_window(data->mlx_ptr, WIN_W, WIN_H, WINNAME);
@@ -73,7 +68,8 @@ static int	ft_init_mlx(t_cub3d *data)
 	{
 		perror("MLX");
 		free(data->mlx_ptr);
-		free_mapdata(&data->map); // to check
+		// free_mapdata(&data->map); // to check
+		free_data_map(&data->map);
 		return (1);
 	}
 	return (0);
@@ -87,7 +83,8 @@ static int	create_main_image(t_cub3d *data)
 		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
 		mlx_destroy_display(data->mlx_ptr);
 		free(data->mlx_ptr);
-		free_mapdata(&data->map);  // to check
+		// free_mapdata(&data->map);  // to check
+		free_data_map(&data->map);
 		return (1);
 	}
 	data->img.addr = mlx_get_data_addr(data->img.img, &data->img.bits_per_pxl,

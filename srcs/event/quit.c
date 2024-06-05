@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 08:02:02 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/04 11:20:42 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/05 10:08:18 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ void	close_window(t_cub3d *data)
 	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
 	mlx_destroy_display(data->mlx_ptr);
 	free(data->mlx_ptr);
-	free_mapdata(&data->map); // To check
-	// free_data_map(&data->map);
+	// free_mapdata(&data->map); // To check
+	free_data_map(&data->map);
 	//------ free other things if needed -----
 	exit(0);
 }
