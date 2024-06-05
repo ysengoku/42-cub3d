@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/05 15:43:38 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/05 16:11:27 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,7 +194,7 @@ typedef struct s_cub3d
 	t_player	player;
 	int			ceiling_color;
 	int			floor_color;
-	t_xpm_img	wall[4]; /////////////////
+	t_xpm_img	wall[4];
 	int			key_pressed_left;
 	int			key_pressed_right;
 	int			key_pressed_w;
@@ -250,7 +250,6 @@ void	rotate_clockwise(t_cub3d *data);
 /*----- Error handling -----*/
 void	ft_perror_exit(char *message, int code);
 void	ft_error_exit(char *message, int code);
-// void	free_mapdata(t_map *map);
 int		free_all(t_cub3d *data, int status);
 
 /*----- Minimap -----*/

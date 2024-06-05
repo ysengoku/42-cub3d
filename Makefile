@@ -6,7 +6,7 @@
 #    By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/23 08:07:54 by yusengok          #+#    #+#              #
-#    Updated: 2024/06/05 15:35:54 by yusengok         ###   ########.fr        #
+#    Updated: 2024/06/05 16:20:36 by yusengok         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ vpath %c srcs \
 		srcs/rendering \
 		srcs/event \
 		srcs/error	\
+		srcs_bonus	\
 		srcs_bonus/minimap
 FILES = main	\
 		parsing \
