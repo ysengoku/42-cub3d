@@ -6,7 +6,7 @@
 /*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:57 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/04 17:29:36 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/05 14:23:23 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	main(int argc, char **argv)
 	
 	if (argc != 2 || ft_strnstr_r(argv[1], ".cub") != 0)
 		ft_error_exit("Usage: ./cub3D <path/map_name.cub>", 1);
-	if (parsing(argv[1], &data.map) == EXIT_FAILURE)
+	if (parsing(argv[1], &data) == EXIT_FAILURE)
 		return (2);
 	/* init_cub3d_data(&data);
 	set_data(&data, &data.player, &data.map);

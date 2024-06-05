@@ -6,7 +6,7 @@
 /*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/04 17:24:35 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/05 14:30:33 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,10 +214,10 @@ typedef struct s_cub3d
 
 /*===== functions ============================================================*/
 /*----- Parsing -----*/
-int		parsing(char *file, t_map *data_map);
+int		parsing(char *file, t_cub3d *map);
 char	**get_file(char *file);
-int		get_data(t_map *data_map);
-int		get_sprites_path(t_map *data_map);
+int		get_data(t_cub3d *data);
+int		get_sprites_path(t_cub3d *map);
 int		get_colors_rgb(t_map *data_map);
 int		get_maps(t_map *data_map);
 int		check_map(t_map *data_map);
