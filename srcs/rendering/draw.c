@@ -6,11 +6,14 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 08:57:21 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/05 08:56:39 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/06 11:45:28 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static unsigned int	get_tex_color(t_xpm_img *texture, int x, int y);
+static double		get_wall_x(t_cub3d *data, t_ray *ray);
 
 void	draw_ceiling(t_cub3d *data, int x, int end, int ceiling_color)
 {
@@ -24,14 +27,6 @@ void	draw_floor(t_cub3d *data, int x, int start, int floor_color)
 		put_pxl_color(&data->img, x, start++, floor_color);
 }
 
-static unsigned int	get_tex_color(t_xpm_img *texture, int x, int y)
-{
-	char	*pxl;
-
-	pxl = texture->addr + (y * texture->line_len + x * (texture->bpp / 8));
-	return (*(unsigned int *)pxl);
-}
-
 void	draw_wall(t_cub3d *data, int x, t_ray *ray)
 {
 	t_line	line;
@@ -40,12 +35,7 @@ void	draw_wall(t_cub3d *data, int x, t_ray *ray)
 	line.y_start = WIN_H / 2 - ray->wall_height / 2;
 	line.y_end = WIN_H / 2 + ray->wall_height / 2;
 	line.y = line.y_start;
-	if (ray->wall_side == WE || ray->wall_side == EA)
-		wall_x = data->player.pos_y + ray->distance * ray->dir_y;
-	else
-		wall_x = data->player.pos_x + ray->distance * ray->dir_x;
-	wall_x -= floor(wall_x);
-	// printf("wall_x: %f\n", wall_x);
+	wall_x = get_wall_x(data, ray);
 	if (ray->wall_height != 0)
 		line.span = (double)TEX_SIZE / ray->wall_height;
 	else
@@ -59,4 +49,41 @@ void	draw_wall(t_cub3d *data, int x, t_ray *ray)
 			get_tex_color(&data->wall[ray->wall_side], line.tex_x, line.tex_y));
 		line.y++;
 	}
+}
+
+static double	get_wall_x(t_cub3d *data, t_ray *ray)
+{
+	double	wall_x;
+
+	if (ray->wall_side == WE || ray->wall_side == EA)
+	{
+		wall_x = data->player.pos_y + ray->distance * ray->dir_y;
+		if (ray->wall_side == WE
+			&& (data->player.dir > 135 && data->player.dir < 225))
+			wall_x = 1.0 - wall_x;
+		if (ray->wall_side == EA
+			&& !((data->player.dir > 0 && data->player.dir < 45)
+				|| (data->player.dir > 315 && data->player.dir < 360)))
+			wall_x = 1.0 - wall_x;
+	}
+	else
+	{
+		wall_x = data->player.pos_x + ray->distance * ray->dir_x;
+		if (ray->wall_side == NO
+			&& (data->player.dir > 45 && data->player.dir < 135))
+			wall_x = 1.0 - wall_x;
+		if (ray->wall_side == SO
+			&& !(data->player.dir > 225 && data->player.dir < 315))
+			wall_x = 1.0 - wall_x;
+	}
+	wall_x -= floor(wall_x);
+	return (wall_x);
+}
+
+static unsigned int	get_tex_color(t_xpm_img *texture, int x, int y)
+{
+	char	*pxl;
+
+	pxl = texture->addr + (y * texture->line_len + x * (texture->bpp / 8));
+	return (*(unsigned int *)pxl);
 }
