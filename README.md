@@ -31,6 +31,7 @@ typedef struct s_cub3d
 	int		key_pressed_s; // flag for key event (press & release)
 	int		key_pressed_a; // flag for key event (press & release)
 	int		key_pressed_d; // flag for key event (press & release)
+	int		previous_mouse_x; // x-coordinate of mouse pointer (to handle mouse move)
 	t_minimap	mmap;
 }				t_cub3d;
 ```
