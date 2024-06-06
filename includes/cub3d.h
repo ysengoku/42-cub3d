@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/06 14:19:29 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/06 16:32:31 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@
 # define WIN_H 720
 # define TEX_SIZE 64
 
+# define MOUSE_DOWN 4
+# define MOUSE_UP 5
 # define ESC			65307
 # define UP				119
 # define DOWN			115
