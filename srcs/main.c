@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:57 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/05 16:26:23 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/06 09:59:46 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	init_player(t_player *player)
+/* static void	init_player(t_player *player)
 {
 	player->fov = FOV * M_PI / 180;
 	player->pos_x = 0;
@@ -86,7 +86,7 @@ static int	create_main_image(t_cub3d *data)
 	data->img.addr = mlx_get_data_addr(data->img.img, &data->img.bits_per_pxl,
 			&data->img.line_len, &data->img.endian);
 	return (0);
-}
+} */
 
 int	main(int argc, char **argv)
 {
@@ -96,7 +96,7 @@ int	main(int argc, char **argv)
 		ft_error_exit("Usage: ./cub3D <path/map_name.cub>", 1);
 	if (parsing(argv[1], &data) == EXIT_FAILURE)
 		return (2);
-	init_cub3d_data(&data);
+	/* init_cub3d_data(&data);
 	set_data(&data, &data.player, &data.map);
 	if (ft_init_mlx(&data) == 1)
 		return (1);
@@ -113,7 +113,7 @@ int	main(int argc, char **argv)
 		handle_keyrelease, &data);
 	// mlx_mouse_hook(data.win_ptr, &handle_mouseevents, &data); // ---> Doesn't need ??
 	mlx_loop_hook(data.mlx_ptr, game_loop, &data);
-	mlx_loop(data.mlx_ptr);
+	mlx_loop(data.mlx_ptr);*/
 	return (0);
 }
 

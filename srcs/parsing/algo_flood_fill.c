@@ -6,7 +6,7 @@
 /*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 17:19:54 by jmougel           #+#    #+#             */
-/*   Updated: 2024/06/05 15:30:23 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/06 10:07:37 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,16 @@
 
 static void	recursive(char **dup_map, int pos_x, int pos_y, bool *valid)
 {
-	if (dup_map[pos_y] && dup_map[pos_y][pos_x + 1])
 		flood_fill(dup_map, pos_x + 1, pos_y, valid);
-	if (dup_map[pos_y] && dup_map[pos_y][pos_x - 1])
 		flood_fill(dup_map, pos_x - 1, pos_y, valid);
-	if (dup_map[pos_y + 1]
-		&& ((int)ft_strlen(dup_map[pos_y + 1]) >= pos_x))
+	if (dup_map[pos_y + 1])
 		flood_fill(dup_map, pos_x, pos_y + 1, valid);
-	if (pos_y && dup_map[pos_y - 1]
-		&& ((int)ft_strlen(dup_map[pos_y - 1]) >= pos_x))
+	else
+	{
+		*valid = false;
+		return ;
+	}
+	if (pos_y && dup_map[pos_y - 1])
 		flood_fill(dup_map, pos_x, pos_y - 1, valid);
 	else
 	{

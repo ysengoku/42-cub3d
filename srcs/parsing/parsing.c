@@ -6,7 +6,7 @@
 /*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 16:54:57 by jmougel           #+#    #+#             */
-/*   Updated: 2024/06/05 14:36:12 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/06 09:59:15 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	parsing(char *file, t_cub3d *data)
 	/* Test */
 	
 	display_data(data);
-	//free_data_map(&data->map);
+	free_data_map(&data->map);
 	
 	/********/
 	return (EXIT_SUCCESS);
