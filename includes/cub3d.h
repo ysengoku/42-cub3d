@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/06 13:09:22 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/06 14:19:29 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@
 # endif
 # define MOVE 0.1
 # define ROTATE 5
+# define PITCH 1
 
 # define MMAP_SCALE	8
 # define MMAP_WALL 24676 //(int)0x006064
@@ -144,6 +145,7 @@ typedef struct s_player
 	double				plane_x;
 	double				plane_y;
 	int					moved;
+	int					pitch;
 
 }				t_player;
 
@@ -260,5 +262,6 @@ void	set_minimap(t_cub3d *data);
 
 /*----- Mouse move -----*/
 int		mousemove(int x, int y, t_cub3d *data);
+int		mousescroll(int event, int x, int y, t_cub3d *data);
 
 #endif
