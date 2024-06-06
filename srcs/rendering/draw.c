@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 08:57:21 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/06 11:45:28 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/06 14:02:13 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ void	draw_wall(t_cub3d *data, int x, t_ray *ray)
 	t_line	line;
 	double	wall_x;
 
-	line.y_start = WIN_H / 2 - ray->wall_height / 2;
-	line.y_end = WIN_H / 2 + ray->wall_height / 2;
+	line.y_start = WIN_H / 2 - ray->wall_height / 2 + data->player.pitch; // add PITCH to look up, subtract PITCH to look down
+	line.y_end = WIN_H / 2 + ray->wall_height / 2 + data->player.pitch; // add PITCH to look up, subtract PITCH to look down
 	line.y = line.y_start;
 	wall_x = get_wall_x(data, ray);
 	if (ray->wall_height != 0)

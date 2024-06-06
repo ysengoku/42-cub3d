@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:57 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/06 13:11:24 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/06 14:03:38 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static void	init_player(t_player *player)
 	player->plane_x = 0;
 	player->plane_y = 0;
 	player->moved = 1;
+	player->pitch = 0;
 }
 
 static void	init_cub3d_data(t_cub3d *data)
@@ -112,6 +113,7 @@ int	main(int argc, char **argv)
 	mlx_hook(data.win_ptr, KeyPress, KeyPressMask, keypress, &data);
 	mlx_hook(data.win_ptr, KeyRelease, KeyReleaseMask, keyrelease, &data);
 	mlx_hook(data.win_ptr, MotionNotify, PointerMotionMask, mousemove, &data); // bonus
+	mlx_mouse_hook(data.win_ptr, mousescroll, &data); // bonus
 	mlx_loop_hook(data.mlx_ptr, game_loop, &data);
 	mlx_loop(data.mlx_ptr);
 	return (0);
