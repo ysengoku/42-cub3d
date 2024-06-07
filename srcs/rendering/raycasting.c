@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 08:30:08 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/06 14:11:51 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/07 16:17:41 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	ft_raycasting(t_cub3d *data)
 	ft_memset(&ray, 0, sizeof(ray));
 	if (data->player.moved)
 	{
+		printf("(%.3f, %.3f)\n", data->player.pos_x, data->player.pos_y);
 		init_camera(data);
 		while (x < WIN_W)
 		{
@@ -61,7 +62,7 @@ static void	set_ray(t_cub3d *data, t_ray *ray, int x)
 	ray->dir_x = data->player.dir_x + data->player.plane_x * ray->camera_p;
 	ray->dir_y = data->player.dir_y + data->player.plane_y * ray->camera_p;
 	ray->map_x = (int)data->player.pos_x;
-	ray->map_y = (int)data->player.pos_y;
+	ray->map_y = (int)data->player.pos_y; //ok
 	ray->delta_x = fabs(1 / ray->dir_x);
 	ray->delta_y = fabs(1 / ray->dir_y);
 	set_sidedist(ray, &data->player);
