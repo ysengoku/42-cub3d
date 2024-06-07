@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/05 16:11:27 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/07 18:43:02 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,7 @@
 # endif
 
 /*===== macro definition =====================================================*/
-# define WINNAME "cub3D"
-# define MINI_MAP_W 100
-# define MINI_MAP_H 100
+# define WINNAME "Cub3D"
 # define WIN_W 960
 # define WIN_H 720
 # define TEX_SIZE 64
@@ -64,15 +62,19 @@
 # define MOVE 0.1
 # define ROTATE 5
 
-# define MMAP_SCALE	8
-# define MMAP_WALL 24676 //(int)0x006064
-# define MMAP_FLOOR 11583173 //(int)0xB0BEC5
-# define MMAP_P 12915042 //(int)0xC51162
-# define MMAP_DIR 13959168 //(int)0xD50000
-# define MMAP_SPACE 11977418 //(int)0xB6C2CA
-# define MMAP_F "./textures/minimap/floor.xpm"
+/*===== minimap =====================================================*/
+# define MMAP_SCALE 25
+# define MMAP_BORDER 1
+# define MMAP_SIZE 11
+# define MMAP_P_SCALE 10
+# define MMAP_WALL (int)0xFFFFFF
+# define MMAP_FLOOR (int)0xC5C5C5
+# define MMAP_P (int)0xED1717
+# define MMAP_DIR (int)0x6BED17
+# define MMAP_SPACE (int)0x000000
+/* # define MMAP_F "./textures/minimap/floor.xpm"
 # define MMAP_PL "./textures/minimap/player.xpm"
-# define MMAP_WL "./textures/minimap/wall.xpm"
+# define MMAP_WL "./textures/minimap/wall.xpm" */
 
 # ifndef BONUS
 #  define BONUS 1
@@ -180,6 +182,8 @@ typedef struct s_minimap
 	t_imgdata	img;
 	int			minimap_x;
 	int			minimap_y;
+	int			p_x;
+	int			p_y;
 	t_xpm_img	floor;
 	t_xpm_img	player;
 	t_xpm_img	wall;
@@ -189,18 +193,20 @@ typedef struct s_cub3d
 {
 	void		*mlx_ptr;
 	void		*win_ptr;
-	t_imgdata	img;
-	t_map		map;
-	t_player	player;
+	int			max_x; //Max screen size
+	int			max_y; //Max screen size
 	int			ceiling_color;
 	int			floor_color;
-	t_xpm_img	wall[4];
 	int			key_pressed_left;
 	int			key_pressed_right;
 	int			key_pressed_w;
 	int			key_pressed_s;
 	int			key_pressed_a;
 	int			key_pressed_d;
+	t_map		map;
+	t_imgdata	img;
+	t_player	player;
+	t_xpm_img	wall[4];
 	t_minimap	mmap;
 }				t_cub3d;
 

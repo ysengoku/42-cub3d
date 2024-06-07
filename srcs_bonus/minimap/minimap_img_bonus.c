@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_img_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 15:38:08 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/03 15:57:13 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/07 11:54:31 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	create_minimap_img(t_cub3d *data, t_minimap *mmap)
+/* int	create_minimap_img(t_cub3d *data, t_minimap *mmap)
 {
 	if (!BONUS)
 		return (0);
@@ -24,7 +24,7 @@ int	create_minimap_img(t_cub3d *data, t_minimap *mmap)
 	mmap->img.addr = mlx_get_data_addr(mmap->img.img,
 			&mmap->img.bits_per_pxl, &mmap->img.line_len,
 			&mmap->img.endian);
-	/*===== If minimap with texture ==========================================*/
+	//===== If minimap with texture ==========================================
 	mmap->floor.img = mlx_xpm_file_to_image(data->mlx_ptr, MMAP_F,
 			&mmap->floor.w, &mmap->floor.h);
 	mmap->player.img = mlx_xpm_file_to_image(data->mlx_ptr, MMAP_PL,
@@ -39,6 +39,6 @@ int	create_minimap_img(t_cub3d *data, t_minimap *mmap)
 			&mmap->player.bpp, &mmap->player.line_len, &mmap->player.endian);
 	mmap->wall.addr = mlx_get_data_addr(mmap->wall.img,
 			&mmap->wall.bpp, &mmap->wall.line_len, &mmap->wall.endian);
-	/*========================================================================*/
+	//========================================================================
 	return (0);
-}
+} */

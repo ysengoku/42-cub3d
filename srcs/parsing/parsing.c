@@ -6,7 +6,7 @@
 /*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 16:54:57 by jmougel           #+#    #+#             */
-/*   Updated: 2024/06/06 09:59:15 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/06 16:23:05 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,12 @@ int	parsing(char *file, t_cub3d *data)
 		return (ft_perror_exit("Error\nCub3D", EXIT_FAILURE), EXIT_FAILURE);
 	get_data(data);
 	get_maps(&data->map);
+	printf("%s\n", data->map.map[2]);
 	check_map(&data->map);
 	/* Test */
 	
 	display_data(data);
-	free_data_map(&data->map);
-	
+	//free_data_map(&data->map);
 	/********/
 	return (EXIT_SUCCESS);
 }

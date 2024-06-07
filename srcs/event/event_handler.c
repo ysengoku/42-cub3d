@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   event_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 10:42:38 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/04 08:24:56 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/07 15:29:41 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	handle_keypress(int keysym, t_cub3d *data)
 {
 	if (keysym == XK_Escape)
-		close_window(data);
+		exit(EXIT_SUCCESS);
 	if (keysym == XK_Right)
 		data->key_pressed_right = 1;
 	if (keysym == XK_Left)
