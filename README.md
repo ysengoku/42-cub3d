@@ -62,9 +62,9 @@ typedef struct s_map
 111111
 
 // Player is represented by N : cordinates (4, 3), face to north
-// N = North (90°)
-// E = East (270°)
-// S = South (0°)
+// N = North (270°)
+// E = East (0°)
+// S = South (90°)
 // W = West (180°)
 ```
 
@@ -97,7 +97,7 @@ double 		dir_rad;
 
 dir_rad = player.dir * M_PI / 180;
 player.dir_x = cos(dir_rad);
-player.dir_y = -sin(dir_rad);
+player.dir_y = sin(dir_rad);
 
 // In the exemple,  
 // dir_x = 0, dir_y = -1
@@ -116,7 +116,7 @@ player.dir_y = -sin(dir_rad);
 plane_length = tan(fov / 2) = 1.000000
 
 // The plane_x and plane_y for the initial player's position (dir_x = 0, dir_y = -1) is:
-plane_x = dir_y * plane_length = -1 * 1.000000 = -1.000000
+plane_x = -dir_y * plane_length = -1 * 1.000000 = -1.000000
 plane_y = dir_x * plane_length = 0 * 1.000000 = 0
 ```
 
