@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:57 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/06 14:03:38 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/10 08:04:04 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,8 @@ int	main(int argc, char **argv)
 		closebutton, &data);
 	mlx_hook(data.win_ptr, KeyPress, KeyPressMask, keypress, &data);
 	mlx_hook(data.win_ptr, KeyRelease, KeyReleaseMask, keyrelease, &data);
-	mlx_hook(data.win_ptr, MotionNotify, PointerMotionMask, mousemove, &data); // bonus
+	mlx_hook(data.win_ptr, MotionNotify, PointerMotionMask, 
+			mousemove, &data); // bonus
 	mlx_mouse_hook(data.win_ptr, mousescroll, &data); // bonus
 	mlx_loop_hook(data.mlx_ptr, game_loop, &data);
 	mlx_loop(data.mlx_ptr);

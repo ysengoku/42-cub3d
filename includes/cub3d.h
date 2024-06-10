@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/06 16:32:31 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/10 08:01:29 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@
 # define MINI_MAP_H 100
 # define WIN_W 960
 # define WIN_H 720
-# define TEX_SIZE 64
 
 # define MOUSE_DOWN 4
 # define MOUSE_UP 5
@@ -84,9 +83,9 @@
 /*===== enum definition =====================================================*/
 enum	e_direction
 {
-	N = 90,
+	N = 270,
 	E = 0,
-	S = 270,
+	S = 90,
 	W = 180
 };
 

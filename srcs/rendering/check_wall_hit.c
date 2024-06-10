@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 08:07:02 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/07 16:41:29 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/10 08:03:14 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,10 @@ void	check_wall_hit(t_cub3d *data, t_ray *ray)
 	is_east_or_west = 0;
 	while (!hit)
 	{
-		// if (data->map.map[ray->map_y][ray->map_x] == '1')
-		// 	hit = 1;
-		// else
-		// 	next_step(ray, &is_east_or_west);
-		next_step(ray, &is_east_or_west);
 		if (data->map.map[ray->map_y][ray->map_x] == '1')
 			hit = 1;
+		else
+			next_step(ray, &is_east_or_west);
 	}
 	if (is_east_or_west == 1)
 		ray->distance = ray->sidedist_y - ray->delta_y;

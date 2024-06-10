@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 08:57:21 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/07 17:00:48 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/10 08:04:37 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,10 @@ void	draw_wall(t_cub3d *data, int x, t_ray *ray)
 	line.y = line.y_start;
 	wall_x = get_wall_x(data, ray);
 	if (ray->wall_height != 0)
-		line.span = (double)TEX_SIZE / ray->wall_height;
+		line.span = (double)data->wall[ray->wall_side].h / ray->wall_height;
 	else
 		line.span = 0;
-	line.tex_x = (int)(wall_x * (double)TEX_SIZE);
-	// if (((ray->wall_side == WE || ray->wall_side == EA) && ray->dir_y < 0)
-	// 		|| ((ray->wall_side == NO || ray->wall_side == SO) && ray->dir_y > 0))
-	// 	line.tex_x = TEX_SIZE - line.tex_x - 1;
+	line.tex_x = (int)(wall_x * (double)data->wall[ray->wall_side].w);
 	line.tex_y = 0;
 	while (line.y < line.y_end)
 	{
@@ -58,38 +55,17 @@ void	draw_wall(t_cub3d *data, int x, t_ray *ray)
 	}
 }
 
-    //   if(side == 0 && rayDirX > 0) texX = texWidth - texX - 1;
-    //   if(side == 1 && rayDirY < 0) texX = texWidth - texX - 1;
-
 static double	get_wall_x(t_cub3d *data, t_ray *ray)
 {
 	double	wall_x;
 
 	if (ray->wall_side == WE || ray->wall_side == EA)
-	{
 		wall_x = data->player.pos_y + ray->distance * ray->dir_y;
-		// if (ray->wall_side == WE
-		// 	&& (data->player.dir > 135 && data->player.dir < 225))
-		// 	wall_x = 1.0 - wall_x;
-		// if (ray->wall_side == EA
-		// 	&& !((data->player.dir > 0 && data->player.dir < 45)
-		// 		|| (data->player.dir > 315 && data->player.dir < 360)))
-		// 	wall_x = 1.0 - wall_x;
-		// if (ray->wall_side == WE)
-		// 	wall_x = 1.0 - wall_x;
-	}
 	else
-	{
 		wall_x = data->player.pos_x + ray->distance * ray->dir_x;
-		// if (ray->wall_side == NO
-		// 	&& (data->player.dir > 45 && data->player.dir < 135))
-		// 	wall_x = 1.0 - wall_x;
-		// if (ray->wall_side == SO
-		// 	&& !(data->player.dir > 225 && data->player.dir < 315))
-		// 	wall_x = 1.0 - wall_x;
-		// if (ray->wall_side == SO)
-        //     wall_x = 1.0 - wall_x;
-	}
+	if ((ray->wall_side == SO && ray->dir_y > 0)
+		|| (ray->wall_side == WE && ray->dir_x < 0))
+		wall_x = 1 - wall_x;
 	wall_x -= floor(wall_x);
 	return (wall_x);
 }

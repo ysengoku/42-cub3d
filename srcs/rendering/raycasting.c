@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 08:30:08 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/07 16:17:41 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/10 08:03:30 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ static void	init_camera(t_cub3d *data)
 
 	direction_rad = data->player.dir * M_PI / 180;
 	data->player.dir_x = cos(direction_rad);
-	data->player.dir_y = -sin(direction_rad);
-	data->player.plane_x = data->player.dir_y * data->player.plane_length;
+	data->player.dir_y = sin(direction_rad);
+	data->player.plane_x = -data->player.dir_y * data->player.plane_length;
 	data->player.plane_y = data->player.dir_x * data->player.plane_length;
 }
 
@@ -62,7 +62,7 @@ static void	set_ray(t_cub3d *data, t_ray *ray, int x)
 	ray->dir_x = data->player.dir_x + data->player.plane_x * ray->camera_p;
 	ray->dir_y = data->player.dir_y + data->player.plane_y * ray->camera_p;
 	ray->map_x = (int)data->player.pos_x;
-	ray->map_y = (int)data->player.pos_y; //ok
+	ray->map_y = (int)data->player.pos_y;
 	ray->delta_x = fabs(1 / ray->dir_x);
 	ray->delta_y = fabs(1 / ray->dir_y);
 	set_sidedist(ray, &data->player);
