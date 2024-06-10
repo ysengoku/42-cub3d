@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/10 08:01:29 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/10 08:49:21 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <string.h>
 # include <math.h>
 # include <errno.h>
-#include <stdbool.h>
+# include <stdbool.h>
 # include "libft.h"
 # include "mlx.h"
 # include "mlx_int.h"
@@ -107,15 +107,15 @@ typedef struct s_imgdata
 	int		endian;
 }				t_imgdata;
 
-typedef struct 	s_xpm_img
+typedef struct s_xpm_img
 {
 	void		*img;
 	char		*addr;
 	int			bpp;
 	int			line_len;
 	int			endian;
-    int			w;
-    int			h;
+	int			w;
+	int			h;
 	char		*path;
 }				t_xpm_img;
 
