@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/10 08:49:21 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/10 15:40:04 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -259,7 +259,7 @@ int		free_all(t_cub3d *data, int status);
 
 /*----- Minimap -----*/
 int		create_minimap_img(t_cub3d *data, t_minimap *mmap);
-void	set_minimap(t_cub3d *data);
+void	set_minimap(t_cub3d *data, t_ray *ray);
 
 /*----- Mouse move -----*/
 int		mousemove(int x, int y, t_cub3d *data);

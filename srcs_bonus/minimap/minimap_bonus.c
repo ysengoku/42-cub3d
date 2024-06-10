@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 13:08:42 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/05 11:44:03 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/10 15:39:36 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 static void	draw_tile_color(t_minimap *mmap, int color);
 static void	draw_tile(t_cub3d *data, t_minimap *mmap, t_xpm_img *texture);
 static void	draw_player(t_cub3d *data);
-static void	draw_player_dir(t_cub3d *data);
+static void	draw_player_dir(t_cub3d *data, t_ray *ray);
 
-void	set_minimap(t_cub3d *data)
+void	set_minimap(t_cub3d *data, t_ray *ray)
 {
 	int			map_x;
 	int			map_y;
@@ -49,7 +49,7 @@ void	set_minimap(t_cub3d *data)
 		data->mmap.minimap_y += MMAP_SCALE;
 	}
 	draw_player(data);
-	draw_player_dir(data);
+	draw_player_dir(data, ray);
 }
 
 static void	draw_tile_color(t_minimap *mmap, int color)
@@ -123,20 +123,18 @@ static void	draw_player(t_cub3d *data)
 	}
 }
 
-static void	draw_player_dir(t_cub3d *data)
+static void	draw_player_dir(t_cub3d *data, t_ray *ray)
 {
 	double	dir_x;
 	double	dir_y;
-	int		steps;
 
+	(void)ray;
 	dir_x = (int)data->player.pos_x * MMAP_SCALE + MMAP_SCALE / 2 - 1;
 	dir_y = (int)data->player.pos_y * MMAP_SCALE + MMAP_SCALE / 2 - 1;
-	steps = (int)MMAP_SCALE * 1.5;
-	while (steps > 0)
+	while (data->map.map[(int)(dir_y / MMAP_SCALE)][(int)(dir_x / MMAP_SCALE)] != '1')
 	{
 		put_pxl_color(&data->mmap.img, (int)dir_x, (int)dir_y, MMAP_DIR);
 		dir_x += data->player.dir_x;
 		dir_y += data->player.dir_y;
-		steps--;
 	}
 }
