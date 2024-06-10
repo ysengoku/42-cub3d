@@ -218,6 +218,7 @@ ray.delta_y = fabs(1 / ray->dir_y);
 * [cub3d - HackMD](https://hackmd.io/@nszl/H1LXByIE2)
 * [Cub3D Tutorial - Using angles](https://medium.com/@afatir.ahmedfatir/cub3d-tutorial-af5dd31d2fcf)
 * [42 Docs - cub3d](https://harm-smits.github.io/42docs/projects/cub3d)
+* [Algorithme_Cub3D](https://github.com/Qpupier/Cub3D/blob/master/Algorithme_Cub3D.pdf)
 
 ### Videos
 * [Make Your Own Raycaster Part 1](https://youtu.be/gYRrGTC7GtA?si=7KRnt_PSqn4lz4DD)
