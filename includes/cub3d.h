@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/05 16:11:27 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/10 08:49:21 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <string.h>
 # include <math.h>
 # include <errno.h>
-#include <stdbool.h>
+# include <stdbool.h>
 # include "libft.h"
 # include "mlx.h"
 # include "mlx_int.h"
@@ -49,8 +49,9 @@
 # define MINI_MAP_H 100
 # define WIN_W 960
 # define WIN_H 720
-# define TEX_SIZE 64
 
+# define MOUSE_DOWN 4
+# define MOUSE_UP 5
 # define ESC			65307
 # define UP				119
 # define DOWN			115
@@ -63,6 +64,7 @@
 # endif
 # define MOVE 0.1
 # define ROTATE 5
+# define PITCH 1
 
 # define MMAP_SCALE	8
 # define MMAP_WALL 24676 //(int)0x006064
@@ -81,9 +83,9 @@
 /*===== enum definition =====================================================*/
 enum	e_direction
 {
-	N = 90,
+	N = 270,
 	E = 0,
-	S = 270,
+	S = 90,
 	W = 180
 };
 
@@ -105,15 +107,15 @@ typedef struct s_imgdata
 	int		endian;
 }				t_imgdata;
 
-typedef struct 	s_xpm_img
+typedef struct s_xpm_img
 {
 	void		*img;
 	char		*addr;
 	int			bpp;
 	int			line_len;
 	int			endian;
-    int			w;
-    int			h;
+	int			w;
+	int			h;
 	char		*path;
 }				t_xpm_img;
 
@@ -144,6 +146,7 @@ typedef struct s_player
 	double				plane_x;
 	double				plane_y;
 	int					moved;
+	int					pitch;
 
 }				t_player;
 
@@ -201,10 +204,12 @@ typedef struct s_cub3d
 	int			key_pressed_s;
 	int			key_pressed_a;
 	int			key_pressed_d;
+	int			previous_mouse_x; // bonus
 	t_minimap	mmap;
 }				t_cub3d;
 
 /*===== functions ============================================================*/
+
 /*----- Parsing -----*/
 int		parsing(char *file, t_cub3d *map);
 char	**get_file(char *file);
@@ -234,11 +239,9 @@ int		convert_color(int rgb[3]);
 void	put_pxl_color(t_imgdata *img, int x, int y, int color);
 
 /*----- Event handler -----*/
-int		handle_keypress(int keysym, t_cub3d *data);
-int		handle_keyrelease(int keysym, t_cub3d *data);
-// int		handle_mouseevents(int mousecode, int x, int y, t_cub3d *data);
-int 	handle_mousemove(int x, int y, t_cub3d *data);
-int		handle_closebutton(t_cub3d *data);
+int		keypress(int keysym, t_cub3d *data);
+int		keyrelease(int keysym, t_cub3d *data);
+int		closebutton(t_cub3d *data);
 void	close_window(t_cub3d *data);
 void	move_forward(t_cub3d *data, t_player *player, t_map *map);
 void	move_backward(t_cub3d *data, t_player *player, t_map *map);
@@ -252,8 +255,14 @@ void	ft_perror_exit(char *message, int code);
 void	ft_error_exit(char *message, int code);
 int		free_all(t_cub3d *data, int status);
 
+/*===== bonus part functions =================================================*/
+
 /*----- Minimap -----*/
 int		create_minimap_img(t_cub3d *data, t_minimap *mmap);
 void	set_minimap(t_cub3d *data);
+
+/*----- Mouse move -----*/
+int		mousemove(int x, int y, t_cub3d *data);
+int		mousescroll(int event, int x, int y, t_cub3d *data);
 
 #endif
