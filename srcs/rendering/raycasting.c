@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 08:30:08 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/05 16:24:43 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/10 08:47:16 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,10 @@ int	ft_raycasting(t_cub3d *data)
 		{
 			set_ray(data, &ray, x);
 			check_wall_hit(data, &ray);
-			draw_ceiling(data, x, WIN_H / 2, data->ceiling_color);
-			draw_floor(data, x, WIN_H / 2, data->floor_color);
+			draw_ceiling(data, x, WIN_H / 2 + data->player.pitch,
+				data->ceiling_color);
+			draw_floor(data, x, WIN_H / 2 + data->player.pitch,
+				data->floor_color);
 			draw_wall(data, x, &ray);
 			x++;
 		}
@@ -48,8 +50,8 @@ static void	init_camera(t_cub3d *data)
 
 	direction_rad = data->player.dir * M_PI / 180;
 	data->player.dir_x = cos(direction_rad);
-	data->player.dir_y = -sin(direction_rad);
-	data->player.plane_x = data->player.dir_y * data->player.plane_length;
+	data->player.dir_y = sin(direction_rad);
+	data->player.plane_x = -data->player.dir_y * data->player.plane_length;
 	data->player.plane_y = data->player.dir_x * data->player.plane_length;
 }
 

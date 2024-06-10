@@ -6,7 +6,7 @@
 #    By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/23 08:07:54 by yusengok          #+#    #+#              #
-#    Updated: 2024/06/05 16:20:36 by yusengok         ###   ########.fr        #
+#    Updated: 2024/06/06 12:39:57 by yusengok         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,13 +18,18 @@ BLUE = \033[34m
 NAME = cub3D
 #NAME_B = cub3D_bonus
 
-vpath %c srcs \
-		srcs/parsing \
-		srcs/rendering \
-		srcs/event \
-		srcs/error	\
-		srcs_bonus	\
-		srcs_bonus/minimap
+SRCS_DIR = srcs/
+SRCS_DIR_B = srcs_bonus/
+
+vpath %c $(SRCS_DIR) \
+		$(SRCS_DIR)parsing \
+		$(SRCS_DIR)rendering \
+		$(SRCS_DIR)event \
+		$(SRCS_DIR)error	\
+		$(SRCS_DIR_B)	\
+		$(SRCS_DIR_B)minimap	\
+		$(SRCS_DIR_B)event_bonus
+		
 FILES = main	\
 		parsing \
 		get_file \
@@ -48,10 +53,12 @@ FILES = main	\
 		error_handling	\
 		ft_free	\
 		minimap_bonus	\
-		minimap_img_bonus
+		minimap_img_bonus	\
+		mouse_move_bonus
 
 #FILES_B = minimap_bonus	\
-		minimap_img_bonus
+		minimap_img_bonus	\
+		mouse_move_bonus
 
 SRCS = $(addsuffix .c, $(FILES))
 #SRCS_B = $(addsuffix .c, $(FILES_B))
