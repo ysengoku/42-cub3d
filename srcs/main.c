@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:57 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/10 08:04:04 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/10 08:48:03 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,17 +59,15 @@ static int	ft_init_mlx(t_cub3d *data)
 	data->mlx_ptr = mlx_init();
 	if (!(data->mlx_ptr))
 	{
-		ft_putendl_fd("MLX: Initialization failed", 2);
 		free_data_map(&data->map);
-		return (1);
+		ft_perror_exit("MLX", 1);
 	}
 	data->win_ptr = mlx_new_window(data->mlx_ptr, WIN_W, WIN_H, WINNAME);
 	if (!(data->win_ptr))
 	{
-		perror("MLX");
 		free(data->mlx_ptr);
 		free_data_map(&data->map);
-		return (1);
+		ft_perror_exit("MLX", 1);
 	}
 	return (0);
 }
@@ -83,7 +81,7 @@ static int	create_main_image(t_cub3d *data)
 		mlx_destroy_display(data->mlx_ptr);
 		free(data->mlx_ptr);
 		free_data_map(&data->map);
-		return (1);
+		ft_perror_exit("MLX", 1);
 	}
 	data->img.addr = mlx_get_data_addr(data->img.img, &data->img.bits_per_pxl,
 			&data->img.line_len, &data->img.endian);
@@ -100,20 +98,17 @@ int	main(int argc, char **argv)
 		return (2);
 	init_cub3d_data(&data);
 	set_data(&data, &data.player, &data.map);
-	if (ft_init_mlx(&data) == 1)
-		return (1);
-	if (create_main_image(&data) == 1)
-		return (1);
-	if (set_wall_texture(&data, data.wall) == 1)
-		return (1);
+	ft_init_mlx(&data);
+	create_main_image(&data);
+	set_wall_texture(&data, data.wall);
 	if (create_minimap_img(&data, &data.mmap) == 1) //bonus
 		return (1);
 	mlx_hook(data.win_ptr, DestroyNotify, StructureNotifyMask,
 		closebutton, &data);
 	mlx_hook(data.win_ptr, KeyPress, KeyPressMask, keypress, &data);
 	mlx_hook(data.win_ptr, KeyRelease, KeyReleaseMask, keyrelease, &data);
-	mlx_hook(data.win_ptr, MotionNotify, PointerMotionMask, 
-			mousemove, &data); // bonus
+	mlx_hook(data.win_ptr, MotionNotify, PointerMotionMask,
+		mousemove, &data); // bonus
 	mlx_mouse_hook(data.win_ptr, mousescroll, &data); // bonus
 	mlx_loop_hook(data.mlx_ptr, game_loop, &data);
 	mlx_loop(data.mlx_ptr);

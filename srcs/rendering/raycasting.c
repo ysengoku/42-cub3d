@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 08:30:08 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/10 08:03:30 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/10 08:47:16 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	ft_raycasting(t_cub3d *data)
 	ft_memset(&ray, 0, sizeof(ray));
 	if (data->player.moved)
 	{
-		printf("(%.3f, %.3f)\n", data->player.pos_x, data->player.pos_y);
 		init_camera(data);
 		while (x < WIN_W)
 		{
