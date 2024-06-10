@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 08:30:08 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/10 15:40:48 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/10 16:22:31 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ int	ft_raycasting(t_cub3d *data)
 	if (data->player.moved)
 	{
 		init_camera(data);
+		if (BONUS)
+			set_minimap(data);
 		while (x < WIN_W)
 		{
 			set_ray(data, &ray, x);
@@ -35,11 +37,16 @@ int	ft_raycasting(t_cub3d *data)
 			draw_floor(data, x, WIN_H / 2 + data->player.pitch,
 				data->floor_color);
 			draw_wall(data, x, &ray);
+			if (BONUS)
+				draw_ray_mmap(data, &ray);
 			x++;
 		}
-		if (BONUS)
-			set_minimap(data, &ray);
 		data->player.moved = 0;
+		if (BONUS)
+		{
+			draw_player(data);
+			draw_player_dir(data);
+		}
 	}
 	return (0);
 }

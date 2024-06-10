@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/10 15:40:04 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/10 16:22:07 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@
 # define MMAP_FLOOR 11583173 //(int)0xB0BEC5
 # define MMAP_P 12915042 //(int)0xC51162
 # define MMAP_DIR 13959168 //(int)0xD50000
+# define MMAP_RAY 16776623 //(int)0xfffdaf
 # define MMAP_SPACE 11977418 //(int)0xB6C2CA
 # define MMAP_F "./textures/minimap/floor.xpm"
 # define MMAP_PL "./textures/minimap/player.xpm"
@@ -259,7 +260,10 @@ int		free_all(t_cub3d *data, int status);
 
 /*----- Minimap -----*/
 int		create_minimap_img(t_cub3d *data, t_minimap *mmap);
-void	set_minimap(t_cub3d *data, t_ray *ray);
+void	set_minimap(t_cub3d *data);
+void	draw_player(t_cub3d *data);
+void	draw_player_dir(t_cub3d *data);
+void	draw_ray_mmap(t_cub3d *data, t_ray *ray);
 
 /*----- Mouse move -----*/
 int		mousemove(int x, int y, t_cub3d *data);
