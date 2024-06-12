@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 15:25:44 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/12 14:49:36 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/12 16:57:58 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,17 @@ int	free_all(t_cub3d *data, int status)
 	free(data->mlx_ptr);
 	free_data_map(&data->map);
 	return (status);
+}
+
+void	free_texture_paths(t_xpm_img *wall, int size)
+{
+	int	i;
+
+	i = 0;
+	while (i < size)
+	{
+		if (wall[i].path)
+			free(wall[i].path);
+		i++;
+	}
 }
