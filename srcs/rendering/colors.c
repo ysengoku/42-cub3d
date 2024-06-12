@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 13:59:02 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/03 12:16:11 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/12 17:38:27 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,12 @@ void	put_pxl_color(t_imgdata *img, int x, int y, int color)
 		pxl = img->addr + (y * img->line_len + x * (img->bits_per_pxl / 8));
 		*(int *)pxl = color;
 	}
+}
+
+unsigned int	get_tex_color(t_xpm_img *texture, int x, int y)
+{
+	char	*pxl;
+
+	pxl = texture->addr + (y * texture->line_len + x * (texture->bpp / 8));
+	return (*(unsigned int *)pxl);
 }
