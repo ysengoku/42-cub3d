@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 14:30:34 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/12 14:53:44 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/12 16:21:32 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	set_wall_texture(t_cub3d *data, t_xpm_img wall[4])
 		{
 			while (i-- > 0)
 				mlx_destroy_image(data->mlx_ptr, wall[i].img);
-			while (++i < 4)
+			while (++i < 5) // if mandatory, i < 4
 				free(wall[i].path);
 			free(data->doors);
 			mlx_destroy_image(data->mlx_ptr, data->img.img);

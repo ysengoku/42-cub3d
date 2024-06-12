@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 16:59:04 by jmougel           #+#    #+#             */
-/*   Updated: 2024/06/12 13:28:29 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/12 16:18:34 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	check(int *player, int *i, int j, t_map *data_map)
 	else if (data_map->dup_map[j][*i] == '1'
 		|| data_map->dup_map[j][*i] == '0'
 		|| data_map->dup_map[j][*i] == 32
-		|| data_map->dup_map[j][*i] == 'D') // temporary code just for test of sprite
+		|| data_map->dup_map[j][*i] == 'D')
 	{
 		*i += 1;
 	}

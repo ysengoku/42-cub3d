@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:14:25 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/12 13:53:55 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/12 16:20:17 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,5 @@ int	game_loop(t_cub3d *data)
 		move_backward(data, &data->player, &data->map);
 	if (data->key_pressed_d)
 		move_right(data, &data->player, &data->map);
-	/*=== bonus ===============*/
-	// if (data->key_pressed_o)
-	// {
-	// 	printf("O keypressed\n");
-	// 	open_door(data);
-	// }
-	// if (data->key_pressed_c)
-	// 	close_door(data);
 	return (0);
 }

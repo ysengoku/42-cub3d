@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:57 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/12 14:54:03 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/12 16:20:59 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,6 @@ int	main(int argc, char **argv)
 	ft_init_mlx(&data);
 	create_main_image(&data);
 	set_wall_texture(&data, data.wall);
-	// set_door_texture(&data); // bonus
 	if (create_minimap_img(&data, &data.mmap) == 1) //bonus
 		return (1);
 	mlx_hook(data.win_ptr, DestroyNotify, StructureNotifyMask,

@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 08:30:08 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/12 09:21:43 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/12 16:24:15 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,7 @@ int	ft_raycasting(t_cub3d *data)
 		}
 		data->player.moved = 0;
 		if (BONUS)
-		{
 			draw_player(data);
-			draw_player_dir(data);
-		}
 	}
 	return (0);
 }
