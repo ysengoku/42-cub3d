@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 16:53:25 by jmougel           #+#    #+#             */
-/*   Updated: 2024/06/05 15:50:26 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/12 15:09:02 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,24 @@ static char	*get_sprite_path(char *sprite, t_map *data_map)
 	return (path);
 }
 
+static void	free_texture_paths(t_xpm_img *wall)
+{
+	int	i;
+
+	i = 0;
+	while (i < 4)
+	{
+		if (wall[i].path)
+			free(wall[i].path);
+		i++;
+	}
+}
+
 int	get_sprites_path(t_cub3d *data)
 {
+	int	i;
+
+	i = 0;
 	data->wall[NO].path = get_sprite_path("NO", &data->map);
 	data->wall[SO].path = get_sprite_path("SO", &data->map);
 	data->wall[WE].path = get_sprite_path("WE", &data->map);
@@ -62,8 +78,18 @@ int	get_sprites_path(t_cub3d *data)
 	if (!data->wall[NO].path || !data->wall[SO].path
 		|| !data->wall[WE].path || !data->wall[EA].path)
 	{
+		free_texture_paths(data->wall);
 		exit_parsing(&data->map, "Error\nCub3D: invalid sprite");
 		return (EXIT_FAILURE);
 	}
+	/*=== Bonus =================================================*/
+	data->wall[DR].path = ft_strdup(DOOR_TEX);
+	if (!data->wall[DR].path)
+	{
+		free_texture_paths(data->wall);
+		exit_parsing(&data->map, "Error\nCub3D: malloc failed");
+		return (EXIT_FAILURE);
+	}
+	/*=============================================================*/
 	return (EXIT_SUCCESS);
 }

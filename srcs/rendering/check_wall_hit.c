@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 08:07:02 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/10 08:03:14 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/12 14:01:03 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,15 @@ static int	get_wall_side(t_ray *ray, t_player *player, int is_east_or_west);
 
 void	check_wall_hit(t_cub3d *data, t_ray *ray)
 {
-	int		hit;
 	int		is_east_or_west;
 
-	hit = 0;
 	is_east_or_west = 0;
-	while (!hit)
+	while (ray->hit == NOTHING)
 	{
 		if (data->map.map[ray->map_y][ray->map_x] == '1')
-			hit = 1;
+			ray->hit = WALL;
+		else if (data->map.map[ray->map_y][ray->map_x] == 'D')
+			ray->hit = DOOR;
 		else
 			next_step(ray, &is_east_or_west);
 	}

@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:57 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/10 08:48:03 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/12 14:54:03 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,12 @@ static void	init_cub3d_data(t_cub3d *data)
 	init_player(&data->player);
 	data->ceiling_color = 0;
 	data->floor_color = 0;
-	ft_memset(&data->mmap, 0, sizeof(data->mmap));
-	ft_memset(&data->mmap.img, 0, sizeof(data->mmap.img));
+	ft_memset(&data->mmap, 0, sizeof(data->mmap)); // bonus
+	ft_memset(&data->mmap.img, 0, sizeof(data->mmap.img)); // bonus
 	//------ if we use texture for minimap ----------------------
-	ft_memset(&data->mmap.floor, 0, sizeof(data->mmap.floor));
-	ft_memset(&data->mmap.wall, 0, sizeof(data->mmap.wall));
-	ft_memset(&data->mmap.player, 0, sizeof(data->mmap.player));
+	// ft_memset(&data->mmap.floor, 0, sizeof(data->mmap.floor));
+	// ft_memset(&data->mmap.wall, 0, sizeof(data->mmap.wall));
+	// ft_memset(&data->mmap.player, 0, sizeof(data->mmap.player));
 	//-----------------------------------------------------------
 	data->key_pressed_left = 0;
 	data->key_pressed_right = 0;
@@ -101,6 +101,7 @@ int	main(int argc, char **argv)
 	ft_init_mlx(&data);
 	create_main_image(&data);
 	set_wall_texture(&data, data.wall);
+	// set_door_texture(&data); // bonus
 	if (create_minimap_img(&data, &data.mmap) == 1) //bonus
 		return (1);
 	mlx_hook(data.win_ptr, DestroyNotify, StructureNotifyMask,

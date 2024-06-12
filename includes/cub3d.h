@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/10 16:22:07 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/12 14:54:45 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,25 +45,28 @@
 
 /*===== macro definition =====================================================*/
 # define WINNAME "cub3D"
-# define MINI_MAP_W 100
-# define MINI_MAP_H 100
 # define WIN_W 960
 # define WIN_H 720
 
-# define MOUSE_DOWN 4
-# define MOUSE_UP 5
-# define ESC			65307
-# define UP				119
-# define DOWN			115
-# define RIGHT			100
-# define LEFT			97
-# define CLOSE_WINDOW	17
+// # define ESC			65307
+// # define UP				119
+// # define DOWN			115
+// # define RIGHT			100
+// # define LEFT			97
+// # define CLOSE_WINDOW	17
 
 # ifndef FOV
 #  define FOV 90
 # endif
 # define MOVE 0.1
 # define ROTATE 5
+
+/*+++++ BONUS ++++++++++++++++++++++++++++++++++++++++++++++*/
+# define MINI_MAP_W 100
+# define MINI_MAP_H 100
+
+# define MOUSE_DOWN 4
+# define MOUSE_UP 5
 # define PITCH 1
 
 # define MMAP_SCALE	8
@@ -73,9 +76,11 @@
 # define MMAP_DIR 13959168 //(int)0xD50000
 # define MMAP_RAY 16776623 //(int)0xfffdaf
 # define MMAP_SPACE 11977418 //(int)0xB6C2CA
-# define MMAP_F "./textures/minimap/floor.xpm"
-# define MMAP_PL "./textures/minimap/player.xpm"
-# define MMAP_WL "./textures/minimap/wall.xpm"
+# define MMAP_DOOR 4770532 //(int)0x48cae4
+// # define MMAP_WL "./textures/minimap/wall.xpm"
+
+# define DOOR_TEX "./textures/door.xpm"
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
 # ifndef BONUS
 #  define BONUS 1
@@ -95,7 +100,15 @@ enum	e_wallside
 	NO = 0,
 	SO = 1,
 	WE = 2,
-	EA = 3
+	EA = 3,
+	DR = 4
+};
+
+enum	e_hit
+{
+	WALL = 1,
+	DOOR = 2,
+	NOTHING = 0
 };
 
 /*===== structures ===========================================================*/
@@ -151,8 +164,15 @@ typedef struct s_player
 
 }				t_player;
 
+typedef struct s_door
+{
+	int	map_x;
+	int	map_y;
+}			t_door;
+
 typedef struct s_ray
 {
+	enum e_hit		hit;
 	double			camera_p;
 	double			dir_x;
 	double			dir_y;
@@ -198,15 +218,19 @@ typedef struct s_cub3d
 	t_player	player;
 	int			ceiling_color;
 	int			floor_color;
-	t_xpm_img	wall[4];
+	t_xpm_img	wall[5];
 	int			key_pressed_left;
 	int			key_pressed_right;
 	int			key_pressed_w;
 	int			key_pressed_s;
 	int			key_pressed_a;
 	int			key_pressed_d;
-	int			previous_mouse_x; // bonus
+	/*++++++ Bonus +++++++++++++++++++*/
+	int			previous_mouse_x;
 	t_minimap	mmap;
+	int			door_count;
+	t_door		*doors;
+	/*+++++++++++++++++++++++++++++++++*/
 }				t_cub3d;
 
 /*===== functions ============================================================*/
@@ -268,5 +292,10 @@ void	draw_ray_mmap(t_cub3d *data, t_ray *ray);
 /*----- Mouse move -----*/
 int		mousemove(int x, int y, t_cub3d *data);
 int		mousescroll(int event, int x, int y, t_cub3d *data);
+
+/*----- Doors -----*/
+void	store_doors_coordinates(t_cub3d *data);
+void	open_door(t_cub3d *data);
+void	close_door(t_cub3d *data);
 
 #endif
