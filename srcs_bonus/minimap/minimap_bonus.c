@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 13:08:42 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/12 14:32:59 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/12 16:23:34 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,15 @@ void	set_minimap(t_cub3d *data)
 	int			map_x;
 	int			map_y;
 
-	map_y = 0;
+	map_y = -1;
 	data->mmap.minimap_y = 0;
-	while (map_y < data->map.map_len_y)
+	while (++map_y < data->map.map_len_y)
 	{
 		map_x = 0;
 		data->mmap.minimap_x = 0;
 		while (data->map.map[map_y][map_x])
 		{
 			if (data->map.map[map_y][map_x] == '1')
-				// draw_tile(data, &data->mmap, &data->mmap.wall);
 				draw_tile_color(&data->mmap, MMAP_WALL);
 			else if (data->map.map[map_y][map_x] == 'D')
 				draw_tile_color(&data->mmap, MMAP_DOOR);
@@ -38,12 +37,6 @@ void	set_minimap(t_cub3d *data)
 				draw_tile_color(&data->mmap, MMAP_FLOOR);
 			map_x++;
 		}
-		while (map_x < data->map.map_len_x - 1)
-		{
-			draw_tile_color(&data->mmap, MMAP_SPACE);
-			map_x++;
-		}
-		map_y++;
 		data->mmap.minimap_y += MMAP_SCALE;
 	}
 }
@@ -82,6 +75,7 @@ void	draw_player(t_cub3d *data)
 		i++;
 		y++;
 	}
+	draw_player_dir(data);
 }
 
 void	draw_player_dir(t_cub3d *data)
