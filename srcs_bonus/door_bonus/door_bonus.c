@@ -1,28 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minimap_img_bonus.c                                :+:      :+:    :+:   */
+/*   door_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/03 15:38:08 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/12 14:33:07 by yusengok         ###   ########.fr       */
+/*   Created: 2024/06/12 09:14:18 by yusengok          #+#    #+#             */
+/*   Updated: 2024/06/12 14:54:35 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	create_minimap_img(t_cub3d *data, t_minimap *mmap)
+void	open_door(t_cub3d *data)
 {
-	if (!BONUS)
-		return (0);
-	mmap->img.img = mlx_new_image(data->mlx_ptr,
-			(data->map.map_len_x - 1) * MMAP_SCALE,
-			data->map.map_len_y * MMAP_SCALE);
-	if (mmap->img.img == NULL)
-		return (free_all(data, 1));
-	mmap->img.addr = mlx_get_data_addr(mmap->img.img,
-			&mmap->img.bits_per_pxl, &mmap->img.line_len,
-			&mmap->img.endian);
-	return (0);
+	int	i;
+
+	i = 0;
+	while (i < data->door_count)
+	{
+		data->map.map[data->doors[i].map_y][data->doors[i].map_x] = 'O';
+		i++;
+	}
+	data->player.moved = 1;
+}
+
+void	close_door(t_cub3d *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < data->door_count)
+	{
+		data->map.map[data->doors[i].map_y][data->doors[i].map_x] = 'D';
+		i++;
+	}
+	data->player.moved = 1;
 }

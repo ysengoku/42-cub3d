@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 08:57:21 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/10 08:04:37 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/12 14:37:39 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,14 @@ void	draw_wall(t_cub3d *data, int x, t_ray *ray)
 	else
 		line.span = 0;
 	line.tex_x = (int)(wall_x * (double)data->wall[ray->wall_side].w);
-	line.tex_y = 0;
-	while (line.y < line.y_end)
+	line.tex_y = -1;
+	if (ray->hit == DOOR)
+		ray->wall_side = DR;
+	while (++line.y < line.y_end)
 	{
 		line.tex_y = (int)(((double)line.y - (double)line.y_start) * line.span);
 		put_pxl_color(&data->img, x, line.y,
 			get_tex_color(&data->wall[ray->wall_side], line.tex_x, line.tex_y));
-		line.y++;
 	}
 }
 

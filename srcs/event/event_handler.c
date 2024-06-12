@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 10:42:38 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/06 13:09:22 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/12 13:59:40 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,12 @@ int	keypress(int keysym, t_cub3d *data)
 		data->key_pressed_s = 1;
 	if (keysym == XK_d)
 		data->key_pressed_d = 1;
+	/*=== bonus ===============*/
+	if (keysym == XK_o)
+		open_door(data);
+	if (keysym == XK_c)
+		close_door(data);
+	/*=========================*/
 	return (0);
 }
 
