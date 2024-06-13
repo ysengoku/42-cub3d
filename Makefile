@@ -6,7 +6,7 @@
 #    By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/23 08:07:54 by yusengok          #+#    #+#              #
-#    Updated: 2024/06/13 13:38:26 by yusengok         ###   ########.fr        #
+#    Updated: 2024/06/13 15:51:48 by yusengok         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,13 +58,12 @@ FILES = main	\
 		minimap_utils_bonus	\
 		mouse_move_bonus	\
 		door_bonus	\
-		door_parsing_bonus
+		#door_parsing_bonus
 
 #FILES_B = minimap_bonus	\
 		minimap_img_bonus	\
 		mouse_move_bonus	\
 		door_bonus	\
-		door_parsing_bonus
 
 SRCS = $(addsuffix .c, $(FILES))
 #SRCS_B = $(addsuffix .c, $(FILES_B))
@@ -87,7 +86,7 @@ BONUS = 0
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-INCLUDE = -I$(HEADERS_DIR) -I$(LIBFT_DIR) -I$(LIBMLX_DIR) -I/usr/include -g3
+INCLUDE = -I$(HEADERS_DIR) -I$(LIBFT_DIR) -I$(LIBMLX_DIR) -I/usr/include -g
 MLXFLAGS = -lmlx -lXext -lX11 -lm
 RM = rm -f
 

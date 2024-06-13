@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 15:25:44 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/12 16:57:58 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/13 15:49:58 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ int	free_all(t_cub3d *data, int status)
 	}
 	if (data->mmap.img.img)
 		mlx_destroy_image(data->mlx_ptr, data->mmap.img.img);
-	if (data->doors)
-		free(data->doors);
+	// if (data->doors)
+	// 	free(data->doors);
 	mlx_destroy_image(data->mlx_ptr, data->img.img);
 	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
 	mlx_destroy_display(data->mlx_ptr);
