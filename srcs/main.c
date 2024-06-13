@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:57 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/13 09:24:36 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/13 11:48:48 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	init_player(t_player *player)
 	player->dir = 0.0;
 	player->dir_x = 0;
 	player->dir_y = 0;
-	player->plane_length = tan(player->fov / 2);
+	player->plane_length = tan(player->fov * 0.5);
 	player->plane_x = 0;
 	player->plane_y = 0;
 	player->moved = 1;
