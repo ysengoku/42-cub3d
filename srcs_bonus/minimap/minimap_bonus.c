@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 13:08:42 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/13 09:37:46 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/13 11:44:25 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	draw_circle(t_cub3d *data, int xc, int yc, int r)
 	int	i;
 	int	x;
 	int	y;
-	
+
 	x = 0;
 	while (x <= r)
 	{
@@ -66,7 +66,8 @@ void	draw_player_dir(t_cub3d *data)
 	p_y = (int)data->player.pos_y;
 	p_x += 0.5;
 	p_y += 0.5;
-	while ((int)dir_x > 0 && (int)dir_y > 0 && (int)dir_x < MMAP_TOTAL_SIZE && (int)dir_y < MMAP_TOTAL_SIZE)
+	while ((int)dir_x > 0 && (int)dir_y > 0
+		&& (int)dir_x < MMAP_TOTAL_SIZE && (int)dir_y < MMAP_TOTAL_SIZE)
 	{
 		p_x += (data->player.dir_x / (MMAP_BORDER + MMAP_SCALE));
 		p_y += (data->player.dir_y / (MMAP_BORDER + MMAP_SCALE));
@@ -74,7 +75,7 @@ void	draw_player_dir(t_cub3d *data)
 			|| !data->map.map[(int)floor(p_y)][(int)floor(p_x)]
 			|| data->map.map[(int)floor(p_y)][(int)floor(p_x)] == ' '
 			|| data->map.map[(int)floor(p_y)][(int)floor(p_x)] == '1')
-			break;
+			break ;
 		put_pxl_color(&data->mmap.img, (int)dir_x, (int)dir_y, MMAP_DIR);
 		dir_x += data->player.dir_x;
 		dir_y += data->player.dir_y;

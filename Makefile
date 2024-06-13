@@ -6,7 +6,7 @@
 #    By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/23 08:07:54 by yusengok          #+#    #+#              #
-#    Updated: 2024/06/13 09:26:00 by yusengok         ###   ########.fr        #
+#    Updated: 2024/06/13 11:42:21 by yusengok         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,7 +61,9 @@ FILES = main	\
 
 #FILES_B = minimap_bonus	\
 		minimap_img_bonus	\
-		mouse_move_bonus
+		mouse_move_bonus	\
+		door_bonus	\
+		door_parsing_bonus
 
 SRCS = $(addsuffix .c, $(FILES))
 #SRCS_B = $(addsuffix .c, $(FILES_B))

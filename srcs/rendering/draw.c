@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 08:57:21 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/13 08:56:00 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/13 11:45:57 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	draw_wall(t_cub3d *data, int x, t_ray *r)
 	{
 		line.tx_y = (int)(((double)line.y - (double)line.y_start) * line.span);
 		line.color = get_txcolor(&data->wall[r->w_side],
-			line.tx_x, line.tx_y);
+				line.tx_x, line.tx_y);
 		put_pxl_color(&data->img, x, line.y, line.color);
 	}
 }
@@ -99,4 +99,3 @@ void	draw_door(t_cub3d *data, int x, t_ray *r)
 	}
 }
 //==============================================================================
-
