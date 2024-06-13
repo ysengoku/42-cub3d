@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 13:08:42 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/13 11:44:25 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/13 11:49:36 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ void	draw_player_dir(t_cub3d *data)
 	double	p_x;
 	double	p_y;
 
-	dir_x = (MMAP_TOTAL_SIZE) / 2;
-	dir_y = (MMAP_TOTAL_SIZE) / 2;
+	dir_x = (MMAP_TOTAL_SIZE) * 0.5;
+	dir_y = (MMAP_TOTAL_SIZE) * 0.5;
 	p_x = (int)data->player.pos_x;
 	p_y = (int)data->player.pos_y;
 	p_x += 0.5;
@@ -89,8 +89,8 @@ void	draw_ray_mmap(t_cub3d *data, t_ray *ray)
 	double	p_x;
 	double	p_y;
 
-	dir_x = (MMAP_TOTAL_SIZE) / 2;
-	dir_y = (MMAP_TOTAL_SIZE) / 2;
+	dir_x = (MMAP_TOTAL_SIZE) * 0.5;
+	dir_y = (MMAP_TOTAL_SIZE) * 0.5;
 	p_x = (int)data->player.pos_x;
 	p_y = (int)data->player.pos_y;
 	p_x += 0.5;
@@ -174,6 +174,6 @@ void	draw_minimap(t_cub3d *data)
 void	draw_player(t_cub3d *data)
 {
 	draw_circle(data,
-		((MMAP_SCALE * MMAP_SIZE + MMAP_BORDER * MMAP_SIZE) / 2),
-		((MMAP_SCALE * MMAP_SIZE + MMAP_BORDER * MMAP_SIZE) / 2), 5);
+		((MMAP_SCALE * MMAP_SIZE + MMAP_BORDER * MMAP_SIZE) * 0.5),
+		((MMAP_SCALE * MMAP_SIZE + MMAP_BORDER * MMAP_SIZE) * 0.5), 5);
 }

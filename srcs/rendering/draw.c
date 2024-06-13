@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 08:57:21 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/13 11:45:57 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/13 11:48:32 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ void	draw_wall(t_cub3d *data, int x, t_ray *r)
 	t_line	line;
 	double	wall_x;
 
-	line.y_start = WIN_H / 2 - r->wall_height / 2 + data->player.pitch;
+	line.y_start = data->win_half_h - r->wall_height * 0.5 + data->player.pitch;
 	if (line.y_start < 0)
 		line.y_start = 0;
-	line.y_end = WIN_H / 2 + r->wall_height / 2 + data->player.pitch;
+	line.y_end = data->win_half_h + r->wall_height * 0.5 + data->player.pitch;
 	if (line.y_end > WIN_H)
 		line.y_end = WIN_H -1;
 	line.y = line.y_start;
@@ -75,10 +75,10 @@ void	draw_door(t_cub3d *data, int x, t_ray *r)
 	t_line	line;
 	double	wall_x;
 
-	line.y_start = WIN_H / 2 - r->wall_height / 2 + data->player.pitch;
+	line.y_start = data->win_half_h - r->wall_height * 0.5 + data->player.pitch;
 	if (line.y_start < 0)
 		line.y_start = 0;
-	line.y_end = WIN_H / 2 + r->wall_height / 2 + data->player.pitch;
+	line.y_end = data->win_half_h + r->wall_height * 0.5 + data->player.pitch;
 	if (line.y_end > WIN_H)
 		line.y_end = WIN_H -1;
 	line.y = line.y_start;
