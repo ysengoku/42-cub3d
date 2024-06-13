@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 08:30:08 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/13 08:00:46 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/13 08:51:08 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ int	ft_raycasting(t_cub3d *data)
 			set_minimap(data);
 		while (x < WIN_W)
 		{
-			draw_ceiling(data, x, WIN_H / 2 + data->player.pitch,
+			draw_ceiling(data, x, data->win_half_h + data->player.pitch,
 				data->ceiling_color);
-			draw_floor(data, x, WIN_H / 2 + data->player.pitch,
+			draw_floor(data, x, data->win_half_h + data->player.pitch,
 				data->floor_color);
 			set_ray(data, &ray, x);
 			check_wall_hit(data, &ray);
@@ -69,6 +69,7 @@ static void	init_camera(t_cub3d *data)
 static void	set_ray(t_cub3d *data, t_ray *ray, int x)
 {
 	ray->hit = NOTHING;
+	ray->w_dist = 0;
 	ray->camera_p = 2 * x / (double)WIN_W - 1;
 	ray->dir_x = data->player.dir_x + data->player.plane_x * ray->camera_p;
 	ray->dir_y = data->player.dir_y + data->player.plane_y * ray->camera_p;

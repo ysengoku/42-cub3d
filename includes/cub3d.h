@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/12 17:46:52 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/13 08:54:05 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,7 +190,7 @@ typedef struct s_ray
 	double			sidedist_y;
 	double			delta_x;
 	double			delta_y;
-	double			distance;
+	double			w_dist;
 	int				wall_height;
 	enum e_wallside	w_side;
 }			t_ray;
@@ -200,8 +200,8 @@ typedef struct s_line
 	int		y;
 	int		y_start;
 	int		y_end;
-	int		tex_x;
-	int		tex_y;
+	int		tx_x;
+	int		tx_y;
 	double	span;
 	int		color;
 }				t_line;
@@ -220,6 +220,8 @@ typedef struct s_cub3d
 {
 	void		*mlx_ptr;
 	void		*win_ptr;
+	int			win_half_w;
+	int			win_half_h;
 	t_imgdata	img;
 	t_map		map;
 	t_player	player;
@@ -268,7 +270,7 @@ void			draw_wall(t_cub3d *data, int x, t_ray *ray);
 void			draw_ceiling(t_cub3d *data, int x, int end, int ceiling_color);
 void			draw_floor(t_cub3d *data, int start, int end, int floor_color);
 int				convert_color(int rgb[3]);
-unsigned int	get_tex_color(t_xpm_img *texture, int x, int y);
+unsigned int	get_txcolor(t_xpm_img *texture, int x, int y);
 void			put_pxl_color(t_imgdata *img, int x, int y, int color);
 
 /*----- Event handler -----*/
