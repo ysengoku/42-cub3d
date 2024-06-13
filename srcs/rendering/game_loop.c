@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:14:25 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/05 08:09:14 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/13 08:52:19 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	game_loop(t_cub3d *data)
 {
-	ft_raycasting(data);
+	display(data);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
 		data->img.img, 0, 0);
 	if (BONUS)

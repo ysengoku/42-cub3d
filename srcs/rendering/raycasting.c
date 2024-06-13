@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 08:30:08 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/10 16:22:31 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/13 08:49:12 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,20 @@ static void	init_camera(t_cub3d *data);
 static void	set_ray(t_cub3d *data, t_ray *ray, int x);
 static void	set_sidedist(t_ray *ray, t_player *player);
 
-int	ft_raycasting(t_cub3d *data)
+void	raycasting(t_cub3d *data, t_ray *ray, int x)
+{
+	set_ray(data, ray, x);
+	check_wall_hit(data, ray);
+	draw_ceiling(data, x, WIN_H / 2 + data->player.pitch,
+		data->ceiling_color);
+	draw_floor(data, x, WIN_H / 2 + data->player.pitch,
+		data->floor_color);
+	draw_wall(data, x, ray);
+	if (BONUS && data->key_pressed_x == 1)
+		draw_ray_mmap(data, ray);
+}
+
+int	display(t_cub3d *data)
 {
 	int		x;
 	t_ray	ray;
@@ -27,26 +40,18 @@ int	ft_raycasting(t_cub3d *data)
 	{
 		init_camera(data);
 		if (BONUS)
-			set_minimap(data);
-		while (x < WIN_W)
 		{
-			set_ray(data, &ray, x);
-			check_wall_hit(data, &ray);
-			draw_ceiling(data, x, WIN_H / 2 + data->player.pitch,
-				data->ceiling_color);
-			draw_floor(data, x, WIN_H / 2 + data->player.pitch,
-				data->floor_color);
-			draw_wall(data, x, &ray);
-			if (BONUS)
-				draw_ray_mmap(data, &ray);
-			x++;
+			draw_minimap_zone(data);
+			draw_minimap(data);
 		}
-		data->player.moved = 0;
+		while (x < WIN_W)
+			raycasting(data, &ray, x++);
 		if (BONUS)
 		{
 			draw_player(data);
 			draw_player_dir(data);
 		}
+		data->player.moved = 0;
 	}
 	return (0);
 }

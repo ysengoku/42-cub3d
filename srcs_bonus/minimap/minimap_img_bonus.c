@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_img_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 15:38:08 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/03 15:57:13 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/12 08:42:32 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,15 @@ int	create_minimap_img(t_cub3d *data, t_minimap *mmap)
 	if (!BONUS)
 		return (0);
 	mmap->img.img = mlx_new_image(data->mlx_ptr,
-			(data->map.map_len_x - 1) * MMAP_SCALE,
-			data->map.map_len_y * MMAP_SCALE);
+			((MMAP_SCALE * MMAP_SIZE) + (MMAP_BORDER * MMAP_SIZE) + 1),
+			((MMAP_SCALE * MMAP_SIZE) + (MMAP_BORDER * MMAP_SIZE) + 1));
 	if (mmap->img.img == NULL)
 		return (free_all(data, 1));
 	mmap->img.addr = mlx_get_data_addr(mmap->img.img,
 			&mmap->img.bits_per_pxl, &mmap->img.line_len,
 			&mmap->img.endian);
-	/*===== If minimap with texture ==========================================*/
-	mmap->floor.img = mlx_xpm_file_to_image(data->mlx_ptr, MMAP_F,
+	//===== If minimap with texture ==========================================
+	/* mmap->floor.img = mlx_xpm_file_to_image(data->mlx_ptr, MMAP_F,
 			&mmap->floor.w, &mmap->floor.h);
 	mmap->player.img = mlx_xpm_file_to_image(data->mlx_ptr, MMAP_PL,
 			&mmap->player.w, &mmap->player.h);
@@ -38,7 +38,7 @@ int	create_minimap_img(t_cub3d *data, t_minimap *mmap)
 	mmap->player.addr = mlx_get_data_addr(mmap->player.img,
 			&mmap->player.bpp, &mmap->player.line_len, &mmap->player.endian);
 	mmap->wall.addr = mlx_get_data_addr(mmap->wall.img,
-			&mmap->wall.bpp, &mmap->wall.line_len, &mmap->wall.endian);
-	/*========================================================================*/
+			&mmap->wall.bpp, &mmap->wall.line_len, &mmap->wall.endian); */
+	//========================================================================
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/10 16:22:07 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/13 08:50:16 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,11 @@
 # define ROTATE 5
 # define PITCH 1
 
-# define MMAP_SCALE	8
+# define MMAP_SCALE 20
+# define MMAP_SIZE 9
+# define MMAP_BORDER 1
+# define MMAP_TOTAL_SIZE MMAP_SCALE * MMAP_SIZE + MMAP_BORDER * MMAP_SIZE
+# define MMAP_EMPTY 0
 # define MMAP_WALL 24676 //(int)0x006064
 # define MMAP_FLOOR 11583173 //(int)0xB0BEC5
 # define MMAP_P 12915042 //(int)0xC51162
@@ -205,6 +209,7 @@ typedef struct s_cub3d
 	int			key_pressed_s;
 	int			key_pressed_a;
 	int			key_pressed_d;
+	int			key_pressed_x;
 	int			previous_mouse_x; // bonus
 	t_minimap	mmap;
 }				t_cub3d;
@@ -228,7 +233,7 @@ void	set_data(t_cub3d *data, t_player *player, t_map *map);
 int		set_wall_texture(t_cub3d *data, t_xpm_img wall[4]);
 
 /*----- Ray casting -----*/
-int		ft_raycasting(t_cub3d *data);
+int		display(t_cub3d *data);
 void	check_wall_hit(t_cub3d *data, t_ray *ray);
 
 /*----- Image rendering -----*/
@@ -236,6 +241,8 @@ int		game_loop(t_cub3d *data);
 void	draw_wall(t_cub3d *data, int x, t_ray *ray);
 void	draw_ceiling(t_cub3d *data, int x, int end, int ceiling_color);
 void	draw_floor(t_cub3d *data, int start, int end, int floor_color);
+void	draw_minimap(t_cub3d *data);
+void	draw_minimap_zone(t_cub3d *data);
 int		convert_color(int rgb[3]);
 void	put_pxl_color(t_imgdata *img, int x, int y, int color);
 

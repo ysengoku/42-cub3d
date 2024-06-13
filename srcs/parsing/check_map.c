@@ -6,7 +6,7 @@
 /*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 16:59:04 by jmougel           #+#    #+#             */
-/*   Updated: 2024/06/04 17:20:32 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/12 07:51:18 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static int	check(int *player, int *i, int j, t_map *data_map)
 		|| data_map->dup_map[j][*i] == 'E'
 		|| data_map->dup_map[j][*i] == 'W')
 	{
+		data_map->map[j][*i] = 'P';
 		data_map->player = data_map->dup_map[j][*i];
 		data_map->pos_x = *i;
 		data_map->pos_y = j;
