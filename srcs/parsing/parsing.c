@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 16:54:57 by jmougel           #+#    #+#             */
-/*   Updated: 2024/06/05 14:36:12 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/12 15:10:20 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,7 @@ int	parsing(char *file, t_cub3d *data)
 	get_data(data);
 	get_maps(&data->map);
 	check_map(&data->map);
-	/* Test */
-	
+	store_doors_coordinates(data); // For test
 	display_data(data);
-	//free_data_map(&data->map);
-	
-	/********/
 	return (EXIT_SUCCESS);
 }

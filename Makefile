@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+         #
+#    By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/23 08:07:54 by yusengok          #+#    #+#              #
-#    Updated: 2024/06/12 10:51:23 by jmougel          ###   ########.fr        #
+#    Updated: 2024/06/13 09:26:00 by yusengok         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,8 @@ vpath %c $(SRCS_DIR) \
 		$(SRCS_DIR)error	\
 		$(SRCS_DIR_B)	\
 		$(SRCS_DIR_B)minimap	\
-		$(SRCS_DIR_B)event_bonus
+		$(SRCS_DIR_B)event_bonus	\
+		$(SRCS_DIR_B)door_bonus
 		
 FILES = main	\
 		parsing \
@@ -54,7 +55,9 @@ FILES = main	\
 		ft_free	\
 		minimap_bonus	\
 		minimap_img_bonus	\
-		mouse_move_bonus
+		mouse_move_bonus	\
+		door_bonus	\
+		door_parsing_bonus
 
 #FILES_B = minimap_bonus	\
 		minimap_img_bonus	\
