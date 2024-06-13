@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   raycasting.c                                       :+:      :+:    :+:   */
+/*   rendering.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 08:30:08 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/13 11:40:10 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/13 13:58:26 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ int	display(t_cub3d *data)
 		}
 		while (x < WIN_W)
 			raycasting(data, &ray, x++);
-		data->player.moved = 0;
 		if (BONUS)
 		{
 			draw_player(data);
@@ -47,11 +46,11 @@ int	display(t_cub3d *data)
 
 static void	raycasting(t_cub3d *data, t_ray *ray, int x)
 {
+	set_ray(data, ray, x);
 	draw_ceiling(data, x, data->win_half_h + data->player.pitch,
 		data->ceiling_color);
 	draw_floor(data, x, data->win_half_h + data->player.pitch,
 		data->floor_color);
-	set_ray(data, ray, x);
 	check_wall_hit(data, ray);
 	draw_wall(data, x, ray);
 	if (BONUS)
