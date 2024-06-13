@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   colors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 13:59:02 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/12 10:48:03 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/13 09:30:18 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,12 @@ void	put_pxl_color(t_imgdata *img, int x, int y, int color)
 		pxl = img->addr + (y * img->line_len + x * (img->bits_per_pxl / 8));
 		*(int *)pxl = color;
 	}
+}
+
+unsigned int	get_txcolor(t_xpm_img *texture, int x, int y)
+{
+	char	*pxl;
+
+	pxl = texture->addr + (y * texture->line_len + x * (texture->bpp / 8));
+	return (*(unsigned int *)pxl);
 }

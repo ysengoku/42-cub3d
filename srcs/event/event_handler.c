@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   event_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 10:42:38 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/13 09:01:49 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/13 09:47:46 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,22 @@ int	keypress(int keysym, t_cub3d *data)
 		data->key_pressed_s = 1;
 	if (keysym == XK_d)
 		data->key_pressed_d = 1;
+	/*=== bonus ===============*/
+	if (keysym == XK_o)
+		open_door(data);
+	if (keysym == XK_c)
+		close_door(data);
+	/*=========================*/
 	if (keysym == XK_x && data->key_pressed_x == 0)
+	{
 		data->key_pressed_x = 1;
+		data->player.moved = 1;
+	}
 	else if (keysym == XK_x && data->key_pressed_x == 1)
+	{
 		data->key_pressed_x = 0;
+		data->player.moved = 1;
+	}
 	return (0);
 }
 
