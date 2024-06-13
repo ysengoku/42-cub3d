@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/13 09:53:54 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/13 11:36:06 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -306,8 +306,7 @@ int				mousescroll(int event, int x, int y, t_cub3d *data);
 /*----- Doors -----*/
 int				get_door_texture_paths(t_cub3d *data);
 void			store_doors_coordinates(t_cub3d *data);
-void			open_door(t_cub3d *data);
-void			close_door(t_cub3d *data);
+void			switch_door_status(t_cub3d *data);
 void			check_door_hit(t_cub3d *data, t_ray *ray);
 void			draw_door(t_cub3d *data, int x, t_ray *ray);
 
