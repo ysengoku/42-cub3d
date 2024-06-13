@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   event_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 10:42:38 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/06 13:09:22 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/13 09:01:49 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@ int	keypress(int keysym, t_cub3d *data)
 		data->key_pressed_s = 1;
 	if (keysym == XK_d)
 		data->key_pressed_d = 1;
+	if (keysym == XK_x && data->key_pressed_x == 0)
+		data->key_pressed_x = 1;
+	else if (keysym == XK_x && data->key_pressed_x == 1)
+		data->key_pressed_x = 0;
 	return (0);
 }
 

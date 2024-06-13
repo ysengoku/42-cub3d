@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:57 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/10 08:48:03 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/12 07:09:53 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,5 +114,3 @@ int	main(int argc, char **argv)
 	mlx_loop(data.mlx_ptr);
 	return (0);
 }
-
-//SEGFAULT si la map n'a pas de retour a la ligne a la fin
