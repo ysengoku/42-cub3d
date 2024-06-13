@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/13 11:36:06 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/13 12:55:55 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@
 # define WIN_W 960
 # define WIN_H 720
 
+
 # ifndef FOV
 #  define FOV 90
 # endif
@@ -67,13 +68,13 @@
 # define MMAP_BORDER 1
 # define MMAP_TOTAL_SIZE MMAP_SCALE * MMAP_SIZE + MMAP_BORDER * MMAP_SIZE
 # define MMAP_EMPTY 0
-# define MMAP_WALL 24676 //(int)0x006064
-# define MMAP_FLOOR 11583173 //(int)0xB0BEC5
+# define MMAP_WALL 4868682 //(int)0x006064
+# define MMAP_FLOOR 13816530 //(int)0xB0BEC5
 # define MMAP_P 12915042 //(int)0xC51162
 # define MMAP_DIR 13959168 //(int)0xD50000
 # define MMAP_RAY 16776623 //(int)0xfffdaf
 # define MMAP_SPACE 11977418 //(int)0xB6C2CA
-# define MMAP_DOOR 4770532 //(int)0x48cae4
+# define MMAP_DOOR 9868950 //(int)0x48cae4
 
 // # define DOOR_TEX "./textures/door/door.xpm"
 # define DOOR_TEX "./textures/door/fence1.xpm"

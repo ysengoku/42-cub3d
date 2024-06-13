@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 13:08:42 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/13 11:49:36 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/13 12:55:51 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,13 +126,13 @@ void	draw_minimap_zone(t_cub3d *data)
 	x = 0;
 	y = 0;
 	while (x < ((MMAP_SCALE * MMAP_SIZE) + (MMAP_BORDER * MMAP_SIZE)))
-		put_pxl_color(&data->mmap.img, x++, y, MMAP_FLOOR);
+		put_pxl_color(&data->mmap.img, x++, y, MMAP_WALL);
 	while (y < ((MMAP_SCALE * MMAP_SIZE) + (MMAP_BORDER * MMAP_SIZE)))
-		put_pxl_color(&data->mmap.img, x, y++, MMAP_FLOOR);
+		put_pxl_color(&data->mmap.img, x, y++, MMAP_WALL);
 	while (x > 0)
-		put_pxl_color(&data->mmap.img, x--, y, MMAP_FLOOR);
+		put_pxl_color(&data->mmap.img, x--, y, MMAP_WALL);
 	while (y > 0)
-		put_pxl_color(&data->mmap.img, x, y--, MMAP_FLOOR);
+		put_pxl_color(&data->mmap.img, x, y--, MMAP_WALL);
 }
 
 void	draw_minimap(t_cub3d *data)
@@ -158,6 +158,8 @@ void	draw_minimap(t_cub3d *data)
 					draw_scale(data, MMAP_FLOOR);
 				else if (data->map.map[cam_y][cam_x] == 'P')
 					draw_scale(data, MMAP_FLOOR);
+				else if (data->map.map[cam_y][cam_x] == 'O' || data->map.map[cam_y][cam_x] == 'D')
+					draw_scale(data, MMAP_DOOR);
 			}
 			else
 				draw_scale(data, MMAP_EMPTY);
