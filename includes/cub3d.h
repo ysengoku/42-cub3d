@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/13 13:39:27 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/13 15:53:43 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,6 +200,7 @@ typedef struct s_line
 	int		y_end;
 	int		tx_x;
 	int		tx_y;
+	double	tx_start_y;
 	double	span;
 	int		color;
 }				t_line;
@@ -236,8 +237,8 @@ typedef struct s_cub3d
 	int			key_pressed_x;
 	int			previous_mouse_x; // bonus
 	t_minimap	mmap;
-	int			door_count;
-	t_door		*doors;
+	// int			door_count;
+	// t_door		*doors;
 	/*+++++++++++++++++++++++++++++++++*/
 }				t_cub3d;
 
@@ -308,9 +309,10 @@ int				mousescroll(int event, int x, int y, t_cub3d *data);
 
 /*----- Doors -----*/
 int				get_door_texture_paths(t_cub3d *data);
-void			store_doors_coordinates(t_cub3d *data);
+// void			store_doors_coordinates(t_cub3d *data);
 void			switch_door_status(t_cub3d *data);
 void			check_door_hit(t_cub3d *data, t_ray *ray);
-void			draw_door(t_cub3d *data, int x, t_ray *ray);
+// void			draw_door(t_cub3d *data, int x, t_ray *ray);
+void			draw_door(t_cub3d *data, int x, t_ray *r, t_xpm_img tex);
 
 #endif
