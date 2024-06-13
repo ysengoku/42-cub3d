@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/13 12:55:55 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/13 13:06:58 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@
 
 /*===== macro definition =====================================================*/
 # define WINNAME "cub3D"
-# define WIN_W 960
-# define WIN_H 720
+# define WIN_W 2500
+# define WIN_H 1400
 
 
 # ifndef FOV
