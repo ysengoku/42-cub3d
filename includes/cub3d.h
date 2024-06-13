@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/13 09:43:02 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/13 09:53:54 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,6 @@
 # define WINNAME "cub3D"
 # define WIN_W 960
 # define WIN_H 720
-
-// # define ESC			65307
-// # define UP				119
-// # define DOWN			115
-// # define RIGHT			100
-// # define LEFT			97
-// # define CLOSE_WINDOW	17
 
 # ifndef FOV
 #  define FOV 90
@@ -266,16 +259,16 @@ void			set_data(t_cub3d *data, t_player *player, t_map *map);
 int				set_wall_texture(t_cub3d *data, t_xpm_img wall[4]);
 
 /*----- Ray casting -----*/
-int		display(t_cub3d *data);
-void	check_wall_hit(t_cub3d *data, t_ray *ray);
+int				display(t_cub3d *data);
+void			check_wall_hit(t_cub3d *data, t_ray *ray);
 
 /*----- Image rendering -----*/
 int				game_loop(t_cub3d *data);
 void			draw_wall(t_cub3d *data, int x, t_ray *ray);
 void			draw_ceiling(t_cub3d *data, int x, int end, int ceiling_color);
 void			draw_floor(t_cub3d *data, int start, int end, int floor_color);
-void	draw_minimap(t_cub3d *data);
-void	draw_minimap_zone(t_cub3d *data);
+void			draw_minimap(t_cub3d *data);
+void			draw_minimap_zone(t_cub3d *data);
 int				convert_color(int rgb[3]);
 unsigned int	get_txcolor(t_xpm_img *texture, int x, int y);
 void			put_pxl_color(t_imgdata *img, int x, int y, int color);

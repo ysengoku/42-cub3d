@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 08:30:08 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/13 09:44:15 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/13 09:51:35 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,6 @@ static void	set_sidedist(t_ray *ray, t_player *player);
 
 void	raycasting(t_cub3d *data, t_ray *ray, int x)
 {
-	// set_ray(data, ray, x);
-	// check_wall_hit(data, ray);
-	// draw_ceiling(data, x, WIN_H / 2 + data->player.pitch,
-	// 	data->ceiling_color);
-	// draw_floor(data, x, WIN_H / 2 + data->player.pitch,
-	// 	data->floor_color);
-	// draw_wall(data, x, ray);
-	// if (BONUS && data->key_pressed_x == 1)
-	// 	draw_ray_mmap(data, ray);
 	draw_ceiling(data, x, data->win_half_h + data->player.pitch,
 		data->ceiling_color);
 	draw_floor(data, x, data->win_half_h + data->player.pitch,
@@ -61,26 +52,7 @@ int	display(t_cub3d *data)
 			draw_minimap(data);
 		}
 		while (x < WIN_W)
-		// {
 			raycasting(data, &ray, x++);
-			// draw_ceiling(data, x, data->win_half_h + data->player.pitch,
-			// 	data->ceiling_color);
-			// draw_floor(data, x, data->win_half_h + data->player.pitch,
-			// 	data->floor_color);
-			// set_ray(data, &ray, x);
-			// check_wall_hit(data, &ray);
-			// draw_wall(data, x, &ray);
-			// if (BONUS)
-			// {
-			// 	set_ray(data, &ray, x);
-			// 	check_door_hit(data, &ray);
-			// 	if (ray.hit == DOOR)
-			// 		draw_door(data, x, &ray);
-			// }
-			// if (BONUS)
-			// 	draw_ray_mmap(data, &ray);
-			// x++;
-		// }
 		data->player.moved = 0;
 		if (BONUS)
 		{
