@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 08:07:02 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/12 17:34:44 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/13 08:52:02 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ void	check_wall_hit(t_cub3d *data, t_ray *ray)
 			next_step(ray, &is_east_or_west);
 	}
 	if (is_east_or_west == 1)
-		ray->distance = ray->sidedist_y - ray->delta_y;
+		ray->w_dist = ray->sidedist_y - ray->delta_y;
 	else
-		ray->distance = ray->sidedist_x - ray->delta_x;
+		ray->w_dist = ray->sidedist_x - ray->delta_x;
 	ray->w_side = get_wall_side(ray, &data->player, is_east_or_west);
-	ray->wall_height = (int)(WIN_H / ray->distance);
+	ray->wall_height = (int)(WIN_H / ray->w_dist);
 }
 
 void	check_door_hit(t_cub3d *data, t_ray *ray)
@@ -50,11 +50,11 @@ void	check_door_hit(t_cub3d *data, t_ray *ray)
 			next_step(ray, &is_east_or_west);
 	}
 	if (is_east_or_west == 1)
-		ray->distance = ray->sidedist_y - ray->delta_y;
+		ray->w_dist = ray->sidedist_y - ray->delta_y;
 	else
-		ray->distance = ray->sidedist_x - ray->delta_x;
+		ray->w_dist = ray->sidedist_x - ray->delta_x;
 	ray->w_side = get_wall_side(ray, &data->player, is_east_or_west);
-	ray->wall_height = (int)(WIN_H / ray->distance);
+	ray->wall_height = (int)(WIN_H / ray->w_dist);
 }
 
 static void	next_step(t_ray *ray, int *is_east_or_west)
