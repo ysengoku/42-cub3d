@@ -6,35 +6,16 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 08:30:08 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/13 09:51:35 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/13 11:40:10 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+static void	raycasting(t_cub3d *data, t_ray *ray, int x);
 static void	init_camera(t_cub3d *data);
 static void	set_ray(t_cub3d *data, t_ray *ray, int x);
 static void	set_sidedist(t_ray *ray, t_player *player);
-
-void	raycasting(t_cub3d *data, t_ray *ray, int x)
-{
-	draw_ceiling(data, x, data->win_half_h + data->player.pitch,
-		data->ceiling_color);
-	draw_floor(data, x, data->win_half_h + data->player.pitch,
-		data->floor_color);
-	set_ray(data, ray, x);
-	check_wall_hit(data, ray);
-	draw_wall(data, x, ray);
-	if (BONUS)
-	{
-		set_ray(data, ray, x);
-		check_door_hit(data, ray);
-		if (ray->hit == DOOR)
-			draw_door(data, x, ray);
-		if (data->key_pressed_x == 1)
-			draw_ray_mmap(data, ray);
-	}
-}
 
 int	display(t_cub3d *data)
 {
@@ -62,6 +43,26 @@ int	display(t_cub3d *data)
 		data->player.moved = 0;
 	}
 	return (0);
+}
+
+static void	raycasting(t_cub3d *data, t_ray *ray, int x)
+{
+	draw_ceiling(data, x, data->win_half_h + data->player.pitch,
+		data->ceiling_color);
+	draw_floor(data, x, data->win_half_h + data->player.pitch,
+		data->floor_color);
+	set_ray(data, ray, x);
+	check_wall_hit(data, ray);
+	draw_wall(data, x, ray);
+	if (BONUS)
+	{
+		set_ray(data, ray, x);
+		check_door_hit(data, ray);
+		if (ray->hit == DOOR)
+			draw_door(data, x, ray);
+		if (data->key_pressed_x == 1)
+			draw_ray_mmap(data, ray);
+	}
 }
 
 static void	init_camera(t_cub3d *data)

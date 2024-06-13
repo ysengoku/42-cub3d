@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 09:14:18 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/13 11:36:17 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/13 11:45:29 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	switch_door_status(t_cub3d *data)
 {
 	int	target_x;
 	int	target_y;
-	
+
 	target_x = (int)data->player.pos_x;
 	target_y = (int)data->player.pos_y;
 	if (data->player.dir_x > 0)
