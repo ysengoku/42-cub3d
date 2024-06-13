@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 09:14:18 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/13 13:17:21 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/13 13:39:44 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ void	switch_door_status(t_cub3d *data)
 		target_y -= round(-data->player.dir_y);
 	if (data->map.map[target_y][target_x] == 'D')
 	{
-		anim_open_door();
+		// anim_open_door();
 		data->map.map[target_y][target_x] = 'O';
 		data->player.moved = 1;
 	}
 	else if (data->map.map[target_y][target_x] == 'O')
 	{
-		anim_close_door();
+		// anim_close_door();
 		data->map.map[target_y][target_x] = 'D';
 		data->player.moved = 1;
 	}
