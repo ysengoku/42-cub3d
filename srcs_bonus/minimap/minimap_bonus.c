@@ -6,52 +6,11 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 13:08:42 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/13 12:55:51 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/13 13:38:01 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void	draw_circle(t_cub3d *data, int xc, int yc, int r)
-{
-	int	i;
-	int	x;
-	int	y;
-
-	x = 0;
-	while (x <= r)
-	{
-		y = (int)sqrt(r * r - x * x);
-		i = -y;
-		while (i <= y)
-		{
-			put_pxl_color(&data->mmap.img, xc + x, yc + i, MMAP_P);
-			put_pxl_color(&data->mmap.img, xc - x, yc + i, MMAP_P);
-			i++;
-		}
-		x++;
-	}
-}
-
-void	draw_scale(t_cub3d *data, int color)
-{
-	int	x;
-	int	y;
-
-	x = data->mmap.minimap_x;
-	y = data->mmap.minimap_y;
-	while (y < data->mmap.minimap_y + MMAP_SCALE)
-	{
-		while (x < data->mmap.minimap_x + MMAP_SCALE)
-		{
-			put_pxl_color(&data->mmap.img, x, y, color);
-			x++;
-		}
-		x = data->mmap.minimap_x;
-		y++;
-	}
-	draw_player_dir(data);
-}
 
 void	draw_player_dir(t_cub3d *data)
 {
@@ -95,7 +54,8 @@ void	draw_ray_mmap(t_cub3d *data, t_ray *ray)
 	p_y = (int)data->player.pos_y;
 	p_x += 0.5;
 	p_y += 0.5;
-	while ((int)dir_x > 0 && (int)dir_y > 0 && (int)dir_x < MMAP_TOTAL_SIZE && (int)dir_y < MMAP_TOTAL_SIZE)
+	while ((int)dir_x > 0 && (int)dir_y > 0
+		&& (int)dir_x < MMAP_TOTAL_SIZE && (int)dir_y < MMAP_TOTAL_SIZE)
 	{
 		p_x += (ray->dir_x / (MMAP_BORDER + MMAP_SCALE));
 		p_y += (ray->dir_y / (MMAP_BORDER + MMAP_SCALE));
@@ -103,7 +63,7 @@ void	draw_ray_mmap(t_cub3d *data, t_ray *ray)
 			|| !data->map.map[(int)floor(p_y)][(int)floor(p_x)]
 			|| data->map.map[(int)floor(p_y)][(int)floor(p_x)] == ' '
 			|| data->map.map[(int)floor(p_y)][(int)floor(p_x)] == '1')
-			break;
+			break ;
 		put_pxl_color(&data->mmap.img, (int)dir_x, (int)dir_y, MMAP_RAY);
 		dir_x += ray->dir_x;
 		dir_y += ray->dir_y;
