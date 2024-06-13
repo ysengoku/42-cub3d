@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 08:57:21 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/12 17:43:32 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/13 07:56:40 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,22 @@ void	draw_wall(t_cub3d *data, int x, t_ray *ray)
 	}
 }
 
+static double	get_wall_x(t_cub3d *data, t_ray *ray)
+{
+	double	wall_x;
+
+	if (ray->w_side == WE || ray->w_side == EA)
+		wall_x = data->player.pos_y + ray->distance * ray->dir_y;
+	else
+		wall_x = data->player.pos_x + ray->distance * ray->dir_x;
+	if ((ray->w_side == SO && ray->dir_y > 0)
+		|| (ray->w_side == WE && ray->dir_x < 0))
+		wall_x = 1 - wall_x;
+	wall_x -= floor(wall_x);
+	return (wall_x);
+}
+
+//===== Bonus =======================================================================
 void	draw_door(t_cub3d *data, int x, t_ray *r)
 {
 	t_line	line;
@@ -81,19 +97,5 @@ void	draw_door(t_cub3d *data, int x, t_ray *r)
 			put_pxl_color(&data->img, x, line.y, line.color);
 	}
 }
-
-static double	get_wall_x(t_cub3d *data, t_ray *ray)
-{
-	double	wall_x;
-
-	if (ray->w_side == WE || ray->w_side == EA)
-		wall_x = data->player.pos_y + ray->distance * ray->dir_y;
-	else
-		wall_x = data->player.pos_x + ray->distance * ray->dir_x;
-	if ((ray->w_side == SO && ray->dir_y > 0)
-		|| (ray->w_side == WE && ray->dir_x < 0))
-		wall_x = 1 - wall_x;
-	wall_x -= floor(wall_x);
-	return (wall_x);
-}
+//=====================================================================================
 

@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 08:30:08 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/12 17:44:39 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/13 08:00:46 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,13 @@ int	ft_raycasting(t_cub3d *data)
 			set_ray(data, &ray, x);
 			check_wall_hit(data, &ray);
 			draw_wall(data, x, &ray);
-			set_ray(data, &ray, x); //
-			check_door_hit(data, &ray); //
-			if (ray.hit == DOOR) //
-				draw_door(data, x, &ray); //
+			if (BONUS)
+			{
+				set_ray(data, &ray, x);
+				check_door_hit(data, &ray);
+				if (ray.hit == DOOR)
+					draw_door(data, x, &ray);
+			}
 			if (BONUS)
 				draw_ray_mmap(data, &ray);
 			x++;
