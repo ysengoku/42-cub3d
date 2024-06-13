@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:57 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/13 11:48:48 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/13 12:56:14 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ static void	init_cub3d_data(t_cub3d *data)
 	data->key_pressed_d = 0;
 	if (BONUS)
 	{
-		ft_memset(&data->mmap, 0, sizeof(data->mmap)); // bonus
-		ft_memset(&data->mmap.img, 0, sizeof(data->mmap.img)); // bonus
-		data->previous_mouse_x = 0; // bonus
+		ft_memset(&data->mmap, 0, sizeof(data->mmap));
+		ft_memset(&data->mmap.img, 0, sizeof(data->mmap.img));
+		data->previous_mouse_x = 0;
 	}
 }
 
@@ -101,15 +101,15 @@ int	main(int argc, char **argv)
 	ft_init_mlx(&data);
 	create_main_image(&data);
 	set_wall_texture(&data, data.wall);
-	if (create_minimap_img(&data, &data.mmap) == 1) //bonus
+	if (create_minimap_img(&data, &data.mmap) == 1)
 		return (1);
 	mlx_hook(data.win_ptr, DestroyNotify, StructureNotifyMask,
 		closebutton, &data);
 	mlx_hook(data.win_ptr, KeyPress, KeyPressMask, keypress, &data);
 	mlx_hook(data.win_ptr, KeyRelease, KeyReleaseMask, keyrelease, &data);
 	mlx_hook(data.win_ptr, MotionNotify, PointerMotionMask,
-		mousemove, &data); // bonus
-	mlx_mouse_hook(data.win_ptr, mousescroll, &data); // bonus
+		mousemove, &data);
+	mlx_mouse_hook(data.win_ptr, mousescroll, &data);
 	mlx_loop_hook(data.mlx_ptr, game_loop, &data);
 	mlx_loop(data.mlx_ptr);
 	return (0);
