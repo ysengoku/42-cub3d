@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   door_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 09:14:18 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/13 15:45:34 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/14 14:27:15 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,26 @@ int	get_door_texture_paths(t_cub3d *data)
 	return (0);
 }
 
+/* void	anim_open_door(t_cub3d *data)
+{
+	int	x;
+	int	i;
+
+	x = 0;
+	i = 0;
+	data->anim = false;
+	while (i < 8)
+	{
+		while (x < WIN_W)
+			raycasting(data, x++, &data->wall[i]);
+		//printf("%p\n", data->wall[i].addr);
+		x = 0;
+		mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.img, 0, 0);
+		usleep(50000);
+		i++;
+	}
+} */
+
 void	switch_door_status(t_cub3d *data)
 {
 	int	target_x;
@@ -43,15 +63,7 @@ void	switch_door_status(t_cub3d *data)
 	else if (data->player.dir_y < 0)
 		target_y -= round(-data->player.dir_y);
 	if (data->map.map[target_y][target_x] == 'D')
-	{
-		// anim_open_door();
-		data->map.map[target_y][target_x] = 'O';
-		data->player.moved = 1;
-	}
+		data->anim_open = true;
 	else if (data->map.map[target_y][target_x] == 'O')
-	{
-		// anim_close_door();
-		data->map.map[target_y][target_x] = 'D';
-		data->player.moved = 1;
-	}
+		data->anim_close = true;
 }

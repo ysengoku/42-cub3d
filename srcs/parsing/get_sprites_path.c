@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_sprites_path.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 16:53:25 by jmougel           #+#    #+#             */
-/*   Updated: 2024/06/12 17:01:10 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/14 07:52:00 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,9 @@ int	get_sprites_path(t_cub3d *data)
 		return (EXIT_FAILURE);
 	}
 	/*=== Bonus =================================================*/
-	// if (get_door_texture_paths(data) == 1)
-	// 	return (1);
-	data->wall[DR].path = ft_strdup(DOOR_TEX);
+	if (get_door_texture_paths(data) == 1)
+		return (1);
+	//data->wall[DR].path = ft_strdup(DOOR_TEX);
 	if (!data->wall[DR].path)
 	{
 		free_texture_paths(data->wall, 4);

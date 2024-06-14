@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 08:57:21 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/13 15:44:32 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/14 13:32:13 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,11 @@ static double	get_wall_x(t_cub3d *data, t_ray *ray)
 }
 
 //===== Bonus ==================================================================
-void	draw_door(t_cub3d *data, int x, t_ray *r, t_xpm_img tex)
+void	draw_door(t_cub3d *data, int x, t_ray *r, t_xpm_img *tex)
 {
 	t_line	line;
 	double	wall_x;
-
+	
 	ft_memset(&line, 0, sizeof(line));
 	line.y_start = data->win_half_h - r->wall_height * 0.5 + data->player.pitch;
 	if (line.y_start < 0)
@@ -105,7 +105,7 @@ void	draw_door(t_cub3d *data, int x, t_ray *r, t_xpm_img tex)
 	{
 		line.tx_y = (int)(((double)line.y - (double)line.y_start
 			+ line.tx_start_y) * line.span);
-		line.color = get_txcolor(&tex, line.tx_x, line.tx_y);
+		line.color = get_txcolor(tex, line.tx_x, line.tx_y);
 		if (line.color && line.color != 0x000000)
 			put_pxl_color(&data->img, x, line.y, line.color);
 	}
