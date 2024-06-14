@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_data.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 14:30:34 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/13 15:51:12 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/14 10:30:16 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ void	set_data(t_cub3d *data, t_player *player, t_map *map)
 	data->floor_color = convert_color(data->map.f_rgb);
 }
 
-int	set_wall_texture(t_cub3d *data, t_xpm_img wall[4])
+int	set_wall_texture(t_cub3d *data, t_xpm_img *wall)
 {
 	int		i;
 
 	i = -1;
-	while (++i < 5) // if mandatory, i < 4
+	while (++i < 8) // if mandatory, i < 4
 	{
 		wall[i].img = mlx_xpm_file_to_image(data->mlx_ptr, wall[i].path,
 				&wall[i].w, &wall[i].h);
@@ -34,7 +34,7 @@ int	set_wall_texture(t_cub3d *data, t_xpm_img wall[4])
 		{
 			while (i-- > 0)
 				mlx_destroy_image(data->mlx_ptr, wall[i].img);
-			while (++i < 5) // if mandatory, i < 4
+			while (++i < 8) // if mandatory, i < 4
 				free(wall[i].path);
 			// free(data->doors);
 			mlx_destroy_image(data->mlx_ptr, data->img.img);

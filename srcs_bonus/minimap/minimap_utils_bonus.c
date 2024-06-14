@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_utils_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 13:36:40 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/13 13:37:18 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/14 13:01:55 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,16 @@ void	draw_circle(t_cub3d *data, int xc, int yc, int r)
 	}
 }
 
-void	draw_scale(t_cub3d *data, int color)
+void	draw_scale(t_cub3d *data, int color, int size)
 {
 	int	x;
 	int	y;
 
 	x = data->mmap.minimap_x;
 	y = data->mmap.minimap_y;
-	while (y < data->mmap.minimap_y + MMAP_SCALE)
+	while (y < data->mmap.minimap_y + size)
 	{
-		while (x < data->mmap.minimap_x + MMAP_SCALE)
+		while (x < data->mmap.minimap_x + size)
 		{
 			put_pxl_color(&data->mmap.img, x, y, color);
 			x++;
@@ -50,5 +50,5 @@ void	draw_scale(t_cub3d *data, int color)
 		x = data->mmap.minimap_x;
 		y++;
 	}
-	draw_player_dir(data);
+	draw_mmap_player_dir(data);
 }

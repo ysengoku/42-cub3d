@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/13 15:53:43 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/14 14:03:54 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,12 +233,15 @@ typedef struct s_cub3d
 	int			key_pressed_s;
 	int			key_pressed_a;
 	int			key_pressed_d;
+	int			key_pressed_m;
 	/*++++++ Bonus +++++++++++++++++++*/
 	int			key_pressed_x;
 	int			previous_mouse_x; // bonus
 	t_minimap	mmap;
 	// int			door_count;
 	// t_door		*doors;
+	bool			anim_open;
+	bool			anim_close;
 	/*+++++++++++++++++++++++++++++++++*/
 }				t_cub3d;
 
@@ -258,10 +261,11 @@ void			free_split(char **map);
 void			free_data_map(t_map *data_map);
 void			exit_parsing(t_map *data_map, char *message);
 void			set_data(t_cub3d *data, t_player *player, t_map *map);
-int				set_wall_texture(t_cub3d *data, t_xpm_img wall[4]);
+int				set_wall_texture(t_cub3d *data, t_xpm_img *wall);
 
 /*----- Ray casting -----*/
-int				display(t_cub3d *data);
+int				display(t_cub3d *data, int i);
+void			raycasting(t_cub3d *data, int x, t_xpm_img *door);
 void			check_wall_hit(t_cub3d *data, t_ray *ray);
 
 /*----- Image rendering -----*/
@@ -270,7 +274,8 @@ void			draw_wall(t_cub3d *data, int x, t_ray *ray);
 void			draw_ceiling(t_cub3d *data, int x, int end, int ceiling_color);
 void			draw_floor(t_cub3d *data, int start, int end, int floor_color);
 void			draw_minimap(t_cub3d *data);
-void			draw_minimap_zone(t_cub3d *data);
+void			draw_full_minimap(t_cub3d *data);
+void			draw_minimap_zone(t_cub3d *data, int size);
 int				convert_color(int rgb[3]);
 unsigned int	get_txcolor(t_xpm_img *texture, int x, int y);
 void			put_pxl_color(t_imgdata *img, int x, int y, int color);
@@ -297,11 +302,11 @@ void			free_texture_paths(t_xpm_img *wall, int size);
 
 /*----- Minimap -----*/
 int				create_minimap_img(t_cub3d *data, t_minimap *mmap);
-void			draw_player(t_cub3d *data);
-void			draw_player_dir(t_cub3d *data);
+void			draw_mmap_player(t_cub3d *data);
+void			draw_mmap_player_dir(t_cub3d *data);
 void			draw_ray_mmap(t_cub3d *data, t_ray *ray);
 void			draw_circle(t_cub3d *data, int xc, int yc, int r);
-void			draw_scale(t_cub3d *data, int color);
+void			draw_scale(t_cub3d *data, int color, int size);
 
 /*----- Mouse move -----*/
 int				mousemove(int x, int y, t_cub3d *data);
@@ -313,6 +318,7 @@ int				get_door_texture_paths(t_cub3d *data);
 void			switch_door_status(t_cub3d *data);
 void			check_door_hit(t_cub3d *data, t_ray *ray);
 // void			draw_door(t_cub3d *data, int x, t_ray *ray);
-void			draw_door(t_cub3d *data, int x, t_ray *r, t_xpm_img tex);
+void			draw_door(t_cub3d *data, int x, t_ray *r, t_xpm_img *tex);
+void			anim_open_door(t_cub3d *data);
 
 #endif

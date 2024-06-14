@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 13:08:42 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/13 13:38:01 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/14 13:01:55 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	draw_player_dir(t_cub3d *data)
+void	draw_mmap_player_dir(t_cub3d *data)
 {
 	double	dir_x;
 	double	dir_y;
@@ -70,24 +70,24 @@ void	draw_ray_mmap(t_cub3d *data, t_ray *ray)
 	}
 }
 
-void	draw_minimap_zone(t_cub3d *data)
+void	draw_minimap_zone(t_cub3d *data, int size)
 {
 	int	x;
 	int	y;
 
 	y = 0;
-	while (y < (MMAP_SCALE * MMAP_SIZE) + (MMAP_BORDER * MMAP_SIZE))
+	while (y < size)
 	{
 		x = 0;
-		while (x < (MMAP_SCALE * MMAP_SIZE) + (MMAP_BORDER * MMAP_SIZE))
+		while (x < size)
 			put_pxl_color(&data->mmap.img, x++, y, MMAP_EMPTY);
 		y++;
 	}
 	x = 0;
 	y = 0;
-	while (x < ((MMAP_SCALE * MMAP_SIZE) + (MMAP_BORDER * MMAP_SIZE)))
+	while (x < (size))
 		put_pxl_color(&data->mmap.img, x++, y, MMAP_WALL);
-	while (y < ((MMAP_SCALE * MMAP_SIZE) + (MMAP_BORDER * MMAP_SIZE)))
+	while (y < (size))
 		put_pxl_color(&data->mmap.img, x, y++, MMAP_WALL);
 	while (x > 0)
 		put_pxl_color(&data->mmap.img, x--, y, MMAP_WALL);
@@ -109,20 +109,20 @@ void	draw_minimap(t_cub3d *data)
 		while (cam_x < data->map.pos_x + 5)
 		{
 			if (cam_x < 0 || cam_y < 0)
-				draw_scale(data, MMAP_EMPTY);
+				draw_scale(data, MMAP_EMPTY, MMAP_SCALE);
 			else if (data->map.map[cam_y] && data->map.map[cam_y][cam_x])
 			{
 				if (data->map.map[cam_y][cam_x] == '1')
-					draw_scale(data, MMAP_WALL);
+					draw_scale(data, MMAP_WALL, MMAP_SCALE);
 				else if (data->map.map[cam_y][cam_x] == '0')
-					draw_scale(data, MMAP_FLOOR);
+					draw_scale(data, MMAP_FLOOR, MMAP_SCALE);
 				else if (data->map.map[cam_y][cam_x] == 'P')
-					draw_scale(data, MMAP_FLOOR);
+					draw_scale(data, MMAP_FLOOR, MMAP_SCALE);
 				else if (data->map.map[cam_y][cam_x] == 'O' || data->map.map[cam_y][cam_x] == 'D')
-					draw_scale(data, MMAP_DOOR);
+					draw_scale(data, MMAP_DOOR, MMAP_SCALE);
 			}
 			else
-				draw_scale(data, MMAP_EMPTY);
+				draw_scale(data, MMAP_EMPTY, MMAP_SCALE);
 			cam_x++;
 			data->mmap.minimap_x += MMAP_SCALE + MMAP_BORDER;
 		}
@@ -133,7 +133,7 @@ void	draw_minimap(t_cub3d *data)
 	}
 }
 
-void	draw_player(t_cub3d *data)
+void	draw_mmap_player(t_cub3d *data)
 {
 	draw_circle(data,
 		((MMAP_SCALE * MMAP_SIZE + MMAP_BORDER * MMAP_SIZE) * 0.5),

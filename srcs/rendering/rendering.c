@@ -3,64 +3,67 @@
 /*                                                        :::      ::::::::   */
 /*   rendering.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 08:30:08 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/13 15:40:19 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/14 14:11:11 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	raycasting(t_cub3d *data, t_ray *ray, int x);
 static void	init_camera(t_cub3d *data);
 static void	set_ray(t_cub3d *data, t_ray *ray, int x);
 static void	set_sidedist(t_ray *ray, t_player *player);
 
-int	display(t_cub3d *data)
+int	display(t_cub3d *data, int i)
 {
-	int		x;
-	t_ray	ray;
+	int	x;
 
 	x = 0;
-	ft_memset(&ray, 0, sizeof(ray));
-	if (data->player.moved)
+	if (1)
 	{
 		init_camera(data);
 		if (BONUS)
 		{
-			draw_minimap_zone(data);
+			draw_minimap_zone(data, (MMAP_TOTAL_SIZE));
 			draw_minimap(data);
 		}
 		while (x < WIN_W)
-			raycasting(data, &ray, x++);
+		{
+			raycasting(data, x, &data->wall[DR + i]);
+			x++;
+		}
 		if (BONUS)
 		{
-			draw_player(data);
-			draw_player_dir(data);
+			draw_mmap_player(data);
+			draw_mmap_player_dir(data);
 		}
 		data->player.moved = 0;
 	}
 	return (0);
 }
 
-static void	raycasting(t_cub3d *data, t_ray *ray, int x)
+void	raycasting(t_cub3d *data, int x, t_xpm_img *door)
 {
-	set_ray(data, ray, x);
+	t_ray	ray;
+
+	ft_memset(&ray, 0, sizeof(ray));
+	set_ray(data, &ray, x);
 	draw_ceiling(data, x, data->win_half_h + data->player.pitch,
 		data->ceiling_color);
 	draw_floor(data, x, data->win_half_h + data->player.pitch,
 		data->floor_color);
-	check_wall_hit(data, ray);
-	draw_wall(data, x, ray);
+	check_wall_hit(data, &ray);
+	draw_wall(data, x, &ray);
 	if (BONUS)
 	{
-		set_ray(data, ray, x);
-		check_door_hit(data, ray);
-		if (ray->hit == DOOR)
-			draw_door(data, x, ray, data->wall[DR]);
+		set_ray(data, &ray, x);
+		check_door_hit(data, &ray);
+		if (ray.hit == DOOR)
+			draw_door(data, x, &ray, door);
 		if (data->key_pressed_x == 1)
-			draw_ray_mmap(data, ray);
+			draw_ray_mmap(data, &ray);
 	}
 }
 

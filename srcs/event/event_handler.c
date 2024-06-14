@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   event_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 10:42:38 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/13 11:36:06 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/14 14:04:55 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,9 @@ int	keypress(int keysym, t_cub3d *data)
 		switch_door_status(data);
 	/*=========================*/
 	if (keysym == XK_x && data->key_pressed_x == 0)
-	{
 		data->key_pressed_x = 1;
-		data->player.moved = 1;
-	}
 	else if (keysym == XK_x && data->key_pressed_x == 1)
-	{
 		data->key_pressed_x = 0;
-		data->player.moved = 1;
-	}
 	return (0);
 }
 
