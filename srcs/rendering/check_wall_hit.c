@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 08:07:02 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/13 15:35:36 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/14 16:21:58 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,6 @@ void	check_wall_hit(t_cub3d *data, t_ray *ray)
 		ray->w_dist = ray->sidedist_x - ray->delta_x;
 	if (ray->w_dist < 0.0001)
 		ray->w_dist = 0.0001;
-	// if (is_vertical_side == 1)
-    // 	ray->w_dist = fabs((ray->map_y - data->player.pos_y
-	// 		+ (1 - ray->step_y) * 0.5) / ray->dir_y);
-	// else
-    // 	ray->w_dist = fabs((ray->map_x - data->player.pos_x
-	// 		+ (1 - ray->step_x) * 0.5) / ray->dir_x);
 	ray->w_side = get_wall_side(ray, &data->player, is_vertical_side);
 	ray->wall_height = (int)(WIN_H / ray->w_dist);
 }
@@ -63,12 +57,6 @@ void	check_door_hit(t_cub3d *data, t_ray *ray)
 		ray->w_dist = ray->sidedist_x - ray->delta_x;
 	if (ray->w_dist < 0.0001)
 		ray->w_dist = 0.0001;
-	// if (is_vertical_side == 1)
-    // 	ray->w_dist = fabs((ray->map_y - data->player.pos_y
-	// 		+ (1 - ray->step_y) * 0.5) / ray->dir_y);
-	// else
-    // 	ray->w_dist = fabs((ray->map_x - data->player.pos_x
-	// 		+ (1 - ray->step_x) * 0.5) / ray->dir_x);
 	ray->w_side = get_wall_side(ray, &data->player, is_vertical_side);
 	ray->wall_height = (int)(WIN_H / ray->w_dist);
 }

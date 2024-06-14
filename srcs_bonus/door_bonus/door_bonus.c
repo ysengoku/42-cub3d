@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   door_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 09:14:18 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/14 14:27:15 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/14 16:39:39 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	get_door_texture_paths(t_cub3d *data)
 {
+	if (!BONUS)
+		return (0);
 	data->wall[DR].path = ft_strdup(DOOR_TEX);
 	data->wall[DR1].path = ft_strdup(DOOR_TEX1);
 	data->wall[DR2].path = ft_strdup(DOOR_TEX2);

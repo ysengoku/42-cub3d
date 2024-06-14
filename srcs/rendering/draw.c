@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 08:57:21 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/14 13:32:13 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/14 16:23:25 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,11 @@ void	draw_wall(t_cub3d *data, int x, t_ray *r)
 		line.span = (double)data->wall[r->w_side].h / r->wall_height;
 	line.tx_x = (int)(wall_x * (double)data->wall[r->w_side].w);
 	if (r->wall_height > WIN_H)
-    	line.tx_start_y = (r->wall_height - WIN_H) * 0.5;
+		line.tx_start_y = (r->wall_height - WIN_H) * 0.5;
 	while (++line.y < line.y_end)
 	{
 		line.tx_y = (int)(((double)line.y - (double)line.y_start
-			+ line.tx_start_y) * line.span);
+				+ line.tx_start_y) * line.span);
 		line.color = get_txcolor(&data->wall[r->w_side],
 				line.tx_x, line.tx_y);
 		put_pxl_color(&data->img, x, line.y, line.color);
@@ -86,7 +86,7 @@ void	draw_door(t_cub3d *data, int x, t_ray *r, t_xpm_img *tex)
 {
 	t_line	line;
 	double	wall_x;
-	
+
 	ft_memset(&line, 0, sizeof(line));
 	line.y_start = data->win_half_h - r->wall_height * 0.5 + data->player.pitch;
 	if (line.y_start < 0)
@@ -100,11 +100,11 @@ void	draw_door(t_cub3d *data, int x, t_ray *r, t_xpm_img *tex)
 		line.span = (double)data->wall[r->w_side].h / r->wall_height;
 	line.tx_x = (int)(wall_x * (double)data->wall[r->w_side].w);
 	if (r->wall_height > WIN_H)
-    	line.tx_start_y = (r->wall_height - WIN_H) * 0.5;
+		line.tx_start_y = (r->wall_height - WIN_H) * 0.5;
 	while (++line.y < line.y_end)
 	{
 		line.tx_y = (int)(((double)line.y - (double)line.y_start
-			+ line.tx_start_y) * line.span);
+				+ line.tx_start_y) * line.span);
 		line.color = get_txcolor(tex, line.tx_x, line.tx_y);
 		if (line.color && line.color != 0x000000)
 			put_pxl_color(&data->img, x, line.y, line.color);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/14 14:03:54 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/14 16:32:26 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@
 # define WIN_W 960
 # define WIN_H 720
 
-
 # ifndef FOV
 #  define FOV 90
 # endif
@@ -68,15 +67,14 @@
 # define MMAP_BORDER 1
 # define MMAP_TOTAL_SIZE MMAP_SCALE * MMAP_SIZE + MMAP_BORDER * MMAP_SIZE
 # define MMAP_EMPTY 0
-# define MMAP_WALL 4868682 //(int)0x006064
-# define MMAP_FLOOR 13816530 //(int)0xB0BEC5
-# define MMAP_P 12915042 //(int)0xC51162
-# define MMAP_DIR 13959168 //(int)0xD50000
-# define MMAP_RAY 16776623 //(int)0xfffdaf
-# define MMAP_SPACE 11977418 //(int)0xB6C2CA
-# define MMAP_DOOR 9868950 //(int)0x48cae4
+# define MMAP_WALL 4868682
+# define MMAP_FLOOR 13816530
+# define MMAP_P 12915042
+# define MMAP_DIR 13959168
+# define MMAP_RAY 16776623
+# define MMAP_SPACE 11977418
+# define MMAP_DOOR 9868950
 
-// # define DOOR_TEX "./textures/door/door.xpm"
 # define DOOR_TEX "./textures/door/fence1.xpm"
 # define DOOR_TEX1 "./textures/door/fence2.xpm"
 # define DOOR_TEX2 "./textures/door/fence3.xpm"
@@ -165,7 +163,6 @@ typedef struct s_player
 	double				plane_y;
 	int					moved;
 	int					pitch;
-
 }				t_player;
 
 typedef struct s_door
@@ -236,12 +233,10 @@ typedef struct s_cub3d
 	int			key_pressed_m;
 	/*++++++ Bonus +++++++++++++++++++*/
 	int			key_pressed_x;
-	int			previous_mouse_x; // bonus
+	int			previous_mouse_x;
 	t_minimap	mmap;
-	// int			door_count;
-	// t_door		*doors;
-	bool			anim_open;
-	bool			anim_close;
+	bool		anim_open;
+	bool		anim_close;
 	/*+++++++++++++++++++++++++++++++++*/
 }				t_cub3d;
 
@@ -292,11 +287,12 @@ void			move_left(t_cub3d *data, t_player *player, t_map *map);
 void			rotate_counterclockwise(t_cub3d *data);
 void			rotate_clockwise(t_cub3d *data);
 
-/*----- Error handling -----*/
+/*----- Error handling & free -----*/
 void			ft_perror_exit(char *message, int code);
 void			ft_error_exit(char *message, int code);
 int				free_all(t_cub3d *data, int status);
 void			free_texture_paths(t_xpm_img *wall, int size);
+void			clear_texture_img(t_cub3d *data);
 
 /*===== bonus part functions =================================================*/
 

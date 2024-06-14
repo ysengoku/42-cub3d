@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:57 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/14 10:27:02 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/14 16:43:35 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,15 +102,17 @@ int	main(int argc, char **argv)
 	ft_init_mlx(&data);
 	create_main_image(&data);
 	set_wall_texture(&data, data.wall);
-	if (create_minimap_img(&data, &data.mmap) == 1) // bonus
-		return (1);
+	create_minimap_img(&data, &data.mmap);
 	mlx_hook(data.win_ptr, DestroyNotify, StructureNotifyMask,
 		closebutton, &data);
 	mlx_hook(data.win_ptr, KeyPress, KeyPressMask, keypress, &data);
 	mlx_hook(data.win_ptr, KeyRelease, KeyReleaseMask, keyrelease, &data);
-	mlx_hook(data.win_ptr, MotionNotify, PointerMotionMask, // bonus
-		mousemove, &data);
-	mlx_mouse_hook(data.win_ptr, mousescroll, &data); // bonus
+	if (BONUS)
+	{
+		mlx_hook(data.win_ptr, MotionNotify, PointerMotionMask,
+			mousemove, &data);
+		mlx_mouse_hook(data.win_ptr, mousescroll, &data);
+	}
 	mlx_loop_hook(data.mlx_ptr, game_loop, &data);
 	mlx_loop(data.mlx_ptr);
 	return (0);
