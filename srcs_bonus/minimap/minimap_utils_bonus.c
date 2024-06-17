@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_utils_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 13:36:40 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/17 09:17:01 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/17 09:38:25 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	draw_circle(t_cub3d *data, int xc, int yc, int r)
+void	draw_player(t_cub3d *data, int xc, int yc, int r)
 {
 	int	i;
 	int	x;
