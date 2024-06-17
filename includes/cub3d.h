@@ -6,7 +6,7 @@
 /*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/17 09:16:31 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/17 09:32:53 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@
 # define MMAP_SCALE 20
 # define MMAP_SIZE 9
 # define MMAP_BORDER 1
-# define MMAP_TOTAL_SIZE MMAP_SCALE * MMAP_SIZE + MMAP_BORDER * MMAP_SIZE
 # define MMAP_EMPTY 0
 # define MMAP_WALL 4868682
 # define MMAP_FLOOR 13816530
@@ -114,6 +113,12 @@ enum	e_hit
 };
 
 /*===== structures ===========================================================*/
+typedef struct s_vector
+{
+	double	x;
+	double	y;
+}				t_vector;
+
 typedef struct s_imgdata
 {
 	void	*img;
@@ -155,21 +160,17 @@ typedef struct s_player
 	double				fov;
 	double				pos_x;
 	double				pos_y;
-	double				dir;
+	t_vector			pos;
+	double				dir_degree;
 	double				dir_x;
 	double				dir_y;
+	t_vector			dir;
 	double				plane_length;
 	double				plane_x;
 	double				plane_y;
+	t_vector			plane;
 	int					moved;
-	int					pitch;
 }				t_player;
-
-typedef struct s_door
-{
-	int	map_x;
-	int	map_y;
-}			t_door;
 
 typedef struct s_ray
 {
@@ -177,14 +178,17 @@ typedef struct s_ray
 	double			camera_p;
 	double			dir_x;
 	double			dir_y;
+	t_vector		dir;
 	int				map_x;
 	int				map_y;
 	int				step_x;
 	int				step_y;
 	double			sidedist_x;
 	double			sidedist_y;
+	t_vector		sidedist;
 	double			delta_x;
 	double			delta_y;
+	t_vector		delta;
 	double			w_dist;
 	int				wall_height;
 	enum e_wallside	w_side;
@@ -207,6 +211,7 @@ typedef struct s_minimap
 	t_imgdata	img;
 	int			minimap_x;
 	int			minimap_y;
+	int			totalsize;
 	t_xpm_img	floor;
 	t_xpm_img	player;
 	t_xpm_img	wall;
@@ -300,28 +305,25 @@ void			ft_perror_exit(char *message, int code);
 void			ft_error_exit(char *message, int code);
 int				free_all(t_cub3d *data, int status);
 void			free_texture_paths(t_xpm_img *wall, int size);
+void			clear_data(t_cub3d *data);
 void			clear_texture_img(t_cub3d *data);
 
 /*===== bonus part functions =================================================*/
 
 /*----- Minimap -----*/
 int				create_minimap_img(t_cub3d *data, t_minimap *mmap);
-void			draw_mmap_player(t_cub3d *data);
 void			draw_mmap_player_dir(t_cub3d *data);
 void			draw_ray_mmap(t_cub3d *data, t_ray *ray);
 void			draw_circle(t_cub3d *data, int xc, int yc, int r);
-void			draw_scale(t_cub3d *data, int color, int size);
+void			draw_scales(t_cub3d *data, int *cam_x, int *cam_y);
 
 /*----- Mouse move -----*/
 int				mousemove(int x, int y, t_cub3d *data);
-int				mousescroll(int event, int x, int y, t_cub3d *data);
 
 /*----- Doors -----*/
 int				get_door_texture_paths(t_cub3d *data);
-// void			store_doors_coordinates(t_cub3d *data);
 void			switch_door_status(t_cub3d *data);
 void			check_door_hit(t_cub3d *data, t_ray *ray);
-// void			draw_door(t_cub3d *data, int x, t_ray *ray);
 void			draw_door(t_cub3d *data, int x, t_ray *r, t_xpm_img *tex);
 void			animations(t_cub3d *data);
 
