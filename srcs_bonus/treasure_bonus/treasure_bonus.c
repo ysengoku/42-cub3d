@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 16:31:39 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/17 17:43:17 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/17 17:49:52 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,16 @@ void	draw_treasure(t_cub3d *data, t_treasure *treasure)
 	int color;
 	
 	if (!treasure->visible)
+	{
+		printf("Treasure is not visible\n");
 		return ;
+	}
 	x = treasure->start_x;
 	if (treasure->camera.y >= data->wall_zbuffer[treasure->screen_x])
-		return ;
+    {
+        printf("Camera.y is greater than or equal to wall_zbuffer[screen_x]\n");  // Add this line
+        return ;
+    }
 	while (x < treasure->end_x)
 	{
 		tex_x = (int)(x - (-treasure->draw_width / 2 + treasure->screen_x))
