@@ -6,7 +6,7 @@
 /*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 08:30:08 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/17 09:40:18 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/17 10:07:08 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	display(t_cub3d *data)
 	{
 		draw_minimap_zone(data, (data->mmap.totalsize));
 		draw_minimap(data);
-		// animations(data);
+		animations(data);
 	}
 	while (x < WIN_W)
 	{
@@ -35,7 +35,6 @@ int	display(t_cub3d *data)
 	}
 	if (BONUS)
 		draw_mmap_player_dir(data);
-	data->player.moved = 0;
 	return (0);
 }
 

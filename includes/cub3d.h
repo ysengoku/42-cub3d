@@ -6,7 +6,7 @@
 /*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/17 09:38:25 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/17 09:44:42 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -249,6 +249,7 @@ typedef struct s_cub3d
 	t_minimap	mmap;
 	bool		anim_open;
 	bool		anim_close;
+	bool		anim;
 	int			animation;
 	/*+++++++++++++++++++++++++++++++++*/
 }				t_cub3d;
