@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 14:30:34 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/17 11:32:42 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/17 14:35:35 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	set_wall_texture(t_cub3d *data, t_xpm_img *wall)
 	if (!BONUS)
 		n = 4;
 	else
-		n = 8;
+		n = 11;
 	while (++i < n)
 	{
 		wall[i].img = mlx_xpm_file_to_image(data->mlx_ptr, wall[i].path,
