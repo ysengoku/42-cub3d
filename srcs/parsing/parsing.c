@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 16:54:57 by jmougel           #+#    #+#             */
-/*   Updated: 2024/06/17 08:14:37 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/17 17:35:25 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ int	parsing(char *file, t_cub3d *data)
 	get_data(data);
 	get_maps(&data->map);
 	check_map(&data->map);
+	if (BONUS)
+		store_sprite_coordinates(data);
 	display_data(data);
 	return (EXIT_SUCCESS);
 }

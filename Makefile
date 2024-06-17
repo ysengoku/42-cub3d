@@ -6,7 +6,7 @@
 #    By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/23 08:07:54 by yusengok          #+#    #+#              #
-#    Updated: 2024/06/17 15:15:46 by yusengok         ###   ########.fr        #
+#    Updated: 2024/06/17 16:37:47 by yusengok         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,8 @@ vpath %c $(SRCS_DIR) \
 		$(SRCS_DIR_B)	\
 		$(SRCS_DIR_B)minimap	\
 		$(SRCS_DIR_B)event_bonus	\
-		$(SRCS_DIR_B)door_bonus
+		$(SRCS_DIR_B)door_bonus	\
+		$(SRCS_DIR_B)treasure_bonus
 		
 FILES = main	\
 		parsing \
@@ -57,6 +58,9 @@ FILES = main	\
 		minimap_utils_bonus	\
 		mouse_move_bonus	\
 		door_bonus	\
+		treasure_bonus	\
+		parsing_treasure_bonus	\
+		set_treasure_data_bonus
 
 SRCS = $(addsuffix .c, $(FILES))
 

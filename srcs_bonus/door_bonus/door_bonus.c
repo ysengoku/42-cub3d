@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 09:14:18 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/17 15:53:05 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/17 16:46:20 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,33 @@ void	animations(t_cub3d *data)
 		animation_close(data);
 }
 
-int	get_door_texture_paths(t_cub3d *data)
+// int	get_door_texture_paths(t_cub3d *data)
+// {
+// 	int	i;
+
+// 	i = 4;
+// 	if (!BONUS)
+// 		return (0);
+// 	data->wall[DR_C].path = ft_strdup(DOOR_TEX_CLOSE);
+// 	data->wall[DR1].path = ft_strdup(DOOR_TEX1);
+// 	data->wall[DR2].path = ft_strdup(DOOR_TEX2);
+// 	data->wall[DR3].path = ft_strdup(DOOR_TEX3);
+// 	data->wall[DR4].path = ft_strdup(DOOR_TEX4);
+// 	data->wall[DR5].path = ft_strdup(DOOR_TEX5);
+// 	data->wall[DR_O].path = ft_strdup(DOOR_TEX_OPEN);
+// 	while (i < 11)
+// 	{
+// 		if (!data->wall[i].path)
+// 		{
+// 			free_texture_paths(data->wall, 11);
+// 			exit_parsing(&data->map, "Error\nCub3D: malloc failed");
+// 		}
+// 		i++;
+// 	}
+// 	return (0);
+// }
+
+int	get_door_and_treasure_texture_paths(t_cub3d *data)
 {
 	int	i;
 
@@ -76,11 +102,12 @@ int	get_door_texture_paths(t_cub3d *data)
 	data->wall[DR4].path = ft_strdup(DOOR_TEX4);
 	data->wall[DR5].path = ft_strdup(DOOR_TEX5);
 	data->wall[DR_O].path = ft_strdup(DOOR_TEX_OPEN);
-	while (i < 11)
+	data->wall[TR].path = ft_strdup(TREASURE_TEX);
+	while (i < 12)
 	{
 		if (!data->wall[i].path)
 		{
-			free_texture_paths(data->wall, 11);
+			free_texture_paths(data->wall, 12);
 			exit_parsing(&data->map, "Error\nCub3D: malloc failed");
 		}
 		i++;

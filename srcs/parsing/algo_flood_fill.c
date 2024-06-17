@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   algo_flood_fill.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 17:19:54 by jmougel           #+#    #+#             */
-/*   Updated: 2024/06/17 07:15:12 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/17 15:58:58 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	flood_fill(char **dup_map, int pos_x, int pos_y, bool *valid)
 	new_char = 'x';
 	if (dup_map[pos_y][pos_x] == '1' || dup_map[pos_y][pos_x] == new_char)
 		return ;
-	else if (BONUS && dup_map[pos_y][pos_x] == 'D')
+	else if (BONUS && (dup_map[pos_y][pos_x] == 'D' || dup_map[pos_y][pos_x] == 'T'))
 		dup_map[pos_y][pos_x] = new_char;
 	else if (dup_map[pos_y][pos_x] == old_char)
 		dup_map[pos_y][pos_x] = new_char;
