@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 08:30:08 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/17 11:32:31 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/17 15:52:09 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	display(t_cub3d *data)
 	}
 	while (x < WIN_W)
 	{
-		raycasting(data, x, &data->wall[DR + data->animation]);
+		raycasting(data, x, &data->wall[DR_C + data->animation]);
 		x++;
 	}
 	if (BONUS)

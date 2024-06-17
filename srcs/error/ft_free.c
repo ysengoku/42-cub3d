@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 15:25:44 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/17 08:14:55 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/17 14:25:09 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	clear_texture_img(t_cub3d *data)
 	i = 0;
 	if (BONUS)
 	{
-		while (i < 8)
+		while (i < 11)
 		{
 			if (data->wall[i].img)
 				mlx_destroy_image(data->mlx_ptr, data->wall[i].img);
