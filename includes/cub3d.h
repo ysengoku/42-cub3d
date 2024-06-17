@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/17 11:24:06 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/17 11:39:24 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,36 +158,23 @@ typedef struct s_map
 typedef struct s_player
 {
 	double				fov;
-	// double				pos_x;
-	// double				pos_y;
 	t_vector			pos;
 	double				dir_degree;
-	// double				dir_x;
-	// double				dir_y;
 	t_vector			dir;
 	double				plane_length;
-	// double				plane_x;
-	// double				plane_y;
 	t_vector			plane;
-	// int					moved;
 }				t_player;
 
 typedef struct s_ray
 {
 	enum e_hit		hit;
 	double			camera_p;
-	// double			dir_x;
-	// double			dir_y;
 	t_vector		dir;
 	int				map_x;
 	int				map_y;
 	int				step_x;
 	int				step_y;
-	// double			sidedist_x;
-	// double			sidedist_y;
 	t_vector		sidedist;
-	// double			delta_x;
-	// double			delta_y;
 	t_vector		delta;
 	double			w_dist;
 	int				wall_height;
@@ -228,7 +215,7 @@ typedef struct s_keys
 	int			key_pressed_m;
 	/*++++++ Bonus +++++++++++++++++++*/
 	int			key_pressed_x;
-	/*+++++++++++++++++++++++++++++++++*/
+	/*++++++++++++++++++++++++++++++++*/
 }	t_keys;
 
 typedef struct s_cub3d
@@ -283,7 +270,6 @@ void			draw_wall(t_cub3d *data, int x, t_ray *ray);
 void			draw_ceiling(t_cub3d *data, int x, int end, int ceiling_color);
 void			draw_floor(t_cub3d *data, int start, int end, int floor_color);
 void			draw_minimap(t_cub3d *data);
-void			draw_full_minimap(t_cub3d *data);
 void			draw_minimap_zone(t_cub3d *data, int size);
 int				convert_color(int rgb[3]);
 unsigned int	get_txcolor(t_xpm_img *texture, int x, int y);
