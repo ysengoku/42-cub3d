@@ -6,7 +6,7 @@
 #    By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/23 08:07:54 by yusengok          #+#    #+#              #
-#    Updated: 2024/06/17 12:02:47 by yusengok         ###   ########.fr        #
+#    Updated: 2024/06/17 15:15:46 by yusengok         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -86,7 +86,6 @@ all: lib
 $(NAME): $(OBJS) $(HEADER) $(LIBFT) $(LIBMLX)
 	@printf "$(BLUE)$(BOLD)Building cub3D...\n$(RESET)"
 	$(CC) $(CFLAGS) $(MLXFLAGS) $^ -o $@ -L $(LIBFT_DIR) -L $(LIBMLX_DIR) -DBONUS=$(BONUS) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux
-#-lXext -lX11 -lm
 	@printf "$(LIGHT_GREEN)$(BOLD)cub3D is ready to launch\n$(RESET)"
 
 $(OBJS_DIR)%.o: %.c $(HEADERS) $(LIBFT) Makefile
@@ -121,4 +120,4 @@ bonus: lib
 
 FORCE:
 
-.PHONY: all lib clean fclean re bonus
+.PHONY: all lib clean fclean re bonus FORCE
