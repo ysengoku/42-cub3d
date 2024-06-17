@@ -6,7 +6,7 @@
 /*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 08:30:08 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/17 10:07:08 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/17 15:14:07 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	display(t_cub3d *data)
 	}
 	while (x < WIN_W)
 	{
-		raycasting(data, x, &data->wall[DR + data->animation]);
+		raycasting(data, x, &data->wall[DR_C + data->animation]);
 		x++;
 	}
 	if (BONUS)

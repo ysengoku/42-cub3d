@@ -6,7 +6,7 @@
 /*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/17 09:44:42 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/17 15:10:08 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,13 @@
 # define MMAP_SPACE 11977418
 # define MMAP_DOOR 9868950
 
-# define DOOR_TEX "./textures/door/fence1.xpm"
-# define DOOR_TEX1 "./textures/door/fence2.xpm"
-# define DOOR_TEX2 "./textures/door/fence3.xpm"
-# define DOOR_TEX3 "./textures/door/fence4.xpm"
+# define DOOR_TEX_CLOSE "./textures/door/door.xpm"
+# define DOOR_TEX1 "./textures/door/door1.xpm"
+# define DOOR_TEX2 "./textures/door/door2.xpm"
+# define DOOR_TEX3 "./textures/door/door3.xpm"
+# define DOOR_TEX4 "./textures/door/door4.xpm"
+# define DOOR_TEX5 "./textures/door/door5.xpm"
+# define DOOR_TEX_OPEN "./textures/door/door6.xpm"
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
 # ifndef BONUS
@@ -95,14 +98,17 @@ enum	e_direction
 
 enum	e_wallside
 {
-	NO = 0,
-	SO = 1,
-	WE = 2,
-	EA = 3,
-	DR = 4,
-	DR1 = 5,
-	DR2 = 6,
-	DR3 = 7
+	NO,
+	SO,
+	WE,
+	EA,
+	DR_C,
+	DR1,
+	DR2,
+	DR3,
+	DR4,
+	DR5,
+	DR_O
 };
 
 enum	e_hit
@@ -242,7 +248,7 @@ typedef struct s_cub3d
 	t_player	player;
 	int			ceiling_color;
 	int			floor_color;
-	t_xpm_img	wall[8];
+	t_xpm_img	wall[11];
 	t_keys		keys;
 	/*++++++ Bonus +++++++++++++++++++*/
 	int			previous_mouse_x;
