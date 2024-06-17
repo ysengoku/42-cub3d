@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 16:53:25 by jmougel           #+#    #+#             */
-/*   Updated: 2024/06/14 16:39:08 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/17 08:02:26 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,18 +69,10 @@ int	get_sprites_path(t_cub3d *data)
 		exit_parsing(&data->map, "Error\nCub3D: invalid sprite");
 		return (EXIT_FAILURE);
 	}
-	/*=== Bonus =================================================*/
 	if (BONUS)
 	{
 		if (get_door_texture_paths(data) == 1)
 			return (1);
-	// if (!data->wall[DR].path)
-	// {
-	// 	free_texture_paths(data->wall, 4);
-	// 	exit_parsing(&data->map, "Error\nCub3D: malloc failed");
-	// 	return (EXIT_FAILURE);
-	// }
 	}
-	/*=============================================================*/
 	return (EXIT_SUCCESS);
 }

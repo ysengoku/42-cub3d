@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 15:38:08 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/14 16:42:52 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/17 09:03:24 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	create_minimap_img(t_cub3d *data, t_minimap *mmap)
 {
 	if (!BONUS)
 		return (0);
+	mmap->totalsize = MMAP_SCALE * MMAP_SIZE + MMAP_BORDER * MMAP_SIZE;
 	mmap->img.img = mlx_new_image(data->mlx_ptr,
 			((MMAP_SCALE * MMAP_SIZE) + (MMAP_BORDER * MMAP_SIZE) + 1),
 			((MMAP_SCALE * MMAP_SIZE) + (MMAP_BORDER * MMAP_SIZE) + 1));

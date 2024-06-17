@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rendering.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 08:30:08 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/17 07:32:50 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/17 09:10:26 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	display(t_cub3d *data, int i)
 	init_camera(data);
 	if (BONUS)
 	{
-		draw_minimap_zone(data, (MMAP_TOTAL_SIZE));
+		draw_minimap_zone(data, (data->mmap.totalsize));
 		draw_minimap(data);
 	}
 	while (x < WIN_W)
@@ -33,10 +33,7 @@ int	display(t_cub3d *data, int i)
 		x++;
 	}
 	if (BONUS)
-	{
-		draw_mmap_player(data);
 		draw_mmap_player_dir(data);
-	}
 	data->player.moved = 0;
 	return (0);
 }
@@ -47,10 +44,8 @@ void	raycasting(t_cub3d *data, int x, t_xpm_img *door)
 
 	ft_memset(&ray, 0, sizeof(ray));
 	set_ray(data, &ray, x);
-	draw_ceiling(data, x, data->win_half_h + data->player.pitch,
-		data->ceiling_color);
-	draw_floor(data, x, data->win_half_h + data->player.pitch,
-		data->floor_color);
+	draw_ceiling(data, x, data->win_half_h, data->ceiling_color);
+	draw_floor(data, x, data->win_half_h, data->floor_color);
 	check_wall_hit(data, &ray);
 	draw_wall(data, x, &ray);
 	if (BONUS)
@@ -68,7 +63,7 @@ static void	init_camera(t_cub3d *data)
 {
 	double	direction_rad;
 
-	direction_rad = data->player.dir * M_PI / 180;
+	direction_rad = data->player.dir_degree * M_PI / 180;
 	data->player.dir_x = cos(direction_rad);
 	data->player.dir_y = sin(direction_rad);
 	data->player.plane_x = -data->player.dir_y * data->player.plane_length;
