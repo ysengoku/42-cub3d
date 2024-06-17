@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 12:35:23 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/17 10:12:35 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/17 10:15:15 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int	mousemove(int x, int y, t_cub3d *data)
 		if (data->previous_mouse_x < x)
 			rotate_clockwise(data);
 	}
-	data->player.moved = 1;
 	data->previous_mouse_x = x;
 	return (0);
 }
