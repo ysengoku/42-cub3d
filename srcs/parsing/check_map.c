@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 16:59:04 by jmougel           #+#    #+#             */
-/*   Updated: 2024/06/13 09:29:43 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/17 07:19:49 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,10 @@ static int	check(int *player, int *i, int j, t_map *data_map)
 	}
 	else if (data_map->dup_map[j][*i] == '1'
 		|| data_map->dup_map[j][*i] == '0'
-		|| data_map->dup_map[j][*i] == 32
-		|| data_map->dup_map[j][*i] == 'D')
-	{
+		|| data_map->dup_map[j][*i] == 32)
 		*i += 1;
-	}
+	else if (BONUS && data_map->dup_map[j][*i] == 'D')
+		*i += 1;
 	else
 	{
 		exit_parsing(data_map, "Error\nCub3D: invalid map");

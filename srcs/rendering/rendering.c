@@ -6,7 +6,7 @@
 /*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 08:30:08 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/14 14:11:11 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/17 07:32:50 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,26 +21,23 @@ int	display(t_cub3d *data, int i)
 	int	x;
 
 	x = 0;
-	if (1)
+	init_camera(data);
+	if (BONUS)
 	{
-		init_camera(data);
-		if (BONUS)
-		{
-			draw_minimap_zone(data, (MMAP_TOTAL_SIZE));
-			draw_minimap(data);
-		}
-		while (x < WIN_W)
-		{
-			raycasting(data, x, &data->wall[DR + i]);
-			x++;
-		}
-		if (BONUS)
-		{
-			draw_mmap_player(data);
-			draw_mmap_player_dir(data);
-		}
-		data->player.moved = 0;
+		draw_minimap_zone(data, (MMAP_TOTAL_SIZE));
+		draw_minimap(data);
 	}
+	while (x < WIN_W)
+	{
+		raycasting(data, x, &data->wall[DR + i]);
+		x++;
+	}
+	if (BONUS)
+	{
+		draw_mmap_player(data);
+		draw_mmap_player_dir(data);
+	}
+	data->player.moved = 0;
 	return (0);
 }
 
