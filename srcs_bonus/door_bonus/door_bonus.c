@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 09:14:18 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/14 16:39:39 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/17 08:20:58 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,26 +28,6 @@ int	get_door_texture_paths(t_cub3d *data)
 	}
 	return (0);
 }
-
-/* void	anim_open_door(t_cub3d *data)
-{
-	int	x;
-	int	i;
-
-	x = 0;
-	i = 0;
-	data->anim = false;
-	while (i < 8)
-	{
-		while (x < WIN_W)
-			raycasting(data, x++, &data->wall[i]);
-		//printf("%p\n", data->wall[i].addr);
-		x = 0;
-		mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.img, 0, 0);
-		usleep(50000);
-		i++;
-	}
-} */
 
 void	switch_door_status(t_cub3d *data)
 {

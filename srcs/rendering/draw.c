@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 08:57:21 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/17 07:24:07 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/17 09:14:29 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ void	draw_wall(t_cub3d *data, int x, t_ray *r)
 	double	wall_x;
 
 	ft_memset(&line, 0, sizeof(line));
-	line.y_start = data->win_half_h - r->wall_height * 0.5 + data->player.pitch;
+	line.y_start = data->win_half_h - r->wall_height * 0.5;
 	if (line.y_start < 0)
 		line.y_start = 0;
-	line.y_end = data->win_half_h + r->wall_height * 0.5 + data->player.pitch;
+	line.y_end = data->win_half_h + r->wall_height * 0.5;
 	if (line.y_end > WIN_H)
 		line.y_end = WIN_H -1;
 	line.y = line.y_start;
@@ -69,13 +69,6 @@ static double	get_wall_x(t_cub3d *data, t_ray *ray)
 			- (data->player.pos_x + ray->w_dist * ray->dir_x);
 	else
 		wall_x = data->player.pos_x + ray->w_dist * ray->dir_x;
-	// if (ray->w_side == WE || ray->w_side == EA)
-	// 	wall_x = data->player.pos_y + ray->w_dist * ray->dir_y;
-	// else
-	// 	wall_x = data->player.pos_x + ray->w_dist * ray->dir_x;
-	// if ((ray->w_side == SO && ray->dir_y > 0)
-	// 	|| (ray->w_side == WE && ray->dir_x < 0))
-		// wall_x = 1 - wall_x;
 	if (wall_x != floor(wall_x))
 		wall_x -= floor(wall_x);
 	else
@@ -83,17 +76,16 @@ static double	get_wall_x(t_cub3d *data, t_ray *ray)
 	return (wall_x);
 }
 
-//===== Bonus ==================================================================
 void	draw_door(t_cub3d *data, int x, t_ray *r, t_xpm_img *tex)
 {
 	t_line	line;
 	double	wall_x;
 
 	ft_memset(&line, 0, sizeof(line));
-	line.y_start = data->win_half_h - r->wall_height * 0.5 + data->player.pitch;
+	line.y_start = data->win_half_h - r->wall_height * 0.5;
 	if (line.y_start < 0)
 		line.y_start = 0;
-	line.y_end = data->win_half_h + r->wall_height * 0.5 + data->player.pitch;
+	line.y_end = data->win_half_h + r->wall_height * 0.5;
 	if (line.y_end > WIN_H)
 		line.y_end = WIN_H -1;
 	line.y = line.y_start;
@@ -112,4 +104,3 @@ void	draw_door(t_cub3d *data, int x, t_ray *r, t_xpm_img *tex)
 			put_pxl_color(&data->img, x, line.y, line.color);
 	}
 }
-//==============================================================================

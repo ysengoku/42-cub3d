@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:57 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/14 16:43:35 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/17 09:13:52 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,13 @@ static void	init_player(t_player *player)
 	player->fov = FOV * M_PI / 180;
 	player->pos_x = 0;
 	player->pos_y = 0;
-	player->dir = 0.0;
+	player->dir_degree = 0.0;
 	player->dir_x = 0;
 	player->dir_y = 0;
 	player->plane_length = tan(player->fov * 0.5);
 	player->plane_x = 0;
 	player->plane_y = 0;
 	player->moved = 1;
-	player->pitch = 0;
 }
 
 static void	init_cub3d_data(t_cub3d *data)
@@ -108,11 +107,8 @@ int	main(int argc, char **argv)
 	mlx_hook(data.win_ptr, KeyPress, KeyPressMask, keypress, &data);
 	mlx_hook(data.win_ptr, KeyRelease, KeyReleaseMask, keyrelease, &data);
 	if (BONUS)
-	{
 		mlx_hook(data.win_ptr, MotionNotify, PointerMotionMask,
 			mousemove, &data);
-		mlx_mouse_hook(data.win_ptr, mousescroll, &data);
-	}
 	mlx_loop_hook(data.mlx_ptr, game_loop, &data);
 	mlx_loop(data.mlx_ptr);
 	return (0);

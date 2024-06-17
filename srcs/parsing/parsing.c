@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 16:54:57 by jmougel           #+#    #+#             */
-/*   Updated: 2024/06/14 16:37:10 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/17 08:14:37 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,10 @@ static void	display_data(t_cub3d *data)
 	printf("[sprite_SO] : %s\n", data->wall[SO].path);
 	printf("[sprite_EA] : %s\n", data->wall[WE].path);
 	printf("[sprite_WE] : %s\n", data->wall[EA].path);
-	printf("[F_RGB]     : [R]%d, [G]%d, [B]%d\n", data->map.f_rgb[0], data->map.f_rgb[1], data->map.f_rgb[2]);
-	printf("[C_RGB]     : [R]%d, [G]%d, [B]%d\n", data->map.c_rgb[0], data->map.c_rgb[1], data->map.c_rgb[2]);
+	printf("[F_RGB]     : [R]%d, [G]%d, [B]%d\n",
+		data->map.f_rgb[0], data->map.f_rgb[1], data->map.f_rgb[2]);
+	printf("[C_RGB]     : [R]%d, [G]%d, [B]%d\n",
+		data->map.c_rgb[0], data->map.c_rgb[1], data->map.c_rgb[2]);
 }
 
 int	parsing(char *file, t_cub3d *data)

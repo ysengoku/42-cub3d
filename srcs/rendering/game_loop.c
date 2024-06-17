@@ -3,14 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   game_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:14:25 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/17 07:31:55 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/17 08:10:51 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static void	animation(t_cub3d *data, int *i);
+static void	animation_open(t_cub3d *data, int *i);
+static void	animation_close(t_cub3d *data, int *i);
 
 static void	animation(t_cub3d *data, int *i)
 {
@@ -27,7 +31,7 @@ static void	animation_open(t_cub3d *data, int *i)
 	j = 0;
 	if (data->anim_open == true && *i <= 3)
 	{
-		*i++;
+		(*i)++;
 		while (j < 90000000)
 			j++;
 	}

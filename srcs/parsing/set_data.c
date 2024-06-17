@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 14:30:34 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/14 16:40:29 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/17 08:56:05 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	set_data(t_cub3d *data, t_player *player, t_map *map)
 {
 	player->pos_x = map->pos_x;
 	player->pos_y = map->pos_y;
-	player->dir = (double)map->p_dir;
+	player->dir_degree = (double)map->p_dir;
 	data->ceiling_color = convert_color(data->map.c_rgb);
 	data->floor_color = convert_color(data->map.f_rgb);
 }
@@ -41,11 +41,7 @@ int	set_wall_texture(t_cub3d *data, t_xpm_img *wall)
 				mlx_destroy_image(data->mlx_ptr, wall[i].img);
 			while (++i < n)
 				free(wall[i].path);
-			mlx_destroy_image(data->mlx_ptr, data->img.img);
-			mlx_destroy_window(data->mlx_ptr, data->win_ptr);
-			mlx_destroy_display(data->mlx_ptr);
-			free(data->mlx_ptr);
-			free_data_map(&data->map);
+			clear_data(data);
 			ft_perror_exit("MLX", 1);
 		}
 		wall[i].addr = mlx_get_data_addr(wall[i].img,
