@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 08:30:08 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/17 15:52:09 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/17 17:19:25 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@ int	display(t_cub3d *data)
 		x++;
 	}
 	if (BONUS)
+	{
 		draw_mmap_player_dir(data);
+		draw_treasure(data, &data->treasure);
+	}
 	return (0);
 }
 
@@ -56,6 +59,7 @@ void	raycasting(t_cub3d *data, int x, t_xpm_img *door)
 			draw_door(data, x, &ray, door);
 		if (data->keys.key_pressed_x == 1)
 			draw_ray_mmap(data, &ray);
+		set_treasure_data(data, &data->treasure);
 	}
 }
 

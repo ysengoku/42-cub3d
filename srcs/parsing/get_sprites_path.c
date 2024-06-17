@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 16:53:25 by jmougel           #+#    #+#             */
-/*   Updated: 2024/06/17 08:02:26 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/17 16:47:46 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	get_sprites_path(t_cub3d *data)
 	}
 	if (BONUS)
 	{
-		if (get_door_texture_paths(data) == 1)
+		if (get_door_and_treasure_texture_paths(data) == 1)
 			return (1);
 	}
 	return (EXIT_SUCCESS);
