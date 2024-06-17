@@ -6,7 +6,7 @@
 #    By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/23 08:07:54 by yusengok          #+#    #+#              #
-#    Updated: 2024/06/13 15:51:48 by yusengok         ###   ########.fr        #
+#    Updated: 2024/06/17 12:02:47 by yusengok         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,6 @@ LIGHT_GREEN = \033[32m
 BLUE = \033[34m
 
 NAME = cub3D
-#NAME_B = cub3D_bonus
 
 SRCS_DIR = srcs/
 SRCS_DIR_B = srcs_bonus/
@@ -58,20 +57,11 @@ FILES = main	\
 		minimap_utils_bonus	\
 		mouse_move_bonus	\
 		door_bonus	\
-		#door_parsing_bonus
-
-#FILES_B = minimap_bonus	\
-		minimap_img_bonus	\
-		mouse_move_bonus	\
-		door_bonus	\
 
 SRCS = $(addsuffix .c, $(FILES))
-#SRCS_B = $(addsuffix .c, $(FILES_B))
 
 OBJS_DIR = .objs/
 OBJS = $(addprefix $(OBJS_DIR), $(addsuffix .o, $(FILES)))
-#OBJS_DIR_B = .objs_bonus/
-#OBJS_B = $(addprefix $(OBJS_DIR_B), $(addsuffix .o, $(FILES_B)))
 
 HEADERS_DIR = includes/
 HEADER_FILES = cub3d.h
@@ -95,7 +85,8 @@ all: lib
 
 $(NAME): $(OBJS) $(HEADER) $(LIBFT) $(LIBMLX)
 	@printf "$(BLUE)$(BOLD)Building cub3D...\n$(RESET)"
-	$(CC) $(CFLAGS) $(MLXFLAGS) $^ -o $@ -L $(LIBFT_DIR) -L $(LIBMLX_DIR) -DBONUS=$(BONUS) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm
+	$(CC) $(CFLAGS) $(MLXFLAGS) $^ -o $@ -L $(LIBFT_DIR) -L $(LIBMLX_DIR) -DBONUS=$(BONUS) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux
+#-lXext -lX11 -lm
 	@printf "$(LIGHT_GREEN)$(BOLD)cub3D is ready to launch\n$(RESET)"
 
 $(OBJS_DIR)%.o: %.c $(HEADERS) $(LIBFT) Makefile
