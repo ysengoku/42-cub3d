@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_utils_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 13:36:40 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/14 13:01:55 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/17 09:17:01 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	draw_circle(t_cub3d *data, int xc, int yc, int r)
 	}
 }
 
-void	draw_scale(t_cub3d *data, int color, int size)
+static void	draw_scale(t_cub3d *data, int color, int size)
 {
 	int	x;
 	int	y;
@@ -51,4 +51,24 @@ void	draw_scale(t_cub3d *data, int color, int size)
 		y++;
 	}
 	draw_mmap_player_dir(data);
+}
+
+void	draw_scales(t_cub3d *data, int *cam_x, int *cam_y)
+{
+	if (*cam_x < 0 || *cam_y < 0)
+		draw_scale(data, MMAP_EMPTY, MMAP_SCALE);
+	else if (data->map.map[*cam_y] && data->map.map[*cam_y][*cam_x])
+	{
+		if (data->map.map[*cam_y][*cam_x] == '1')
+			draw_scale(data, MMAP_WALL, MMAP_SCALE);
+		else if (data->map.map[*cam_y][*cam_x] == '0')
+			draw_scale(data, MMAP_FLOOR, MMAP_SCALE);
+		else if (data->map.map[*cam_y][*cam_x] == 'P')
+			draw_scale(data, MMAP_FLOOR, MMAP_SCALE);
+		else if (data->map.map[*cam_y][*cam_x] == 'O'
+			|| data->map.map[*cam_y][*cam_x] == 'D')
+			draw_scale(data, MMAP_DOOR, MMAP_SCALE);
+	}
+	else
+		draw_scale(data, MMAP_EMPTY, MMAP_SCALE);
 }
