@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 14:30:34 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/17 10:31:34 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/17 11:32:42 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 void	set_data(t_cub3d *data, t_player *player, t_map *map)
 {
-	// player->pos_x = map->pos_x;
-	// player->pos_y = map->pos_y;
 	player->pos.x = map->pos_x;
 	player->pos.y = map->pos_y;
 	player->dir_degree = (double)map->p_dir;

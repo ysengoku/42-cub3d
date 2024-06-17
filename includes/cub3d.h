@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/17 10:46:29 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/17 11:24:06 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,8 +186,8 @@ typedef struct s_ray
 	// double			sidedist_x;
 	// double			sidedist_y;
 	t_vector		sidedist;
-	double			delta_x;
-	double			delta_y;
+	// double			delta_x;
+	// double			delta_y;
 	t_vector		delta;
 	double			w_dist;
 	int				wall_height;
