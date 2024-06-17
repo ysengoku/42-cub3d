@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/14 16:32:26 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/17 09:16:31 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,6 +212,20 @@ typedef struct s_minimap
 	t_xpm_img	wall;
 }				t_minimap;
 
+typedef struct s_keys
+{
+	int			key_pressed_left;
+	int			key_pressed_right;
+	int			key_pressed_w;
+	int			key_pressed_s;
+	int			key_pressed_a;
+	int			key_pressed_d;
+	int			key_pressed_m;
+	/*++++++ Bonus +++++++++++++++++++*/
+	int			key_pressed_x;
+	/*+++++++++++++++++++++++++++++++++*/
+}	t_keys;
+
 typedef struct s_cub3d
 {
 	void		*mlx_ptr;
@@ -224,19 +238,13 @@ typedef struct s_cub3d
 	int			ceiling_color;
 	int			floor_color;
 	t_xpm_img	wall[8];
-	int			key_pressed_left;
-	int			key_pressed_right;
-	int			key_pressed_w;
-	int			key_pressed_s;
-	int			key_pressed_a;
-	int			key_pressed_d;
-	int			key_pressed_m;
+	t_keys		keys;
 	/*++++++ Bonus +++++++++++++++++++*/
-	int			key_pressed_x;
 	int			previous_mouse_x;
 	t_minimap	mmap;
 	bool		anim_open;
 	bool		anim_close;
+	int			animation;
 	/*+++++++++++++++++++++++++++++++++*/
 }				t_cub3d;
 
@@ -259,7 +267,7 @@ void			set_data(t_cub3d *data, t_player *player, t_map *map);
 int				set_wall_texture(t_cub3d *data, t_xpm_img *wall);
 
 /*----- Ray casting -----*/
-int				display(t_cub3d *data, int i);
+int				display(t_cub3d *data);
 void			raycasting(t_cub3d *data, int x, t_xpm_img *door);
 void			check_wall_hit(t_cub3d *data, t_ray *ray);
 
@@ -315,6 +323,6 @@ void			switch_door_status(t_cub3d *data);
 void			check_door_hit(t_cub3d *data, t_ray *ray);
 // void			draw_door(t_cub3d *data, int x, t_ray *ray);
 void			draw_door(t_cub3d *data, int x, t_ray *r, t_xpm_img *tex);
-void			anim_open_door(t_cub3d *data);
+void			animations(t_cub3d *data);
 
 #endif

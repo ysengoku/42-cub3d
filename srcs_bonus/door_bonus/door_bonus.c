@@ -3,14 +3,59 @@
 /*                                                        :::      ::::::::   */
 /*   door_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 09:14:18 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/14 16:39:39 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/17 09:18:05 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static void	animation_open(t_cub3d *data)
+{
+	int	j;
+
+	j = 0;
+	if (*i <= 3)
+	{
+		*i += 1;
+		while (j < 90000000)
+			j++;
+	}
+	if (*i > 3)
+	{
+		*i = 0;
+		data->anim_open = false;
+		data->map.map[(int)round(data->player.dir_y)
+			+ (int)data->player.pos_y][(int)round(data->player.dir_x)
+			+ (int)data->player.pos_x] = 'O';
+	}
+}
+
+static void	animation_close(t_cub3d *data)
+{
+	int	j;
+
+	j = 0;
+	if (*i > 0)
+	{
+		*i -= 1;
+		while (j < 90000000)
+			j++;
+	}
+	else if (*i == 0)
+		*i = 4;
+	else
+}
+
+void	animations(t_cub3d *data)
+{
+	if (data->anim_open == true)
+		animation_open(data);
+	else if (data->anim_close == true)
+		animation_close(data);
+}
 
 int	get_door_texture_paths(t_cub3d *data)
 {
@@ -28,26 +73,6 @@ int	get_door_texture_paths(t_cub3d *data)
 	}
 	return (0);
 }
-
-/* void	anim_open_door(t_cub3d *data)
-{
-	int	x;
-	int	i;
-
-	x = 0;
-	i = 0;
-	data->anim = false;
-	while (i < 8)
-	{
-		while (x < WIN_W)
-			raycasting(data, x++, &data->wall[i]);
-		//printf("%p\n", data->wall[i].addr);
-		x = 0;
-		mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.img, 0, 0);
-		usleep(50000);
-		i++;
-	}
-} */
 
 void	switch_door_status(t_cub3d *data)
 {

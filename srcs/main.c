@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:57 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/14 16:43:35 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/17 09:15:06 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,18 +40,18 @@ static void	init_cub3d_data(t_cub3d *data)
 	init_player(&data->player);
 	data->ceiling_color = 0;
 	data->floor_color = 0;
-	data->key_pressed_left = 0;
-	data->key_pressed_right = 0;
-	data->key_pressed_w = 0;
-	data->key_pressed_s = 0;
-	data->key_pressed_a = 0;
-	data->key_pressed_d = 0;
+	data->keys.key_pressed_left = 0;
+	data->keys.key_pressed_right = 0;
+	data->keys.key_pressed_w = 0;
+	data->keys.key_pressed_s = 0;
+	data->keys.key_pressed_a = 0;
+	data->keys.key_pressed_d = 0;
 	if (BONUS)
 	{
 		ft_memset(&data->mmap, 0, sizeof(data->mmap));
 		ft_memset(&data->mmap.img, 0, sizeof(data->mmap.img));
 		data->previous_mouse_x = 0;
-		data->key_pressed_x = 0;
+		data->keys.key_pressed_x = 0;
 	}
 }
 
