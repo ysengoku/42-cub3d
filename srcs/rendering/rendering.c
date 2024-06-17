@@ -6,7 +6,7 @@
 /*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 08:30:08 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/17 07:32:50 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/17 09:17:57 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	init_camera(t_cub3d *data);
 static void	set_ray(t_cub3d *data, t_ray *ray, int x);
 static void	set_sidedist(t_ray *ray, t_player *player);
 
-int	display(t_cub3d *data, int i)
+int	display(t_cub3d *data)
 {
 	int	x;
 
@@ -26,10 +26,11 @@ int	display(t_cub3d *data, int i)
 	{
 		draw_minimap_zone(data, (MMAP_TOTAL_SIZE));
 		draw_minimap(data);
+		animations(data);
 	}
 	while (x < WIN_W)
 	{
-		raycasting(data, x, &data->wall[DR + i]);
+		raycasting(data, x, &data->wall[DR + data->animation]);
 		x++;
 	}
 	if (BONUS)
@@ -59,7 +60,7 @@ void	raycasting(t_cub3d *data, int x, t_xpm_img *door)
 		check_door_hit(data, &ray);
 		if (ray.hit == DOOR)
 			draw_door(data, x, &ray, door);
-		if (data->key_pressed_x == 1)
+		if (data->keys.key_pressed_x == 1)
 			draw_ray_mmap(data, &ray);
 	}
 }
