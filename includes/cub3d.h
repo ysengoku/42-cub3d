@@ -6,7 +6,7 @@
 /*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/17 15:26:15 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/17 15:41:32 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -308,6 +308,7 @@ int				create_minimap_img(t_cub3d *data, t_minimap *mmap);
 void			draw_mmap_player_dir(t_cub3d *data);
 void			draw_ray_mmap(t_cub3d *data, t_ray *ray);
 void			draw_scales(t_cub3d *data, int *cam_x, int *cam_y);
+void			draw_player(t_cub3d *data, int xc, int yc, int r);
 
 /*----- Mouse move -----*/
 int				mousemove(int x, int y, t_cub3d *data);

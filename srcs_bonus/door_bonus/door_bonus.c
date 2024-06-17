@@ -6,7 +6,7 @@
 /*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 09:14:18 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/17 15:34:46 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/17 15:45:38 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ void	switch_door_status(t_cub3d *data)
 		data->map.map[(int)round(data->player.dir.y)
 			+ (int)data->player.pos.y][(int)round(data->player.dir.x)
 			+ (int)data->player.pos.x] = 'D';
-		data->animation = 4;
+		data->animation = 6;
 		data->anim_close = true;
 	}
 }
