@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 09:59:51 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/13 13:32:05 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/17 10:07:01 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	move_forward(t_cub3d *data, t_player *player, t_map *map)
 		player->pos_y += player->dir_y * MOVE;
 		data->map.pos_y = player->pos_y;
 	}
-	data->player.moved = 1;
 }
 
 void	move_backward(t_cub3d *data, t_player *player, t_map *map)
@@ -53,7 +52,6 @@ void	move_backward(t_cub3d *data, t_player *player, t_map *map)
 		player->pos_y += player->dir_y * -1 * MOVE;
 		data->map.pos_y = player->pos_y;
 	}
-	data->player.moved = 1;
 }
 
 void	move_left(t_cub3d *data, t_player *player, t_map *map)
@@ -75,7 +73,6 @@ void	move_left(t_cub3d *data, t_player *player, t_map *map)
 		player->pos_y += player->dir_x * -1 * MOVE;
 		data->map.pos_y = player->pos_y;
 	}
-	data->player.moved = 1;
 }
 
 void	move_right(t_cub3d *data, t_player *player, t_map *map)
@@ -97,5 +94,4 @@ void	move_right(t_cub3d *data, t_player *player, t_map *map)
 		player->pos_y += player->dir_x * MOVE;
 		data->map.pos_y = player->pos_y;
 	}
-	data->player.moved = 1;
 }
