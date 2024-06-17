@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/17 10:46:29 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/17 15:26:15 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,13 @@
 # define MMAP_SPACE 11977418
 # define MMAP_DOOR 9868950
 
-# define DOOR_TEX "./textures/door/fence1.xpm"
-# define DOOR_TEX1 "./textures/door/fence2.xpm"
-# define DOOR_TEX2 "./textures/door/fence3.xpm"
-# define DOOR_TEX3 "./textures/door/fence4.xpm"
+# define DOOR_TEX_CLOSE "./textures/door/door.xpm"
+# define DOOR_TEX1 "./textures/door/door1.xpm"
+# define DOOR_TEX2 "./textures/door/door2.xpm"
+# define DOOR_TEX3 "./textures/door/door3.xpm"
+# define DOOR_TEX4 "./textures/door/door4.xpm"
+# define DOOR_TEX5 "./textures/door/door5.xpm"
+# define DOOR_TEX_OPEN "./textures/door/door6.xpm"
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
 # ifndef BONUS
@@ -95,14 +98,17 @@ enum	e_direction
 
 enum	e_wallside
 {
-	NO = 0,
-	SO = 1,
-	WE = 2,
-	EA = 3,
-	DR = 4,
-	DR1 = 5,
-	DR2 = 6,
-	DR3 = 7
+	NO,
+	SO,
+	WE,
+	EA,
+	DR_C,
+	DR1,
+	DR2,
+	DR3,
+	DR4,
+	DR5,
+	DR_O
 };
 
 enum	e_hit
@@ -158,36 +164,23 @@ typedef struct s_map
 typedef struct s_player
 {
 	double				fov;
-	// double				pos_x;
-	// double				pos_y;
 	t_vector			pos;
 	double				dir_degree;
-	// double				dir_x;
-	// double				dir_y;
 	t_vector			dir;
 	double				plane_length;
-	// double				plane_x;
-	// double				plane_y;
 	t_vector			plane;
-	// int					moved;
 }				t_player;
 
 typedef struct s_ray
 {
 	enum e_hit		hit;
 	double			camera_p;
-	// double			dir_x;
-	// double			dir_y;
 	t_vector		dir;
 	int				map_x;
 	int				map_y;
 	int				step_x;
 	int				step_y;
-	// double			sidedist_x;
-	// double			sidedist_y;
 	t_vector		sidedist;
-	double			delta_x;
-	double			delta_y;
 	t_vector		delta;
 	double			w_dist;
 	int				wall_height;
@@ -242,7 +235,7 @@ typedef struct s_cub3d
 	t_player	player;
 	int			ceiling_color;
 	int			floor_color;
-	t_xpm_img	wall[8];
+	t_xpm_img	wall[11];
 	t_keys		keys;
 	/*++++++ Bonus +++++++++++++++++++*/
 	int			previous_mouse_x;
@@ -283,7 +276,6 @@ void			draw_wall(t_cub3d *data, int x, t_ray *ray);
 void			draw_ceiling(t_cub3d *data, int x, int end, int ceiling_color);
 void			draw_floor(t_cub3d *data, int start, int end, int floor_color);
 void			draw_minimap(t_cub3d *data);
-void			draw_full_minimap(t_cub3d *data);
 void			draw_minimap_zone(t_cub3d *data, int size);
 int				convert_color(int rgb[3]);
 unsigned int	get_txcolor(t_xpm_img *texture, int x, int y);
@@ -315,7 +307,6 @@ void			clear_texture_img(t_cub3d *data);
 int				create_minimap_img(t_cub3d *data, t_minimap *mmap);
 void			draw_mmap_player_dir(t_cub3d *data);
 void			draw_ray_mmap(t_cub3d *data, t_ray *ray);
-void			draw_player(t_cub3d *data, int xc, int yc, int r);
 void			draw_scales(t_cub3d *data, int *cam_x, int *cam_y);
 
 /*----- Mouse move -----*/

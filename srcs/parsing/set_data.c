@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_data.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 14:30:34 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/17 10:31:34 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/17 15:27:18 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 void	set_data(t_cub3d *data, t_player *player, t_map *map)
 {
-	// player->pos_x = map->pos_x;
-	// player->pos_y = map->pos_y;
 	player->pos.x = map->pos_x;
 	player->pos.y = map->pos_y;
 	player->dir_degree = (double)map->p_dir;
@@ -32,7 +30,7 @@ int	set_wall_texture(t_cub3d *data, t_xpm_img *wall)
 	if (!BONUS)
 		n = 4;
 	else
-		n = 8;
+		n = 11;
 	while (++i < n)
 	{
 		wall[i].img = mlx_xpm_file_to_image(data->mlx_ptr, wall[i].path,
