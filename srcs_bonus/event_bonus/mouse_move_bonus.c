@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 12:35:23 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/17 08:52:34 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/17 10:12:35 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,3 @@ int	mousemove(int x, int y, t_cub3d *data)
 	data->previous_mouse_x = x;
 	return (0);
 }
-
-// int	mousescroll(int event, int x, int y, t_cub3d *data)
-// {
-// 	(void) x;
-// 	(void) y;
-// 	if (event == MOUSE_DOWN)
-// 		data->player.pitch += PITCH;
-// 	if (event == MOUSE_UP)
-// 		data->player.pitch -= PITCH;
-// 	data->player.moved = 1;
-// 	return (0);
-// }
