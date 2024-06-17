@@ -6,7 +6,7 @@
 /*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 08:57:21 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/17 15:33:01 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/17 15:39:31 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,11 @@ static double	get_wall_x(t_cub3d *data, t_ray *ray)
 {
 	double	wall_x;
 
-	if (ray->w_side == EA)
-		wall_x = data->wall[EA].w
-			- (data->player.pos_y + ray->w_dist * ray->dir_y);
-	else if (ray->w_side == WE)
-		wall_x = data->player.pos_y + ray->w_dist * ray->dir_y;
+	if (ray->w_side == WE)
+		wall_x = data->wall[WE].w
+			- (data->player.pos.y + ray->w_dist * ray->dir.y);
+	else if (ray->w_side == EA)
+		wall_x = data->player.pos.y + ray->w_dist * ray->dir.y;
 	else if (ray->w_side == SO)
 		wall_x = data->wall[SO].w
 			- (data->player.pos.x + ray->w_dist * ray->dir.x);
