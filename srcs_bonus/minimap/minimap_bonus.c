@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 13:08:42 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/17 10:45:47 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/17 11:33:11 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,15 +70,11 @@ void	draw_mmap_player_dir(t_cub3d *data)
 
 	dir.x = (data->mmap.totalsize) * 0.5;
 	dir.y = (data->mmap.totalsize) * 0.5;
-	// p.x = (int)data->player.pos_x + 0.5;
-	// p.y = (int)data->player.pos_y + 0.5;
 	p.x = (int)data->player.pos.x + 0.5;
 	p.y = (int)data->player.pos.y + 0.5;
 	while ((int)dir.x > 0 && (int)dir.y > 0 && (int)dir.x < data->mmap.totalsize
 		&& (int)dir.y < data->mmap.totalsize)
 	{
-		// p.x += (data->player.dir_x / (MMAP_BORDER + MMAP_SCALE));
-		// p.y += (data->player.dir_y / (MMAP_BORDER + MMAP_SCALE));
 		p.x += (data->player.dir.x / (MMAP_BORDER + MMAP_SCALE));
 		p.y += (data->player.dir.y / (MMAP_BORDER + MMAP_SCALE));
 		if (!data->map.map[(int)floor(p.y)]
@@ -87,8 +83,6 @@ void	draw_mmap_player_dir(t_cub3d *data)
 			|| data->map.map[(int)floor(p.y)][(int)floor(p.x)] == '1')
 			break ;
 		put_pxl_color(&data->mmap.img, (int)dir.x, (int)dir.y, MMAP_DIR);
-		// dir.x += data->player.dir_x;
-		// dir.y += data->player.dir_y;
 		dir.x += data->player.dir.x;
 		dir.y += data->player.dir.y;
 	}
@@ -101,15 +95,11 @@ void	draw_ray_mmap(t_cub3d *data, t_ray *ray)
 
 	dir.x = (data->mmap.totalsize) * 0.5;
 	dir.y = (data->mmap.totalsize) * 0.5;
-	// p.x = (int)data->player.pos_x + 0.5;
-	// p.y = (int)data->player.pos_y + 0.5;
 	p.x = (int)data->player.pos.x + 0.5;
 	p.y = (int)data->player.pos.y + 0.5;
 	while ((int)dir.x > 0 && (int)dir.y > 0 && (int)dir.x < data->mmap.totalsize
 		&& (int)dir.y < data->mmap.totalsize)
 	{
-		// p.x += (ray->dir_x / (MMAP_BORDER + MMAP_SCALE));
-		// p.y += (ray->dir_y / (MMAP_BORDER + MMAP_SCALE));
 		p.x += (ray->dir.x / (MMAP_BORDER + MMAP_SCALE));
 		p.y += (ray->dir.y / (MMAP_BORDER + MMAP_SCALE));
 		if (!data->map.map[(int)floor(p.y)]
@@ -118,8 +108,6 @@ void	draw_ray_mmap(t_cub3d *data, t_ray *ray)
 			|| data->map.map[(int)floor(p.y)][(int)floor(p.x)] == '1')
 			break ;
 		put_pxl_color(&data->mmap.img, (int)dir.x, (int)dir.y, MMAP_RAY);
-		// dir.x += ray->dir_x;
-		// dir.y += ray->dir_y;
 		dir.x += ray->dir.x;
 		dir.y += ray->dir.y;
 	}
