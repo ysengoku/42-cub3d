@@ -3,61 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:57 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/17 10:42:50 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/17 15:26:34 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-static void	init_player(t_player *player)
-{
-	player->fov = FOV * M_PI / 180;
-	// player->pos_x = 0;
-	// player->pos_y = 0;
-	player->pos.x = 0;
-	player->pos.y = 0;
-	player->dir_degree = 0.0;
-	// player->dir_x = 0;
-	// player->dir_y = 0;
-	player->dir.x = 0;
-	player->dir.y = 0;
-	player->plane_length = tan(player->fov * 0.5);
-	// player->plane_x = 0;
-	// player->plane_y = 0;
-	player->plane.x = 0;
-	player->plane.y = 0;
-	// player->moved = 1;
-}
 
 static void	init_cub3d_data(t_cub3d *data)
 {
 	int	i;
 
 	i = -1;
-	data->mlx_ptr = 0;
-	data->win_ptr = 0;
 	data->win_half_w = WIN_W * 0.5;
 	data->win_half_h = WIN_H * 0.5;
-	ft_memset(&data->img, 0, sizeof(data->img));
-	init_player(&data->player);
-	data->ceiling_color = 0;
-	data->floor_color = 0;
-	data->keys.key_pressed_left = 0;
-	data->keys.key_pressed_right = 0;
-	data->keys.key_pressed_w = 0;
-	data->keys.key_pressed_s = 0;
-	data->keys.key_pressed_a = 0;
-	data->keys.key_pressed_d = 0;
-	if (BONUS)
-	{
-		ft_memset(&data->mmap, 0, sizeof(data->mmap));
-		ft_memset(&data->mmap.img, 0, sizeof(data->mmap.img));
-		data->previous_mouse_x = 0;
-		data->keys.key_pressed_x = 0;
-	}
+	data->player.fov = FOV * M_PI / 180;
+	data->player.plane_length = tan(data->player.fov * 0.5);
 }
 
 static int	ft_init_mlx(t_cub3d *data)
@@ -100,6 +63,7 @@ int	main(int argc, char **argv)
 
 	if (argc != 2 || ft_strnstr_r(argv[1], ".cub") != 0)
 		ft_error_exit("Usage: ./cub3D <path/map_name.cub>", 1);
+	ft_memset(&data, 0, sizeof(t_cub3d));
 	if (parsing(argv[1], &data) == EXIT_FAILURE)
 		return (2);
 	init_cub3d_data(&data);
