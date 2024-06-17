@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/17 09:44:42 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/17 10:46:29 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,33 +158,33 @@ typedef struct s_map
 typedef struct s_player
 {
 	double				fov;
-	double				pos_x;
-	double				pos_y;
+	// double				pos_x;
+	// double				pos_y;
 	t_vector			pos;
 	double				dir_degree;
-	double				dir_x;
-	double				dir_y;
+	// double				dir_x;
+	// double				dir_y;
 	t_vector			dir;
 	double				plane_length;
-	double				plane_x;
-	double				plane_y;
+	// double				plane_x;
+	// double				plane_y;
 	t_vector			plane;
-	int					moved;
+	// int					moved;
 }				t_player;
 
 typedef struct s_ray
 {
 	enum e_hit		hit;
 	double			camera_p;
-	double			dir_x;
-	double			dir_y;
+	// double			dir_x;
+	// double			dir_y;
 	t_vector		dir;
 	int				map_x;
 	int				map_y;
 	int				step_x;
 	int				step_y;
-	double			sidedist_x;
-	double			sidedist_y;
+	// double			sidedist_x;
+	// double			sidedist_y;
 	t_vector		sidedist;
 	double			delta_x;
 	double			delta_y;
