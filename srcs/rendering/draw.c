@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 08:57:21 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/17 09:14:29 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/17 10:44:35 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,16 +59,26 @@ static double	get_wall_x(t_cub3d *data, t_ray *ray)
 {
 	double	wall_x;
 
+	// if (ray->w_side == EA)
+	// 	wall_x = data->wall[EA].w
+	// 		- (data->player.pos_y + ray->w_dist * ray->dir_y);
+	// else if (ray->w_side == WE)
+	// 	wall_x = data->player.pos_y + ray->w_dist * ray->dir_y;
+	// else if (ray->w_side == SO)
+	// 	wall_x = data->wall[SO].w
+	// 		- (data->player.pos_x + ray->w_dist * ray->dir_x);
+	// else
+	// 	wall_x = data->player.pos_x + ray->w_dist * ray->dir_x;
 	if (ray->w_side == EA)
 		wall_x = data->wall[EA].w
-			- (data->player.pos_y + ray->w_dist * ray->dir_y);
+			- (data->player.pos.y + ray->w_dist * ray->dir.y);
 	else if (ray->w_side == WE)
-		wall_x = data->player.pos_y + ray->w_dist * ray->dir_y;
+		wall_x = data->player.pos.y + ray->w_dist * ray->dir.y;
 	else if (ray->w_side == SO)
 		wall_x = data->wall[SO].w
-			- (data->player.pos_x + ray->w_dist * ray->dir_x);
+			- (data->player.pos.x + ray->w_dist * ray->dir.x);
 	else
-		wall_x = data->player.pos_x + ray->w_dist * ray->dir_x;
+		wall_x = data->player.pos.x + ray->w_dist * ray->dir.x;
 	if (wall_x != floor(wall_x))
 		wall_x -= floor(wall_x);
 	else
