@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 13:08:42 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/17 09:16:36 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/17 09:40:56 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,8 @@ void	draw_minimap(t_cub3d *data)
 		cam_x = data->map.pos_x - 4;
 		cam_y++;
 	}
-	draw_circle(data,
-		((MMAP_SCALE * MMAP_SIZE + MMAP_BORDER * MMAP_SIZE) * 0.5),
-		((MMAP_SCALE * MMAP_SIZE + MMAP_BORDER * MMAP_SIZE) * 0.5), 5);
+	draw_player(data, data->mmap.totalsize * 0.5,
+		data->mmap.totalsize * 0.5, 5);
 }
 
 void	draw_mmap_player_dir(t_cub3d *data)
