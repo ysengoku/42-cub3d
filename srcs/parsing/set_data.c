@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_data.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 14:30:34 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/17 15:27:18 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/17 16:32:27 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	set_wall_texture(t_cub3d *data, t_xpm_img *wall)
 	if (!BONUS)
 		n = 4;
 	else
-		n = 11;
+		n = 12;
 	while (++i < n)
 	{
 		wall[i].img = mlx_xpm_file_to_image(data->mlx_ptr, wall[i].path,

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/17 15:41:32 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/18 09:11:32 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@
 
 /*===== paths sprits ======================================================*/
 
-# define SPRITE_NO "./textures/test/north.xpm"
-# define SPRITE_SO "./textures/test/south.xpm"
-# define SPRITE_WE "./textures/test/west.xpm"
-# define SPRITE_EA "./textures/test/east.xpm"
+# define SPRITE_NO "./textures/walls/stone00.xpm"
+# define SPRITE_SO "./textures/walls/stone01.xpm"
+# define SPRITE_WE "./textures/walls/stone02.xpm"
+# define SPRITE_EA "./textures/walls/stone03.xpm"
 
 /*===== colors ======================================================*/
 
@@ -81,6 +81,8 @@
 # define DOOR_TEX4 "./textures/door/door4.xpm"
 # define DOOR_TEX5 "./textures/door/door5.xpm"
 # define DOOR_TEX_OPEN "./textures/door/door6.xpm"
+
+# define TREASURE_TEX "./textures/treasure/treasure.xpm"
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
 # ifndef BONUS
@@ -108,7 +110,8 @@ enum	e_wallside
 	DR3,
 	DR4,
 	DR5,
-	DR_O
+	DR_O,
+	TR
 };
 
 enum	e_hit
@@ -221,8 +224,23 @@ typedef struct s_keys
 	int			key_pressed_m;
 	/*++++++ Bonus +++++++++++++++++++*/
 	int			key_pressed_x;
-	/*+++++++++++++++++++++++++++++++++*/
+	/*++++++++++++++++++++++++++++++++*/
 }	t_keys;
+
+typedef struct s_treasure
+{
+	t_vector	map; // sprite x and y coodinate on map
+	t_vector	relative_pos; // sprite x and y coodinate relative to playeryer
+	t_vector	camera; //X = whether the sprite is to the left or right of the player's viewpoint and by how much. / Y = distance of the sprite from player
+	int			screen_x; // sprite x-coodinate on screen
+	int			draw_height; // sprite height on screen
+	int			draw_width; // sprite width on screen
+	int			start_x; // start x-coodinate to draw sprite
+	int			end_x; // end x-coodinate to draw sprite
+	int			start_y; //	start y-coodinate to draw sprite
+	int			end_y; // end y-coodinate to draw sprite
+	int			visible; // whether the sprite is visible or not
+}				t_treasure;
 
 typedef struct s_cub3d
 {
@@ -235,7 +253,7 @@ typedef struct s_cub3d
 	t_player	player;
 	int			ceiling_color;
 	int			floor_color;
-	t_xpm_img	wall[11];
+	t_xpm_img	wall[12];
 	t_keys		keys;
 	/*++++++ Bonus +++++++++++++++++++*/
 	int			previous_mouse_x;
@@ -244,6 +262,8 @@ typedef struct s_cub3d
 	bool		anim_close;
 	bool		anim;
 	int			animation;
+	t_treasure	treasure;
+	double		wall_zbuffer[WIN_W];
 	/*+++++++++++++++++++++++++++++++++*/
 }				t_cub3d;
 
@@ -253,6 +273,7 @@ typedef struct s_cub3d
 int				parsing(char *file, t_cub3d *map);
 char			**get_file(char *file);
 int				get_data(t_cub3d *data);
+// int				get_sprites_path(t_cub3d *map);
 int				get_sprites_path(t_cub3d *map);
 int				get_colors_rgb(t_map *data_map);
 int				get_maps(t_map *data_map);
@@ -268,7 +289,8 @@ int				set_wall_texture(t_cub3d *data, t_xpm_img *wall);
 /*----- Ray casting -----*/
 int				display(t_cub3d *data);
 void			raycasting(t_cub3d *data, int x, t_xpm_img *door);
-void			check_wall_hit(t_cub3d *data, t_ray *ray);
+void			check_wall_hit(t_cub3d *data, t_ray *ray, int x);
+void			check_door_hit(t_cub3d *data, t_ray *ray);
 
 /*----- Image rendering -----*/
 int				game_loop(t_cub3d *data);
@@ -314,10 +336,14 @@ void			draw_player(t_cub3d *data, int xc, int yc, int r);
 int				mousemove(int x, int y, t_cub3d *data);
 
 /*----- Doors -----*/
-int				get_door_texture_paths(t_cub3d *data);
+int				get_door_and_treasure_texture_paths(t_cub3d *data);
 void			switch_door_status(t_cub3d *data);
-void			check_door_hit(t_cub3d *data, t_ray *ray);
 void			draw_door(t_cub3d *data, int x, t_ray *r, t_xpm_img *tex);
 void			animations(t_cub3d *data);
+
+/*----- Treasures -----*/
+void			store_sprite_coordinates(t_cub3d *data);
+void			set_treasure_data(t_cub3d *data, t_treasure *treasures);
+void			draw_treasure(t_cub3d *data, t_treasure *treasure);
 
 #endif

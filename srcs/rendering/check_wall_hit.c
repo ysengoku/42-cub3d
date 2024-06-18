@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_wall_hit.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 08:07:02 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/17 15:40:14 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/18 07:54:51 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	next_step(t_ray *ray, int *is_vertical_side);
 static int	get_wall_side(t_ray *ray, t_player *player, int is_vertical_side);
 
-void	check_wall_hit(t_cub3d *data, t_ray *ray)
+void	check_wall_hit(t_cub3d *data, t_ray *ray, int x)
 {
 	int		is_vertical_side;
 
@@ -33,6 +33,7 @@ void	check_wall_hit(t_cub3d *data, t_ray *ray)
 		ray->w_dist = ray->sidedist.x - ray->delta.x;
 	if (ray->w_dist < 0.0001)
 		ray->w_dist = 0.0001;
+	data->wall_zbuffer[x] = ray->w_dist;
 	ray->w_side = get_wall_side(ray, &data->player, is_vertical_side);
 	ray->wall_height = (int)(WIN_H / ray->w_dist);
 }
