@@ -6,7 +6,7 @@
 /*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 10:42:38 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/17 09:35:26 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/18 13:30:23 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	keypress(int keysym, t_cub3d *data)
 	if (BONUS)
 	{
 		if (keysym == XK_e)
-			switch_door_status(data);
+			action_event(data);
 		if (keysym == XK_x && data->keys.key_pressed_x == 0)
 			data->keys.key_pressed_x = 1;
 		else if (keysym == XK_x && data->keys.key_pressed_x == 1)
