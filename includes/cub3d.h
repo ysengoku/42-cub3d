@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/18 13:41:03 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/18 15:27:09 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -289,7 +289,7 @@ int				get_colors_rgb(t_map *data_map);
 int				get_maps(t_cub3d *data);
 int				check_map(t_cub3d *data);
 int				algo_flood_fill(t_cub3d *data);
-void			flood_fill(t_cub3d *data,  char **dup_map, int pos_x, int pos_y);
+void			flood_fill(t_cub3d *data, char **dup_map, int pos_x, int pos_y);
 void			free_split(char **map);
 void			free_data_map(t_map *data_map);
 void			exit_parsing(t_map *data_map, char *message);

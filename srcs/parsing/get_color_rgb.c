@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 16:52:08 by jmougel           #+#    #+#             */
-/*   Updated: 2024/06/18 15:18:18 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/18 15:21:48 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,6 @@ int	get_colors_rgb(t_map *data_map)
 	if (data_map->f_rgb[0] == -1 || data_map->f_rgb[1] == -1
 		|| data_map->f_rgb[2] == -1 || data_map->c_rgb[0] == -1
 		|| data_map->c_rgb[1] == -1 || data_map->c_rgb[2] == -1)
-	{
-		// exit_parsing(data_map, "Error\nCub3D: invalid RGB");
 		return (EXIT_FAILURE);
-	}
 	return (EXIT_SUCCESS);
 }
