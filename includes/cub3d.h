@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/18 15:27:09 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/18 16:02:45 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -342,14 +342,15 @@ void			draw_ray_mmap(t_cub3d *data, t_ray *ray);
 void			draw_scales(t_cub3d *data, int *cam_x, int *cam_y);
 void			draw_player(t_cub3d *data, int xc, int yc, int r);
 
-/*----- Mouse move -----*/
+/*----- Event -----*/
 int				mousemove(int x, int y, t_cub3d *data);
+void			action_event(t_cub3d *data);
 
 /*----- Doors -----*/
 int				get_door_and_treasure_texture_paths(t_cub3d *data);
-void			action_event(t_cub3d *data);
 void			draw_door(t_cub3d *data, int x, t_ray *r, t_xpm_img *tex);
 void			animations(t_cub3d *data);
+void			anim_door(t_cub3d *data, int target_y, int target_x);
 
 /*----- Treasures -----*/
 void			store_sprite_coordinates(t_cub3d *data);

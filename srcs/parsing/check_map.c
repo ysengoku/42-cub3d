@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 16:59:04 by jmougel           #+#    #+#             */
-/*   Updated: 2024/06/18 15:26:02 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/18 16:05:49 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	check_map(t_cub3d *data)
 			free_texture_paths(data->wall, 4);
 		else
 			free_texture_paths(data->wall, 12);
-		exit_parsing(&data->map, "Error\nCub3D: map too big");
+		exit_parsing(&data->map, "Error\nCub3D: invalid map");
 	}
 	if (BONUS && data->map.check.treasure != 1)
 	{
