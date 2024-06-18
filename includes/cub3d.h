@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/17 17:19:12 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/18 09:11:32 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@
 
 /*===== paths sprits ======================================================*/
 
-# define SPRITE_NO "./textures/test/north.xpm"
-# define SPRITE_SO "./textures/test/south.xpm"
-# define SPRITE_WE "./textures/test/west.xpm"
-# define SPRITE_EA "./textures/test/east.xpm"
+# define SPRITE_NO "./textures/walls/stone00.xpm"
+# define SPRITE_SO "./textures/walls/stone01.xpm"
+# define SPRITE_WE "./textures/walls/stone02.xpm"
+# define SPRITE_EA "./textures/walls/stone03.xpm"
 
 /*===== colors ======================================================*/
 
@@ -82,7 +82,7 @@
 # define DOOR_TEX5 "./textures/door/door5.xpm"
 # define DOOR_TEX_OPEN "./textures/door/door6.xpm"
 
-# define TREASURE_TEX "./textures/treasure/barrel.xpm"
+# define TREASURE_TEX "./textures/treasure/treasure.xpm"
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
 # ifndef BONUS
@@ -289,7 +289,8 @@ int				set_wall_texture(t_cub3d *data, t_xpm_img *wall);
 /*----- Ray casting -----*/
 int				display(t_cub3d *data);
 void			raycasting(t_cub3d *data, int x, t_xpm_img *door);
-void			check_wall_hit(t_cub3d *data, t_ray *ray);
+void			check_wall_hit(t_cub3d *data, t_ray *ray, int x);
+void			check_door_hit(t_cub3d *data, t_ray *ray);
 
 /*----- Image rendering -----*/
 int				game_loop(t_cub3d *data);
@@ -335,10 +336,8 @@ void			draw_player(t_cub3d *data, int xc, int yc, int r);
 int				mousemove(int x, int y, t_cub3d *data);
 
 /*----- Doors -----*/
-// int				get_door_texture_paths(t_cub3d *data);
 int				get_door_and_treasure_texture_paths(t_cub3d *data);
 void			switch_door_status(t_cub3d *data);
-void			check_door_hit(t_cub3d *data, t_ray *ray);
 void			draw_door(t_cub3d *data, int x, t_ray *r, t_xpm_img *tex);
 void			animations(t_cub3d *data);
 
