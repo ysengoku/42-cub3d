@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 16:40:20 by jmougel           #+#    #+#             */
-/*   Updated: 2024/06/17 17:35:12 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/18 15:19:53 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,13 @@
 int	get_data(t_cub3d *data)
 {
 	get_sprites_path(data);
-	get_colors_rgb(&data->map);
+	if (get_colors_rgb(&data->map) == EXIT_FAILURE)
+	{
+		if (!BONUS)
+			free_texture_paths(data->wall, 4);
+		else
+			free_texture_paths(data->wall, 12);
+		exit_parsing(&data->map, "Error\nCub3D: invalid RGB");
+	}
 	return (EXIT_SUCCESS);
 }
