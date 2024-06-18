@@ -6,7 +6,7 @@
 #    By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/23 08:07:54 by yusengok          #+#    #+#              #
-#    Updated: 2024/06/13 15:51:48 by yusengok         ###   ########.fr        #
+#    Updated: 2024/06/18 09:08:58 by yusengok         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ LIGHT_GREEN = \033[32m
 BLUE = \033[34m
 
 NAME = cub3D
-#NAME_B = cub3D_bonus
+NAME_B = cub3D_bonus
 
 SRCS_DIR = srcs/
 SRCS_DIR_B = srcs_bonus/
@@ -29,7 +29,8 @@ vpath %c $(SRCS_DIR) \
 		$(SRCS_DIR_B)	\
 		$(SRCS_DIR_B)minimap	\
 		$(SRCS_DIR_B)event_bonus	\
-		$(SRCS_DIR_B)door_bonus
+		$(SRCS_DIR_B)door_bonus	\
+		$(SRCS_DIR_B)treasure_bonus
 		
 FILES = main	\
 		parsing \
@@ -58,20 +59,15 @@ FILES = main	\
 		minimap_utils_bonus	\
 		mouse_move_bonus	\
 		door_bonus	\
-		#door_parsing_bonus
-
-#FILES_B = minimap_bonus	\
-		minimap_img_bonus	\
-		mouse_move_bonus	\
-		door_bonus	\
+		treasure_bonus	\
+		set_treasure_data_bonus
 
 SRCS = $(addsuffix .c, $(FILES))
-#SRCS_B = $(addsuffix .c, $(FILES_B))
 
 OBJS_DIR = .objs/
 OBJS = $(addprefix $(OBJS_DIR), $(addsuffix .o, $(FILES)))
-#OBJS_DIR_B = .objs_bonus/
-#OBJS_B = $(addprefix $(OBJS_DIR_B), $(addsuffix .o, $(FILES_B)))
+OBJS_DIR_B = .objs_bonus/
+OBJS_B = $(addprefix $(OBJS_DIR_B), $(addsuffix .o, $(FILES)))
 
 HEADERS_DIR = includes/
 HEADER_FILES = cub3d.h
@@ -95,12 +91,21 @@ all: lib
 
 $(NAME): $(OBJS) $(HEADER) $(LIBFT) $(LIBMLX)
 	@printf "$(BLUE)$(BOLD)Building cub3D...\n$(RESET)"
-	$(CC) $(CFLAGS) $(MLXFLAGS) $^ -o $@ -L $(LIBFT_DIR) -L $(LIBMLX_DIR) -DBONUS=$(BONUS) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm
+	$(CC) $(CFLAGS) $(MLXFLAGS) $^ -o $@ -L $(LIBFT_DIR) -L $(LIBMLX_DIR) -DBONUS=$(BONUS) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux
 	@printf "$(LIGHT_GREEN)$(BOLD)cub3D is ready to launch\n$(RESET)"
 
 $(OBJS_DIR)%.o: %.c $(HEADERS) $(LIBFT) Makefile
 	@mkdir -p $(OBJS_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDE) -DBONUS=$(BONUS)
+	
+$(NAME_B): $(OBJS_B) $(HEADER) $(LIBFT) $(LIBMLX)
+	@printf "$(BLUE)$(BOLD)Building cub3D_bonus...\n$(RESET)"
+	$(CC) $(CFLAGS) $(MLXFLAGS) $^ -o $@ -L $(LIBFT_DIR) -L $(LIBMLX_DIR) -DBONUS=1 -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux
+	@printf "$(LIGHT_GREEN)$(BOLD)cub3D_bonus is ready to launch\n$(RESET)"
+
+$(OBJS_DIR_B)%.o: %.c $(HEADERS) $(LIBFT) Makefile
+	@mkdir -p $(OBJS_DIR_B)
+	$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDE) -DBONUS=1
 
 lib: $(FORCE)
 	@printf "$(BLUE)$(BOLD)Compiling Libft...\n$(RESET)"
@@ -115,19 +120,19 @@ clean:
 	@$(MAKE) -s -C $(LIBMLX_DIR) clean
 	@printf "$(BLUE)$(BOLD)Cleaning cub3D...\n$(RESET)"
 	@$(RM) -r $(OBJS_DIR)
+	@$(RM) -r $(OBJS_DIR_B)
 
 fclean: clean
 	@$(MAKE) -s -C $(LIBFT_DIR) fclean
 	@$(RM) $(NAME)
+	@$(RM) $(NAME_B)
 
 re: fclean
 	@$(MAKE) all
 
-bonus: lib
-	@$(RM) -r $(OBJS_DIR)
-	@$(RM) $(NAME)
-	$(MAKE) all BONUS=1
+bonus: lib $(NAME_B)
+	$(MAKE) $(NAME_B)
 
 FORCE:
 
-.PHONY: all lib clean fclean re bonus
+.PHONY: all lib clean fclean re bonus FORCE
