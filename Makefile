@@ -6,7 +6,7 @@
 #    By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/23 08:07:54 by yusengok          #+#    #+#              #
-#    Updated: 2024/06/18 09:08:58 by yusengok         ###   ########.fr        #
+#    Updated: 2024/06/18 16:00:01 by yusengok         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,7 +57,7 @@ FILES = main	\
 		minimap_bonus	\
 		minimap_img_bonus	\
 		minimap_utils_bonus	\
-		mouse_move_bonus	\
+		event_bonus	\
 		door_bonus	\
 		treasure_bonus	\
 		set_treasure_data_bonus
