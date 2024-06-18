@@ -6,7 +6,7 @@
 #    By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/23 08:07:54 by yusengok          #+#    #+#              #
-#    Updated: 2024/06/17 16:37:47 by yusengok         ###   ########.fr        #
+#    Updated: 2024/06/18 09:08:58 by yusengok         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ LIGHT_GREEN = \033[32m
 BLUE = \033[34m
 
 NAME = cub3D
+NAME_B = cub3D_bonus
 
 SRCS_DIR = srcs/
 SRCS_DIR_B = srcs_bonus/
@@ -59,13 +60,14 @@ FILES = main	\
 		mouse_move_bonus	\
 		door_bonus	\
 		treasure_bonus	\
-		parsing_treasure_bonus	\
 		set_treasure_data_bonus
 
 SRCS = $(addsuffix .c, $(FILES))
 
 OBJS_DIR = .objs/
 OBJS = $(addprefix $(OBJS_DIR), $(addsuffix .o, $(FILES)))
+OBJS_DIR_B = .objs_bonus/
+OBJS_B = $(addprefix $(OBJS_DIR_B), $(addsuffix .o, $(FILES)))
 
 HEADERS_DIR = includes/
 HEADER_FILES = cub3d.h
@@ -95,6 +97,15 @@ $(NAME): $(OBJS) $(HEADER) $(LIBFT) $(LIBMLX)
 $(OBJS_DIR)%.o: %.c $(HEADERS) $(LIBFT) Makefile
 	@mkdir -p $(OBJS_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDE) -DBONUS=$(BONUS)
+	
+$(NAME_B): $(OBJS_B) $(HEADER) $(LIBFT) $(LIBMLX)
+	@printf "$(BLUE)$(BOLD)Building cub3D_bonus...\n$(RESET)"
+	$(CC) $(CFLAGS) $(MLXFLAGS) $^ -o $@ -L $(LIBFT_DIR) -L $(LIBMLX_DIR) -DBONUS=1 -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux
+	@printf "$(LIGHT_GREEN)$(BOLD)cub3D_bonus is ready to launch\n$(RESET)"
+
+$(OBJS_DIR_B)%.o: %.c $(HEADERS) $(LIBFT) Makefile
+	@mkdir -p $(OBJS_DIR_B)
+	$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDE) -DBONUS=1
 
 lib: $(FORCE)
 	@printf "$(BLUE)$(BOLD)Compiling Libft...\n$(RESET)"
@@ -109,18 +120,18 @@ clean:
 	@$(MAKE) -s -C $(LIBMLX_DIR) clean
 	@printf "$(BLUE)$(BOLD)Cleaning cub3D...\n$(RESET)"
 	@$(RM) -r $(OBJS_DIR)
+	@$(RM) -r $(OBJS_DIR_B)
 
 fclean: clean
 	@$(MAKE) -s -C $(LIBFT_DIR) fclean
 	@$(RM) $(NAME)
+	@$(RM) $(NAME_B)
 
 re: fclean
 	@$(MAKE) all
 
-bonus: lib
-	@$(RM) -r $(OBJS_DIR)
-	@$(RM) $(NAME)
-	$(MAKE) all BONUS=1
+bonus: lib $(NAME_B)
+	$(MAKE) $(NAME_B)
 
 FORCE:
 
