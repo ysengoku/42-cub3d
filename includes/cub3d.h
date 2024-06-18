@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/18 09:11:32 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/18 13:30:23 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,8 +149,19 @@ typedef struct s_xpm_img
 	char		*path;
 }				t_xpm_img;
 
+typedef struct s_check_map
+{
+	int		player;
+	int		treasure;
+	bool	catch_treasure;
+	bool	invalid_map;
+	char	old_char;
+	char	new_char;
+}	t_check_map;
+
 typedef struct s_map
 {
+	t_check_map			check;
 	char				**data_map;
 	char				**map;
 	char				**dup_map;
@@ -276,10 +287,10 @@ int				get_data(t_cub3d *data);
 // int				get_sprites_path(t_cub3d *map);
 int				get_sprites_path(t_cub3d *map);
 int				get_colors_rgb(t_map *data_map);
-int				get_maps(t_map *data_map);
-int				check_map(t_map *data_map);
-int				algo_flood_fill(t_map *data_map);
-void			flood_fill(char **dup_map, int pos_x, int pos_y, bool *valid);
+int				get_maps(t_cub3d *data);
+int				check_map(t_cub3d *data);
+int				algo_flood_fill(t_cub3d *data);
+void			flood_fill(t_cub3d *data,  char **dup_map, int pos_x, int pos_y);
 void			free_split(char **map);
 void			free_data_map(t_map *data_map);
 void			exit_parsing(t_map *data_map, char *message);
@@ -337,7 +348,7 @@ int				mousemove(int x, int y, t_cub3d *data);
 
 /*----- Doors -----*/
 int				get_door_and_treasure_texture_paths(t_cub3d *data);
-void			switch_door_status(t_cub3d *data);
+void			action_event(t_cub3d *data);
 void			draw_door(t_cub3d *data, int x, t_ray *r, t_xpm_img *tex);
 void			animations(t_cub3d *data);
 

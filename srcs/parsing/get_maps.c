@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_maps.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmougel <jmougel@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 16:57:09 by jmougel           #+#    #+#             */
-/*   Updated: 2024/06/04 19:22:50 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/18 10:05:59 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,14 +90,14 @@ static char	**get_map(t_map *data_map)
 	return (map);
 }
 
-int	get_maps(t_map *data_map)
+int	get_maps(t_cub3d *data)
 {
-	data_map->map = get_map(data_map);
-	if (!data_map->map)
+	data->map.map = get_map(&data->map);
+	if (!data->map.map)
 		return (ft_perror_exit("Error\nCub3D", EXIT_FAILURE), EXIT_FAILURE);
-	data_map->dup_map = get_map(data_map);
-	if (!data_map->dup_map)
+	data->map.dup_map = get_map(&data->map);
+	if (!data->map.dup_map)
 		return (ft_perror_exit("Error\nCub3D", EXIT_FAILURE), EXIT_FAILURE);
-	get_length(data_map);
+	get_length(&data->map);
 	return (EXIT_SUCCESS);
 }
