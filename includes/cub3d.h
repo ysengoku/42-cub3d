@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/18 09:11:32 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/18 11:27:44 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -273,7 +273,6 @@ typedef struct s_cub3d
 int				parsing(char *file, t_cub3d *map);
 char			**get_file(char *file);
 int				get_data(t_cub3d *data);
-// int				get_sprites_path(t_cub3d *map);
 int				get_sprites_path(t_cub3d *map);
 int				get_colors_rgb(t_map *data_map);
 int				get_maps(t_map *data_map);
@@ -289,8 +288,8 @@ int				set_wall_texture(t_cub3d *data, t_xpm_img *wall);
 /*----- Ray casting -----*/
 int				display(t_cub3d *data);
 void			raycasting(t_cub3d *data, int x, t_xpm_img *door);
-void			check_wall_hit(t_cub3d *data, t_ray *ray, int x);
-void			check_door_hit(t_cub3d *data, t_ray *ray);
+void			check_wall_hit(t_cub3d *data, t_ray *ray);
+void			check_door_hit(t_cub3d *data, t_ray *ray, int x);
 
 /*----- Image rendering -----*/
 int				game_loop(t_cub3d *data);
