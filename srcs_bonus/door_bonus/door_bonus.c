@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   door_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 09:14:18 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/17 16:46:20 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/18 13:37:09 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,31 @@ int	get_door_and_treasure_texture_paths(t_cub3d *data)
 	return (0);
 }
 
-void	switch_door_status(t_cub3d *data)
+void	anim_door(t_cub3d *data, int target_y, int target_x)
+{
+	if (data->map.map[target_y][target_x] == 'D' && data->anim_close == false)
+	{
+		data->anim_open = true;
+		data->animation = 0;
+	}
+	else if (data->map.map[target_y][target_x] == 'O' && data->anim_open == false)
+	{
+		data->map.map[(int)round(data->player.dir.y)
+			+ (int)data->player.pos.y][(int)round(data->player.dir.x)
+			+ (int)data->player.pos.x] = 'D';
+		data->animation = 6;
+		data->anim_close = true;
+	}
+}
+
+void	finish_game(t_cub3d *data)
+{
+	printf("\033[1m\033[32mCONGRATULATION ! You won !\033[0m\n");
+	sleep(1);
+	close_window(data);
+}
+
+void	action_event(t_cub3d *data)
 {
 	int		target_x;
 	int		target_y;
@@ -143,4 +167,9 @@ void	switch_door_status(t_cub3d *data)
 		data->animation = 6;
 		data->anim_close = true;
 	}
+	if (data->map.map[target_y][target_x] == 'D'
+		|| data->map.map[target_y][target_x] == 'O')
+		anim_door(data, target_y, target_x);
+	if (BONUS && data->map.map[target_y][target_x] == 'T')
+		finish_game(data);
 }

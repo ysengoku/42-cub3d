@@ -6,7 +6,7 @@
 /*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 13:36:40 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/17 09:38:25 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/18 09:23:50 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ void	draw_scales(t_cub3d *data, int *cam_x, int *cam_y)
 	{
 		if (data->map.map[*cam_y][*cam_x] == '1')
 			draw_scale(data, MMAP_WALL, MMAP_SCALE);
-		else if (data->map.map[*cam_y][*cam_x] == '0')
+		else if (data->map.map[*cam_y][*cam_x] == '0'
+			|| data->map.map[*cam_y][*cam_x] == 'T')
 			draw_scale(data, MMAP_FLOOR, MMAP_SCALE);
 		else if (data->map.map[*cam_y][*cam_x] == 'P')
 			draw_scale(data, MMAP_FLOOR, MMAP_SCALE);
