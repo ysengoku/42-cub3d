@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 16:59:04 by jmougel           #+#    #+#             */
-/*   Updated: 2024/06/18 14:50:55 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/18 15:26:02 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	check_char(t_cub3d *data, int *i, int j)
 	else if (data->map.dup_map[j][*i] == '1'
 		|| data->map.dup_map[j][*i] == '0' || data->map.dup_map[j][*i] == 32)
 		*i += 1;
-	else if (BONUS && (data->map.dup_map[j][*i] == 'D' 
+	else if (BONUS && (data->map.dup_map[j][*i] == 'D'
 		|| data->map.dup_map[j][*i] == 'T'))
 	{
 		if (data->map.dup_map[j][*i] == 'T')
@@ -76,7 +76,7 @@ int	check_map(t_cub3d *data)
 			free_texture_paths(data->wall, 4);
 		else
 			free_texture_paths(data->wall, 12);
-		exit_parsing(&data->map, "Error\nCub3D: map too big");	
+		exit_parsing(&data->map, "Error\nCub3D: map too big");
 	}
 	if (BONUS && data->map.check.treasure != 1)
 	{

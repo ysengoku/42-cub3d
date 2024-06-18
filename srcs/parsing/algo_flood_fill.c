@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   algo_flood_fill.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 17:19:54 by jmougel           #+#    #+#             */
-/*   Updated: 2024/06/18 11:42:50 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/18 15:25:36 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,13 +87,16 @@ int	algo_flood_fill(t_cub3d *data)
 	flood_fill(data, data->map.dup_map, pos_x, pos_y);
 	if (data->map.check.invalid_map == true)
 	{
+		if (!BONUS)
+			free_texture_paths(data->wall, 4);
+		else
+			free_texture_paths(data->wall, 12);
 		exit_parsing(&data->map, "Error\nCub3D: map not close");
-		return (EXIT_FAILURE);
 	}
 	else if (BONUS && data->map.check.catch_treasure == false)
 	{
+		free_texture_paths(data->wall, 12);
 		exit_parsing(&data->map, "Error\nCub3D: treasure not reached");
-		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
 }
