@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/19 11:44:20 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/19 13:50:38 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@
 #  define FOV 90
 # endif
 # define MOVE 0.1
-# define ROTATE 5
+# define ROTATE 2
 
 /*+++++ BONUS ++++++++++++++++++++++++++++++++++++++++++++++*/
 # define MINI_MAP_W 100
@@ -187,9 +187,20 @@ typedef struct s_player
 	t_vector			plane;
 }				t_player;
 
+typedef struct s_hit
+{
+	double			dist;
+	int				h;
+	enum e_wallside	side;
+	enum e_wallside	tex;
+}				t_hit;
+
 typedef struct s_ray
 {
 	enum e_hit		hit;
+	int				w_hit;
+	int				close_door_hit;
+	int				open_door_hit;
 	double			camera_p;
 	t_vector		dir;
 	int				map_x;
@@ -198,9 +209,9 @@ typedef struct s_ray
 	int				step_y;
 	t_vector		sidedist;
 	t_vector		delta;
-	double			w_dist;
-	int				wall_height;
-	enum e_wallside	w_side;
+	t_hit			wall;
+	t_hit			closed_d;
+	t_hit			open_d;
 }			t_ray;
 
 typedef struct s_line
@@ -242,17 +253,17 @@ typedef struct s_keys
 
 typedef struct s_treasure
 {
-	t_vector	map; // sprite x and y coodinate on map
-	t_vector	relative_pos; // sprite x and y coodinate relative to playeryer
-	t_vector	camera; //X = whether the sprite is to the left or right of the player's viewpoint and by how much. / Y = distance of the sprite from player
-	int			screen_x; // sprite x-coodinate on screen
-	int			draw_height; // sprite height on screen
-	int			draw_width; // sprite width on screen
-	int			start_x; // start x-coodinate to draw sprite
-	int			end_x; // end x-coodinate to draw sprite
-	int			start_y; //	start y-coodinate to draw sprite
-	int			end_y; // end y-coodinate to draw sprite
-	int			visible; // whether the sprite is visible or not
+	t_vector	map;
+	t_vector	relative_pos;
+	t_vector	camera;
+	int			screen_x;
+	int			draw_height;
+	int			draw_width;
+	int			start_x;
+	int			end_x;
+	int			start_y;
+	int			end_y;
+	int			visible;
 }				t_treasure;
 
 typedef struct s_cub3d
@@ -302,7 +313,7 @@ int				set_wall_texture(t_cub3d *data, t_xpm_img *wall);
 /*----- Ray casting -----*/
 int				display(t_cub3d *data);
 void			raycasting(t_cub3d *data, int x, t_xpm_img *door);
-void			check_wall_hit(t_cub3d *data, t_ray *ray);
+void			check_hit(t_cub3d *data, t_ray *ray);
 void			check_door_hit(t_cub3d *data, t_ray *ray, int x, char c);
 
 /*----- Image rendering -----*/
@@ -351,7 +362,8 @@ void			action_event(t_cub3d *data);
 
 /*----- Doors -----*/
 void			get_door_and_treasure_texture_paths(t_cub3d *data);
-void			draw_door(t_cub3d *data, int x, t_ray *r, t_xpm_img *tex);
+void			draw_door(t_cub3d *data, int x, t_ray *r, t_hit *door);
+void			draw_anim_door(t_cub3d *data, int x, t_ray *r, t_xpm_img *tex);
 void			animations(t_cub3d *data);
 void			anim_door(t_cub3d *data, int target_y, int target_x);
 

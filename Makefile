@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+         #
+#    By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/23 08:07:54 by yusengok          #+#    #+#              #
-#    Updated: 2024/06/19 10:36:32 by jmougel          ###   ########.fr        #
+#    Updated: 2024/06/19 13:49:52 by yusengok         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,7 @@ FILES = main	\
 		get_color_rgb \
 		get_maps \
 		check_map \
+		check_file	\
 		algo_flood_fill \
 		handle_errors	\
 		set_data	\
@@ -47,6 +48,7 @@ FILES = main	\
 		draw	\
 		colors	\
 		rendering	\
+		raycasting	\
 		check_wall_hit	\
 		event_handler	\
 		move	\
@@ -61,7 +63,7 @@ FILES = main	\
 		door_bonus	\
 		treasure_bonus	\
 		set_treasure_data_bonus	\
-		check_file
+
 
 SRCS = $(addsuffix .c, $(FILES))
 
