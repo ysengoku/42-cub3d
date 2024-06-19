@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   door_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 09:14:18 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/18 16:09:40 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/19 08:56:48 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,9 @@ static void	animation_close(t_cub3d *data)
 		while (j < 90000000)
 			j++;
 		data->anim_close = false;
+		data->map.map[(int)round(data->player.dir.y)
+			+ (int)data->player.pos.y][(int)round(data->player.dir.x)
+			+ (int)data->player.pos.x] = 'D';
 	}
 	else
 	{
@@ -93,6 +96,9 @@ void	anim_door(t_cub3d *data, int target_y, int target_x)
 {
 	if (data->map.map[target_y][target_x] == 'D' && data->anim_close == false)
 	{
+		data->map.map[(int)round(data->player.dir.y)
+			+ (int)data->player.pos.y][(int)round(data->player.dir.x)
+			+ (int)data->player.pos.x] = 'd';
 		data->anim_open = true;
 		data->animation = 0;
 	}
@@ -101,8 +107,8 @@ void	anim_door(t_cub3d *data, int target_y, int target_x)
 	{
 		data->map.map[(int)round(data->player.dir.y)
 			+ (int)data->player.pos.y][(int)round(data->player.dir.x)
-			+ (int)data->player.pos.x] = 'D';
-		data->animation = 6;
+			+ (int)data->player.pos.x] = 'o';
 		data->anim_close = true;
+		data->animation = 6;
 	}
 }

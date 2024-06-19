@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 08:30:08 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/19 10:14:38 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/19 10:20:23 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,20 @@ void	raycasting(t_cub3d *data, int x, t_xpm_img *door)
 	if (BONUS)
 	{
 		set_ray(data, &ray, x);
-		// reset_ray(data, &ray);
-		check_door_hit(data, &ray, x);
-		if (ray.hit == DOOR)
+		//reset_ray(data, &ray);
+		check_door_hit(data, &ray, x, 'D');
+		if (ray.hit == DOOR_CLOSE)
+			draw_door(data, x, &ray, &data->wall[DR_C]);
+		set_ray(data, &ray, x);
+		//reset_ray(data, &ray);
+		check_door_hit(data, &ray, x, 'A');
+		if (ray.hit == DOOR_ANIM)
 			draw_door(data, x, &ray, door);
+		set_ray(data, &ray, x);
+		//reset_ray(data, &ray);
+		check_door_hit(data, &ray, x, 'O');
+		if (ray.hit == DOOR_OPEN)
+			draw_door(data, x, &ray, &data->wall[DR_O]);
 		if (data->keys.key_pressed_x == 1)
 			draw_ray_mmap(data, &ray);
 	}
