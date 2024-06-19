@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 08:07:02 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/19 13:41:29 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/19 13:56:28 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	check_hit(t_cub3d *data, t_ray *ray)
 			ray->wall.side = get_wall_side(ray, &data->player, vertical_side);
 			ray->wall.h = (int)(WIN_H / ray->wall.dist);
 		}
-		if  (data->map.map[ray->map_y][ray->map_x] == 'D')
+		if  (data->map.map[ray->map_y][ray->map_x] == 'D' && !ray->close_door_hit)
 		{
 			ray->close_door_hit = 1;
 			if (vertical_side)
@@ -47,7 +47,7 @@ void	check_hit(t_cub3d *data, t_ray *ray)
 			ray->closed_d.h = (int)(WIN_H / ray->closed_d.dist);
 			ray->closed_d.side =  get_wall_side(ray, &data->player, vertical_side);
 		}
-		if  (data->map.map[ray->map_y][ray->map_x] == 'O')
+		if  (data->map.map[ray->map_y][ray->map_x] == 'O' && !ray->open_door_hit)
 		{
 			ray->open_door_hit = 1;
 			if (vertical_side)
