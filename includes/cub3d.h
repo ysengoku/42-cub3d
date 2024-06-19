@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/19 13:42:31 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/19 13:50:38 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -298,9 +298,10 @@ int				parsing(char *file, t_cub3d *map);
 char			**get_file(char *file);
 int				get_data(t_cub3d *data);
 int				get_sprites_path(t_cub3d *map);
-int				get_colors_rgb(t_map *data_map);
+int				get_colors_rgb(t_cub3d *data);
 int				get_maps(t_cub3d *data);
 int				check_map(t_cub3d *data);
+int				check_file(t_cub3d *data);
 int				algo_flood_fill(t_cub3d *data);
 void			flood_fill(t_cub3d *data, char **dup_map, int pos_x, int pos_y);
 void			free_split(char **map);
@@ -360,7 +361,7 @@ int				mousemove(int x, int y, t_cub3d *data);
 void			action_event(t_cub3d *data);
 
 /*----- Doors -----*/
-int				get_door_and_treasure_texture_paths(t_cub3d *data);
+void			get_door_and_treasure_texture_paths(t_cub3d *data);
 void			draw_door(t_cub3d *data, int x, t_ray *r, t_hit *door);
 void			draw_anim_door(t_cub3d *data, int x, t_ray *r, t_xpm_img *tex);
 void			animations(t_cub3d *data);

@@ -6,7 +6,7 @@
 #    By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/23 08:07:54 by yusengok          #+#    #+#              #
-#    Updated: 2024/06/19 10:26:39 by yusengok         ###   ########.fr        #
+#    Updated: 2024/06/19 13:49:52 by yusengok         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,7 @@ FILES = main	\
 		get_color_rgb \
 		get_maps \
 		check_map \
+		check_file	\
 		algo_flood_fill \
 		handle_errors	\
 		set_data	\
@@ -61,7 +62,8 @@ FILES = main	\
 		event_bonus	\
 		door_bonus	\
 		treasure_bonus	\
-		set_treasure_data_bonus
+		set_treasure_data_bonus	\
+
 
 SRCS = $(addsuffix .c, $(FILES))
 

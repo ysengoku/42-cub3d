@@ -6,19 +6,19 @@
 /*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 09:14:18 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/19 08:56:48 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/19 11:43:39 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	get_door_and_treasure_texture_paths(t_cub3d *data)
+void	get_door_and_treasure_texture_paths(t_cub3d *data)
 {
 	int	i;
 
 	i = 4;
 	if (!BONUS)
-		return (0);
+		return ;
 	data->wall[DR_C].path = ft_strdup(DOOR_TEX_CLOSE);
 	data->wall[DR1].path = ft_strdup(DOOR_TEX1);
 	data->wall[DR2].path = ft_strdup(DOOR_TEX2);
@@ -36,7 +36,7 @@ int	get_door_and_treasure_texture_paths(t_cub3d *data)
 		}
 		i++;
 	}
-	return (0);
+	return ;
 }
 
 static void	animation_open(t_cub3d *data)
