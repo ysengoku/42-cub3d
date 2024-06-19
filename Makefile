@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+         #
+#    By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/23 08:07:54 by yusengok          #+#    #+#              #
-#    Updated: 2024/06/18 16:00:01 by yusengok         ###   ########.fr        #
+#    Updated: 2024/06/19 10:36:32 by jmougel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,7 +60,8 @@ FILES = main	\
 		event_bonus	\
 		door_bonus	\
 		treasure_bonus	\
-		set_treasure_data_bonus
+		set_treasure_data_bonus	\
+		check_file
 
 SRCS = $(addsuffix .c, $(FILES))
 
