@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/19 16:21:14 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/19 17:40:40 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,21 +198,20 @@ typedef struct s_hit
 
 typedef struct s_ray
 {
-	enum e_hit		hit;
-	// int				w_hit;
-	// int				dr_c_hit;
-	// int				dr_o_hit;
-	double			camera_p;
-	t_vector		dir;
-	int				map_x;
-	int				map_y;
-	int				step_x;
-	int				step_y;
-	t_vector		sidedist;
-	t_vector		delta;
-	t_hit			wall;
-	t_hit			closed_d;
-	t_hit			open_d;
+	enum e_hit	hit;
+	double		camera_p;
+	t_vector	dir;
+	int			map_x;
+	int			map_y;
+	int			step_x;
+	int			step_y;
+	t_vector	sidedist;
+	t_vector	delta;
+	t_hit		wall;
+	t_hit		closed_d;
+	t_hit		open_d;
+	t_hit		anim_d;
+	double		nearest_sprite_dist;
 }			t_ray;
 
 typedef struct s_line
