@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_wall_hit.c                                   :+:      :+:    :+:   */
+/*   check_collision.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 08:07:02 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/19 15:14:52 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/19 16:14:57 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,52 +14,35 @@
 
 static void	set_ray_hit(t_cub3d *data, t_ray *ray, int *vertical_side, char c);
 static void	next_step(t_ray *ray, int *is_y_axis);
-static int	get_wall_side(t_ray *ray, t_player *player, int is_y_axis);
+static void	set_collision_data(t_cub3d *data, t_ray *ray, t_hit *sprite, \
+int is_y_axis);
 
 void	check_hit(t_cub3d *data, t_ray *ray)
 {
-	int		vertical_side;
+	int		is_y_axis;
 
-	vertical_side = 0;
+	is_y_axis = 0;
 	while (!ray->w_hit)
 	{
 		if (data->map.map[ray->map_y][ray->map_x] == '1')
 		{
 			ray->w_hit = 1;
-			if (vertical_side)
-				ray->wall.dist = ray->sidedist.y - ray->delta.y;
-			else
-				ray->wall.dist = ray->sidedist.x - ray->delta.x;
-			if (ray->wall.dist < 0.0001)
-				ray->wall.dist = 0.0001;
-			ray->wall.side = get_wall_side(ray, &data->player, vertical_side);
-			ray->wall.h = (int)(WIN_H / ray->wall.dist);
+			set_collision_data(data, ray, &ray->wall, is_y_axis);
 		}
-		if  (data->map.map[ray->map_y][ray->map_x] == 'D' && !ray->close_door_hit)
+		if (BONUS)
 		{
-			ray->close_door_hit = 1;
-			if (vertical_side)
-				ray->closed_d.dist = ray->sidedist.y - ray->delta.y;
-			else
-				ray->closed_d.dist = ray->sidedist.x - ray->delta.x;
-			if (ray->closed_d.dist < 0.0001)
-			ray->closed_d.dist = 0.0001;
-			ray->closed_d.h = (int)(WIN_H / ray->closed_d.dist);
-			ray->closed_d.side =  get_wall_side(ray, &data->player, vertical_side);
+			if (data->map.map[ray->map_y][ray->map_x] == 'D' && !ray->dr_c_hit)
+			{
+				ray->dr_c_hit = 1;
+				set_collision_data(data, ray, &ray->closed_d, is_y_axis);
+			}
+			if (data->map.map[ray->map_y][ray->map_x] == 'O' && !ray->dr_o_hit)
+			{
+				ray->dr_o_hit = 1;
+				set_collision_data(data, ray, &ray->open_d, is_y_axis);
+			}
 		}
-		if  (data->map.map[ray->map_y][ray->map_x] == 'O' && !ray->open_door_hit)
-		{
-			ray->open_door_hit = 1;
-			if (vertical_side)
-				ray->open_d.dist = ray->sidedist.y - ray->delta.y;
-			else
-				ray->open_d.dist = ray->sidedist.x - ray->delta.x;
-			if (ray->open_d.dist < 0.0001)
-			ray->open_d.dist = 0.0001;
-			ray->open_d.h = (int)(WIN_H / ray->open_d.dist);
-			ray->open_d.side =  get_wall_side(ray, &data->player, vertical_side);
-		}
-		next_step(ray, &vertical_side);
+		next_step(ray, &is_y_axis);
 	}
 }
 
@@ -77,11 +60,18 @@ void	check_door_hit(t_cub3d *data, t_ray *ray, int x, char c)
 	if (ray->wall.dist < 0.0001)
 		ray->wall.dist = 0.0001;
 	data->wall_zbuffer[x] = ray->wall.dist;
-	ray->wall.side = get_wall_side(ray, &data->player, is_y_axis);
+	if (is_y_axis && ray->map_y < data->player.pos.y)
+		ray->wall.side = SO;
+	else if (is_y_axis && ray->map_y > data->player.pos.y)
+		ray->wall.side = NO;
+	else if (!is_y_axis && ray->map_x < data->player.pos.x)
+		ray->wall.side = EA;
+	else
+		ray->wall.side = WE;
 	ray->wall.h = (int)(WIN_H / ray->wall.dist);
 }
 
-static void	set_ray_hit(t_cub3d *data, t_ray *ray, int *vertical_side, char c)
+static void	set_ray_hit(t_cub3d *data, t_ray *ray, int *is_y_axis, char c)
 {
 	if (data->map.map[ray->map_y][ray->map_x] == '1')
 		ray->hit = WALL;
@@ -96,7 +86,7 @@ static void	set_ray_hit(t_cub3d *data, t_ray *ray, int *vertical_side, char c)
 		|| data->map.map[ray->map_y][ray->map_x] == 'o'))
 		ray->hit = DOOR_ANIM;
 	else
-		next_step(ray, vertical_side);
+		next_step(ray, is_y_axis);
 }
 
 static void	next_step(t_ray *ray, int *is_y_axis)
@@ -115,15 +105,22 @@ static void	next_step(t_ray *ray, int *is_y_axis)
 	}
 }
 
-static int	get_wall_side(t_ray *ray, t_player *player, int is_y_axis)
+static void	set_collision_data(t_cub3d *data, t_ray *ray, t_hit *sprite, \
+int is_y_axis)
 {
-	if (is_y_axis == 1)
-	{
-		if (ray->map_y < player->pos.y)
-			return (SO);
-		return (NO);
-	}
-	if (ray->map_x < player->pos.x)
-		return (EA);
-	return (WE);
+	if (is_y_axis)
+		sprite->dist = ray->sidedist.y - ray->delta.y;
+	else
+		sprite->dist = ray->sidedist.x - ray->delta.x;
+	if (sprite->dist < 0.0001)
+		sprite->dist = 0.0001;
+	if (is_y_axis && ray->map_y < data->player.pos.y)
+		sprite->side = SO;
+	else if (is_y_axis && ray->map_y > data->player.pos.y)
+		sprite->side = NO;
+	else if (!is_y_axis && ray->map_x < data->player.pos.x)
+		sprite->side = EA;
+	else
+		sprite->side = WE;
+	sprite->h = (int)(WIN_H / sprite->dist);
 }
