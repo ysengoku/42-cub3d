@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/18 16:02:45 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/19 08:37:15 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,9 +116,11 @@ enum	e_wallside
 
 enum	e_hit
 {
-	WALL = 1,
-	DOOR = 2,
-	NOTHING = 0
+	NOTHING,
+	WALL,
+	DOOR_OPEN,
+	DOOR_CLOSE,
+	DOOR_ANIM
 };
 
 /*===== structures ===========================================================*/
@@ -300,7 +302,7 @@ int				set_wall_texture(t_cub3d *data, t_xpm_img *wall);
 int				display(t_cub3d *data);
 void			raycasting(t_cub3d *data, int x, t_xpm_img *door);
 void			check_wall_hit(t_cub3d *data, t_ray *ray);
-void			check_door_hit(t_cub3d *data, t_ray *ray, int x);
+void			check_door_hit(t_cub3d *data, t_ray *ray, int x, char c);
 
 /*----- Image rendering -----*/
 int				game_loop(t_cub3d *data);
