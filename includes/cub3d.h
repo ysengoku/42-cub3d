@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/19 16:12:53 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/19 16:21:14 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,6 +189,7 @@ typedef struct s_player
 
 typedef struct s_hit
 {
+	int				hit;
 	double			dist;
 	int				h;
 	enum e_wallside	side;
@@ -198,9 +199,9 @@ typedef struct s_hit
 typedef struct s_ray
 {
 	enum e_hit		hit;
-	int				w_hit;
-	int				dr_c_hit;
-	int				dr_o_hit;
+	// int				w_hit;
+	// int				dr_c_hit;
+	// int				dr_o_hit;
 	double			camera_p;
 	t_vector		dir;
 	int				map_x;

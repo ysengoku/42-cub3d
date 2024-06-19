@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 08:07:02 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/19 16:14:57 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/19 16:26:29 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,25 +22,18 @@ void	check_hit(t_cub3d *data, t_ray *ray)
 	int		is_y_axis;
 
 	is_y_axis = 0;
-	while (!ray->w_hit)
+	while (!ray->wall.hit)
 	{
 		if (data->map.map[ray->map_y][ray->map_x] == '1')
-		{
-			ray->w_hit = 1;
 			set_collision_data(data, ray, &ray->wall, is_y_axis);
-		}
 		if (BONUS)
 		{
-			if (data->map.map[ray->map_y][ray->map_x] == 'D' && !ray->dr_c_hit)
-			{
-				ray->dr_c_hit = 1;
+			if (data->map.map[ray->map_y][ray->map_x] == 'D'
+				&& !ray->closed_d.hit)
 				set_collision_data(data, ray, &ray->closed_d, is_y_axis);
-			}
-			if (data->map.map[ray->map_y][ray->map_x] == 'O' && !ray->dr_o_hit)
-			{
-				ray->dr_o_hit = 1;
+			if (data->map.map[ray->map_y][ray->map_x] == 'O'
+				&& !ray->open_d.hit)
 				set_collision_data(data, ray, &ray->open_d, is_y_axis);
-			}
 		}
 		next_step(ray, &is_y_axis);
 	}
@@ -108,6 +101,7 @@ static void	next_step(t_ray *ray, int *is_y_axis)
 static void	set_collision_data(t_cub3d *data, t_ray *ray, t_hit *sprite, \
 int is_y_axis)
 {
+	sprite->hit = 1;
 	if (is_y_axis)
 		sprite->dist = ray->sidedist.y - ray->delta.y;
 	else
