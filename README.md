@@ -230,7 +230,7 @@ plane_length = tan(fov / 2) = 1.000000
 plane_x = -dir_y * plane_length = (-1 * -1) * 1.000000 = 1.000000
 plane_y = dir_x * plane_length = 0 * 1.000000 = 0
 ```
-<p align="center"><img style="width: 50%" src="https://github.com/ysengoku/42-cub3d-macOS/assets/130462445/f9e691b5-c17e-4eed-a810-638977ff8138"></p>
+<p align="center"><img style="width: 30%" src="https://github.com/ysengoku/42-cub3d-macOS/assets/130462445/f9e691b5-c17e-4eed-a810-638977ff8138"></p>
 
 ### Ray casting & Drawing loop
 #### 1. Ray initialization
@@ -264,7 +264,7 @@ ray.camera_x = 2 * x / (double)WIN_W - 1
 // x is current x-coordinate on window ranging from 0 to window width - 1.  
 ``` 
 
-<p align="center"><img style="width: 70%;" src="https://github.com/ysengoku/42-cub3d-macOS/assets/130462445/72806dad-5230-4ad9-ba1e-1280c5f361da"></p>
+<p align="center"><img style="width: 50%;" src="https://github.com/ysengoku/42-cub3d-macOS/assets/130462445/72806dad-5230-4ad9-ba1e-1280c5f361da"></p>
 
 ##### b. dir_x, dir_y
 Direction vector of ray   
@@ -272,9 +272,7 @@ Direction vector of ray
 ray.dir_x = player.dir_x + player.plane_x * ray.camera_p;   
 ray.dir_y = player.dir_y + player.plane_y * ray.camera_p;   
 ```
-
-<p align="center"><img style="width: 70%;" src="https://github.com/ysengoku/42-cub3d-macOS/assets/130462445/1155958a-688a-4e74-b631-3b9c68810aa6"></p>
-
+<p align="center"><img style="width: 50%;" src="https://github.com/ysengoku/42-cub3d-macOS/assets/130462445/6a3fa421-fb03-46b6-8d52-36ab7d6145dd"</p>
 
 ##### c. map_x, map_y
 Current coordinate of ray on the map   
@@ -313,7 +311,9 @@ It will be incremented until the ray hits to wall.
 
 
 * step_x, step_y      
-Direction to which the ray goes in x-axis or y-axis. Defined to -1 or 1.
+`step_x` and `step_y` represent the direction of the ray in the x-axis and y-axis respectively. They are set to -1 or 1, indicating that the ray moves one grid unit in the x or y direction at each step.
+
+<p align="center"><img style="width: 30%;" src="https://github.com/ysengoku/42-cub3d-macOS/assets/130462445/78601747-bb24-43c8-a0aa-f0653acc0303"</p>
 
 ```
 # For x-axis
@@ -341,50 +341,70 @@ else
 }
 ```   
 #### 2. Wall collision check
+The ray continues until it hits a wall, using the DDA (Digital Differential Analyzer) algorithm.   
+The DDA algorithm steps through the map grid, moving the ray to the next grid line. When a wall is hit, the algorithm stops, and the distance to the hit is calculated. This distance is used to determine the height of the wall slice to be drawn, creating a 3D perspective from a 2D map.
+
 ```c
 void	check_wall_hit(t_cub3d *data, t_ray *ray)
 {
-	int		is_vertical_side;
+	int		is_y_axis;
 
-	is_vertical_side = 0;
+	is_y_axis = 0;
 	while (ray->hit == NOTHING)
 	{
+		// data->map.map[ray->map_y][ray->map_x] is current map coordinates of the ray
 		if (data->map.map[ray->map_y][ray->map_x] == '1')
 			ray->hit = WALL;
 		else
-			next_step(ray, &is_vertical_side);
+			next_step(ray, &is_y_axis);
 	}
-	if (is_vertical_side)
+	if (is_y_axis)
 		ray->w_dist = ray->sidedist_y - ray->delta_y;
 	else
 		ray->w_dist = ray->sidedist_x - ray->delta_x;
 	if (ray->w_dist < 0.0001)
 		ray->w_dist = 0.0001;
-	ray->w_side = get_wall_side(ray, &data->player, is_vertical_side);
+	ray->w_side = get_wall_side(ray, &data->player, is_y_axis);
 	ray->wall_height = (int)(WIN_H / ray->w_dist);
 }
+```
+   
+The `next_step` function determines the next grid cell the ray should move to.   
+If ray->sidedist.x is smaller, the ray moves one grid cell in the x direction, and the side distance is incremented by ray->delta.x. The is_vertical_side flag is set to 0, indicating a horizontal wall hit will be checking at the next step.   
+If ray->sidedist.y is smaller, the ray moves one grid cell in the y direction, and the side distance is incremented by ray->delta.y. The is_vertical_side flag is set to 1, indicating a vertical wall hit will be checking at the next step.
 
-static void	next_step(t_ray *ray, int *is_vertical_side)
+```c
+static void	next_step(t_ray *ray, int *is_y_axis)
 {
 	if (ray->sidedist_x < ray->sidedist_y)
 	{
-		ray->sidedist_x += ray->delta_x;
-		ray->map_x += ray->step_x;
-		*is_vertical_side = 0;
+		ray->sidedist_x += ray->delta_x; //the side distance is incremented by ray->delta.x
+		ray->map_x += ray->step_x; //the ray moves one grid cell in the X-direction
+		*is_y_axis = 0; // x-axis wall hit will be checking
 	}
 	else
 	{
-		ray->sidedist_y += ray->delta_y;
-		ray->map_y += ray->step_y;
-		*is_vertical_side = 1;
+		ray->sidedist_y += ray->delta_y; //the side distance is incremented by ray->delta.y
+		ray->map_y += ray->step_y; //the ray moves one grid cell in the Y-direction
+		*is_y_axis = 1; // y-axis wall hit will be checking
 	}
 }
+```
+<p align="center"><img style="width: 80%;" src="https://github.com/ysengoku/42-cub3d-macOS/assets/130462445/54b67e9a-0a9c-4b9f-ac15-e15375d340a2"</p>
 
-static int	get_wall_side(t_ray *ray, t_player *player, int is_vertical_side)
+<p align="center"><img style="width: 80%;" src="https://github.com/ysengoku/42-cub3d-macOS/assets/130462445/02958f20-c40a-4d7d-a94c-c9bf464d2bbc"</p>
+
+
+The `get_wall_side function` determines which side of a wall the ray has hit.   
+If the hit is on a vertical wall, it checks whether the ray's y-coordinate on the map is less than the player's y-coordinate. If it is, the function returns NO (North), otherwise it returns SO (South).   
+If the hit is not on a vertical wall, it checks whether the ray's x-coordinate on the map is less than the player's x-coordinate. If it is, the function returns WE (West), otherwise it returns EA (East).
+
+```c
+static int	get_wall_side(t_ray *ray, t_player *player, int is_y_axis)
 {
-	if (is_vertical_side == 1)
+	if (is_y_axis == 1)
 	{
-		if (ray->map_y < player->pos_y)
+		if (ray->map_y < player->pos_y) // ray's y-coordinate on the map is less than the player's y-coordinate
 			return (NO);
 		return (SO);
 	}
@@ -467,4 +487,4 @@ static double	get_wall_x(t_cub3d *data, t_ray *ray)
 * [42Tokyo C言語で一人称視点のゲームを作った](https://qiita.com/susasaki/items/c74a228d7ddd48b818bd)
 
 ### Textures
-Treasure texture credit: <a href="https://www.freepik.com/free-vector/wooden-chest-realistic-set-with-images-opened-closed-empty-treasure-coffers-white_7497393.htm#query=treasure%20box&position=10&from_view=keyword&track=ais_user&uuid=aac9961d-90f6-43f3-aba7-2832a8b81de0">macrovector</a> on Freepik   
+Treasure texture credit: <a href="https://www.freepik.com/free-vector/wooden-chest-realistic-set-with-images-opened-closed-empty-treasure-coffers-white_7497393.htm#query=treasure%20box&position=10&from_view=keyword&track=ais_user&uuid=aac9961d-90f6-43f3-aba7-2832a8b81de0">macrovector</a> on Freepik
