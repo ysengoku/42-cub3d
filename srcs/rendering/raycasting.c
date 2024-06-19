@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 10:25:16 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/19 13:57:02 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/19 16:12:43 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,12 @@ void	raycasting(t_cub3d *data, int x, t_xpm_img *door)
 
 	ft_memset(&ray, 0, sizeof(ray));
 	set_ray(data, &ray, x);
-	draw_ceiling(data, x, data->win_half_h, data->ceiling_color);
-	draw_floor(data, x, data->win_half_h, data->floor_color);
+	draw_ceiling_and_floor(data, x);
 	check_hit(data, &ray);
 	draw_wall(data, x, &ray);
 	if (BONUS)
 	{
-		if (ray.close_door_hit)
+		if (ray.dr_c_hit)
 			draw_door(data, x, &ray, &ray.closed_d);
 		reset_ray(data, &ray);
 		check_door_hit(data, &ray, x, 'A');

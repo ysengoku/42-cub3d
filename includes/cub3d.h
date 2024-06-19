@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/19 13:50:38 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/19 16:12:53 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,8 +199,8 @@ typedef struct s_ray
 {
 	enum e_hit		hit;
 	int				w_hit;
-	int				close_door_hit;
-	int				open_door_hit;
+	int				dr_c_hit;
+	int				dr_o_hit;
 	double			camera_p;
 	t_vector		dir;
 	int				map_x;
@@ -319,8 +319,7 @@ void			check_door_hit(t_cub3d *data, t_ray *ray, int x, char c);
 /*----- Image rendering -----*/
 int				game_loop(t_cub3d *data);
 void			draw_wall(t_cub3d *data, int x, t_ray *ray);
-void			draw_ceiling(t_cub3d *data, int x, int end, int ceiling_color);
-void			draw_floor(t_cub3d *data, int start, int end, int floor_color);
+void			draw_ceiling_and_floor(t_cub3d *data, int x);
 void			draw_minimap(t_cub3d *data);
 void			draw_minimap_zone(t_cub3d *data, int size);
 int				convert_color(int rgb[3]);
