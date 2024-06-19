@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/19 10:34:54 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/19 13:42:31 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,9 +187,20 @@ typedef struct s_player
 	t_vector			plane;
 }				t_player;
 
+typedef struct s_hit
+{
+	double			dist;
+	int				h;
+	enum e_wallside	side;
+	enum e_wallside	tex;
+}				t_hit;
+
 typedef struct s_ray
 {
 	enum e_hit		hit;
+	int				w_hit;
+	int				close_door_hit;
+	int				open_door_hit;
 	double			camera_p;
 	t_vector		dir;
 	int				map_x;
@@ -198,13 +209,9 @@ typedef struct s_ray
 	int				step_y;
 	t_vector		sidedist;
 	t_vector		delta;
-	double			w_dist;
-	int				wall_height;
-	// double			closed_d_dist;
-	// double			open_d_dist;
-	// int				closed_d_height;
-	// int				open_d_height;
-	enum e_wallside	w_side;
+	t_hit			wall;
+	t_hit			closed_d;
+	t_hit			open_d;
 }			t_ray;
 
 typedef struct s_line
@@ -305,7 +312,7 @@ int				set_wall_texture(t_cub3d *data, t_xpm_img *wall);
 /*----- Ray casting -----*/
 int				display(t_cub3d *data);
 void			raycasting(t_cub3d *data, int x, t_xpm_img *door);
-void			check_wall_hit(t_cub3d *data, t_ray *ray);
+void			check_hit(t_cub3d *data, t_ray *ray);
 void			check_door_hit(t_cub3d *data, t_ray *ray, int x, char c);
 
 /*----- Image rendering -----*/
@@ -354,7 +361,8 @@ void			action_event(t_cub3d *data);
 
 /*----- Doors -----*/
 int				get_door_and_treasure_texture_paths(t_cub3d *data);
-void			draw_door(t_cub3d *data, int x, t_ray *r, t_xpm_img *tex);
+void			draw_door(t_cub3d *data, int x, t_ray *r, t_hit *door);
+void			draw_anim_door(t_cub3d *data, int x, t_ray *r, t_xpm_img *tex);
 void			animations(t_cub3d *data);
 void			anim_door(t_cub3d *data, int target_y, int target_x);
 
