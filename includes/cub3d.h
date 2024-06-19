@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/18 16:02:45 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/19 10:16:08 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,6 +198,10 @@ typedef struct s_ray
 	t_vector		delta;
 	double			w_dist;
 	int				wall_height;
+	// double			closed_d_dist;
+	// double			open_d_dist;
+	// int				closed_d_height;
+	// int				open_d_height;
 	enum e_wallside	w_side;
 }			t_ray;
 

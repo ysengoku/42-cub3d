@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 08:30:08 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/18 11:27:49 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/19 10:14:38 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static void	init_camera(t_cub3d *data);
 static void	set_ray(t_cub3d *data, t_ray *ray, int x);
 static void	set_sidedist(t_ray *ray, t_player *player);
+// static void	reset_ray(t_cub3d *data, t_ray *ray);
 
 int	display(t_cub3d *data)
 {
@@ -55,6 +56,7 @@ void	raycasting(t_cub3d *data, int x, t_xpm_img *door)
 	if (BONUS)
 	{
 		set_ray(data, &ray, x);
+		// reset_ray(data, &ray);
 		check_door_hit(data, &ray, x);
 		if (ray.hit == DOOR)
 			draw_door(data, x, &ray, door);
@@ -87,6 +89,15 @@ static void	set_ray(t_cub3d *data, t_ray *ray, int x)
 	ray->delta.y = fabs(1 / ray->dir.y);
 	set_sidedist(ray, &data->player);
 }
+
+// static void	reset_ray(t_cub3d *data, t_ray *ray)
+// {
+// 	ray->hit = NOTHING;
+// 	ray->w_dist = 0;
+// 	ray->map_x = (int)data->player.pos.x;
+// 	ray->map_y = (int)data->player.pos.y;
+// 	set_sidedist(ray, &data->player);
+// }
 
 static void	set_sidedist(t_ray *ray, t_player *player)
 {
