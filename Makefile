@@ -6,7 +6,7 @@
 #    By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/23 08:07:54 by yusengok          #+#    #+#              #
-#    Updated: 2024/06/18 16:00:01 by yusengok         ###   ########.fr        #
+#    Updated: 2024/06/19 10:26:39 by yusengok         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,7 @@ FILES = main	\
 		draw	\
 		colors	\
 		rendering	\
+		raycasting	\
 		check_wall_hit	\
 		event_handler	\
 		move	\
