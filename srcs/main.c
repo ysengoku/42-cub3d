@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:57 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/19 14:53:01 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/19 15:12:13 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ int	main(int argc, char **argv)
 {
 	t_cub3d	data;
 
-	if (argc != 2 || ft_strnstr_r(argv[1], ".cub") != 0 || !ft_strcmp(argv[1], ".cub"))
+	if (argc != 2 || ft_strnstr_r(argv[1], ".cub") != 0
+		|| !ft_strcmp(argv[1], ".cub"))
 		ft_error_exit("Usage: ./cub3D <path/map_name.cub>", 1);
 	ft_memset(&data, 0, sizeof(t_cub3d));
 	if (parsing(argv[1], &data) == EXIT_FAILURE)

@@ -6,15 +6,15 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 08:07:02 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/19 13:56:28 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/19 15:14:52 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 static void	set_ray_hit(t_cub3d *data, t_ray *ray, int *vertical_side, char c);
-static void	next_step(t_ray *ray, int *is_vertical_side);
-static int	get_wall_side(t_ray *ray, t_player *player, int is_vertical_side);
+static void	next_step(t_ray *ray, int *is_y_axis);
+static int	get_wall_side(t_ray *ray, t_player *player, int is_y_axis);
 
 void	check_hit(t_cub3d *data, t_ray *ray)
 {
@@ -65,19 +65,19 @@ void	check_hit(t_cub3d *data, t_ray *ray)
 
 void	check_door_hit(t_cub3d *data, t_ray *ray, int x, char c)
 {
-	int		is_vertical_side;
+	int		is_y_axis;
 
-	is_vertical_side = 0;
+	is_y_axis = 0;
 	while (ray->hit == NOTHING)
-		set_ray_hit(data, ray, &is_vertical_side, c);
-	if (is_vertical_side)
+		set_ray_hit(data, ray, &is_y_axis, c);
+	if (is_y_axis)
 		ray->wall.dist = ray->sidedist.y - ray->delta.y;
 	else
 		ray->wall.dist = ray->sidedist.x - ray->delta.x;
 	if (ray->wall.dist < 0.0001)
 		ray->wall.dist = 0.0001;
 	data->wall_zbuffer[x] = ray->wall.dist;
-	ray->wall.side = get_wall_side(ray, &data->player, is_vertical_side);
+	ray->wall.side = get_wall_side(ray, &data->player, is_y_axis);
 	ray->wall.h = (int)(WIN_H / ray->wall.dist);
 }
 
@@ -99,31 +99,31 @@ static void	set_ray_hit(t_cub3d *data, t_ray *ray, int *vertical_side, char c)
 		next_step(ray, vertical_side);
 }
 
-static void	next_step(t_ray *ray, int *is_vertical_side)
+static void	next_step(t_ray *ray, int *is_y_axis)
 {
 	if (ray->sidedist.x < ray->sidedist.y)
 	{
 		ray->sidedist.x += ray->delta.x;
 		ray->map_x += ray->step_x;
-		*is_vertical_side = 0;
+		*is_y_axis = 0;
 	}
 	else
 	{
 		ray->sidedist.y += ray->delta.y;
 		ray->map_y += ray->step_y;
-		*is_vertical_side = 1;
+		*is_y_axis = 1;
 	}
 }
 
-static int	get_wall_side(t_ray *ray, t_player *player, int is_vertical_side)
+static int	get_wall_side(t_ray *ray, t_player *player, int is_y_axis)
 {
-	if (is_vertical_side == 1)
+	if (is_y_axis == 1)
 	{
 		if (ray->map_y < player->pos.y)
-			return (NO);
-		return (SO);
+			return (SO);
+		return (NO);
 	}
 	if (ray->map_x < player->pos.x)
-		return (WE);
-	return (EA);
+		return (EA);
+	return (WE);
 }

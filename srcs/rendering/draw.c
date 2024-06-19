@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 08:57:21 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/19 13:42:04 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/19 15:15:56 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,15 @@ static double	get_wall_x(t_cub3d *data, t_ray *ray, t_hit *sprite)
 	double	wall_x;
 
 	if (sprite->side == WE)
+		wall_x = data->player.pos.y + sprite->dist * ray->dir.y;
+	else if (sprite->side == EA)
 		wall_x = data->wall[WE].w
 			- (data->player.pos.y + sprite->dist * ray->dir.y);
-	else if (sprite->side == EA)
-		wall_x = data->player.pos.y + sprite->dist * ray->dir.y;
 	else if (sprite->side == SO)
+		wall_x = data->player.pos.x + sprite->dist * ray->dir.x;
+	else
 		wall_x = data->wall[SO].w
 			- (data->player.pos.x + sprite->dist * ray->dir.x);
-	else
-		wall_x = data->player.pos.x + sprite->dist * ray->dir.x;
 	if (wall_x != floor(wall_x))
 		wall_x -= floor(wall_x);
 	else
