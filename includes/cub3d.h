@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/19 17:40:40 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/20 09:04:38 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,15 +114,6 @@ enum	e_wallside
 	TR
 };
 
-enum	e_hit
-{
-	NOTHING,
-	WALL,
-	DOOR_OPEN,
-	DOOR_CLOSE,
-	DOOR_ANIM
-};
-
 /*===== structures ===========================================================*/
 typedef struct s_vector
 {
@@ -198,7 +189,6 @@ typedef struct s_hit
 
 typedef struct s_ray
 {
-	enum e_hit	hit;
 	double		camera_p;
 	t_vector	dir;
 	int			map_x;
@@ -314,7 +304,6 @@ int				set_wall_texture(t_cub3d *data, t_xpm_img *wall);
 int				display(t_cub3d *data);
 void			raycasting(t_cub3d *data, int x, t_xpm_img *door);
 void			check_hit(t_cub3d *data, t_ray *ray);
-void			check_door_hit(t_cub3d *data, t_ray *ray, int x, char c);
 
 /*----- Image rendering -----*/
 int				game_loop(t_cub3d *data);
@@ -369,6 +358,6 @@ void			anim_door(t_cub3d *data, int target_y, int target_x);
 /*----- Treasures -----*/
 void			store_sprite_coordinates(t_cub3d *data);
 void			set_treasure_data(t_cub3d *data, t_treasure *treasures);
-void			draw_treasure(t_cub3d *data, t_treasure *treasure);
+void			draw_treasure(t_cub3d *data, t_treasure *treasure, int x);
 
 #endif

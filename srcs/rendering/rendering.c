@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 08:30:08 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/19 10:27:48 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/20 08:03:58 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	display(t_cub3d *data)
 	init_camera(data);
 	if (BONUS)
 	{
+		set_treasure_data(data, &data->treasure);
 		draw_minimap_zone(data, (data->mmap.totalsize));
 		draw_minimap(data);
 		animations(data);
@@ -32,11 +33,7 @@ int	display(t_cub3d *data)
 		x++;
 	}
 	if (BONUS)
-	{
 		draw_mmap_player_dir(data);
-		set_treasure_data(data, &data->treasure);
-		draw_treasure(data, &data->treasure);
-	}
 	return (0);
 }
 
