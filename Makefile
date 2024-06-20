@@ -6,7 +6,7 @@
 #    By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/23 08:07:54 by yusengok          #+#    #+#              #
-#    Updated: 2024/06/19 15:21:47 by yusengok         ###   ########.fr        #
+#    Updated: 2024/06/20 10:33:00 by yusengok         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ FILES = main	\
 		colors	\
 		rendering	\
 		raycasting	\
-		check_collision	\
+		check_hit	\
 		event_handler	\
 		move	\
 		rotate	\

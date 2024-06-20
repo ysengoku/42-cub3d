@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_collision.c                                  :+:      :+:    :+:   */
+/*   check_hit.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 08:07:02 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/20 08:45:58 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/20 10:35:34 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,8 @@
 
 static void	check_door_hit(t_cub3d *data, t_ray *ray, int is_y_axis);
 static void	next_step(t_ray *ray, int *is_y_axis);
-static void	set_collision_data(t_cub3d *data, t_ray *ray, t_hit *sprite, \
-int is_y_axis);
-static void	set_anim_door_collision_data(t_cub3d *data, t_ray *ray, \
-int is_y_axis);
+static void	set_hit_data(t_cub3d *data, t_ray *ray, t_hit *sprite, int y_axis);
+static void	set_anim_door_hit_data(t_cub3d *data, t_ray *ray, int y_axis);
 
 void	check_hit(t_cub3d *data, t_ray *ray)
 {
@@ -28,7 +26,7 @@ void	check_hit(t_cub3d *data, t_ray *ray)
 	{
 		if (data->map.map[ray->map_y][ray->map_x] == '1')
 		{
-			set_collision_data(data, ray, &ray->wall, is_y_axis);
+			set_hit_data(data, ray, &ray->wall, is_y_axis);
 			if (ray->nearest_sprite_dist == 0)
 				ray->nearest_sprite_dist = ray->wall.dist;
 		}
@@ -43,16 +41,16 @@ static void	check_door_hit(t_cub3d *data, t_ray *ray, int is_y_axis)
 	if (data->map.map[ray->map_y][ray->map_x] == 'D'
 		&& !ray->closed_d.hit)
 	{
-		set_collision_data(data, ray, &ray->closed_d, is_y_axis);
+		set_hit_data(data, ray, &ray->closed_d, is_y_axis);
 		if (ray->nearest_sprite_dist == 0)
 			ray->nearest_sprite_dist = ray->wall.dist;
 	}
 	if (data->map.map[ray->map_y][ray->map_x] == 'O'
 		&& !ray->open_d.hit)
-		set_collision_data(data, ray, &ray->open_d, is_y_axis);
+		set_hit_data(data, ray, &ray->open_d, is_y_axis);
 	if ((data->map.map[ray->map_y][ray->map_x] == 'd'
 		|| data->map.map[ray->map_y][ray->map_x] == 'o'))
-		set_anim_door_collision_data(data, ray, is_y_axis);
+		set_anim_door_hit_data(data, ray, is_y_axis);
 }
 
 static void	next_step(t_ray *ray, int *is_y_axis)
@@ -71,42 +69,40 @@ static void	next_step(t_ray *ray, int *is_y_axis)
 	}
 }
 
-static void	set_collision_data(t_cub3d *data, t_ray *ray, t_hit *sprite, \
-int is_y_axis)
+static void	set_hit_data(t_cub3d *data, t_ray *ray, t_hit *sprite, int y_axis)
 {
 	sprite->hit = 1;
-	if (is_y_axis)
+	if (y_axis)
 		sprite->dist = ray->sidedist.y - ray->delta.y;
 	else
 		sprite->dist = ray->sidedist.x - ray->delta.x;
 	if (sprite->dist < 0.0001)
 		sprite->dist = 0.0001;
-	if (is_y_axis && ray->map_y < data->player.pos.y)
+	if (y_axis && ray->map_y < data->player.pos.y)
 		sprite->side = SO;
-	else if (is_y_axis && ray->map_y > data->player.pos.y)
+	else if (y_axis && ray->map_y > data->player.pos.y)
 		sprite->side = NO;
-	else if (!is_y_axis && ray->map_x < data->player.pos.x)
+	else if (!y_axis && ray->map_x < data->player.pos.x)
 		sprite->side = EA;
 	else
 		sprite->side = WE;
 	sprite->h = (int)(WIN_H / sprite->dist);
 }
 
-static void	set_anim_door_collision_data(t_cub3d *data, t_ray *ray, \
-int is_y_axis)
+static void	set_anim_door_hit_data(t_cub3d *data, t_ray *ray, int y_axis)
 {
 	ray->anim_d.hit = 1;
-	if (is_y_axis)
+	if (y_axis)
 		ray->anim_d.dist = ray->sidedist.y - ray->delta.y;
 	else
 		ray->anim_d.dist = ray->sidedist.x - ray->delta.x;
 	if (ray->anim_d.dist < 0.0001)
 		ray->anim_d.dist = 0.0001;
-	if (is_y_axis && ray->map_y < data->player.pos.y)
+	if (y_axis && ray->map_y < data->player.pos.y)
 		ray->anim_d.side = SO;
-	else if (is_y_axis && ray->map_y > data->player.pos.y)
+	else if (y_axis && ray->map_y > data->player.pos.y)
 		ray->anim_d.side = NO;
-	else if (!is_y_axis && ray->map_x < data->player.pos.x)
+	else if (!y_axis && ray->map_x < data->player.pos.x)
 		ray->anim_d.side = EA;
 	else
 		ray->anim_d.side = WE;

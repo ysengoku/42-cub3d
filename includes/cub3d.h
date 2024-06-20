@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/20 09:04:38 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/20 09:11:26 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,6 +172,7 @@ typedef struct s_player
 {
 	double				fov;
 	t_vector			pos;
+	t_vector			start_pos;	
 	double				dir_degree;
 	t_vector			dir;
 	double				plane_length;
