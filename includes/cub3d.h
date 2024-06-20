@@ -6,7 +6,7 @@
 /*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/20 07:14:47 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/20 13:41:52 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +158,7 @@ typedef struct s_check_map
 	int		treasure;
 	bool	catch_treasure;
 	bool	invalid_map;
+	bool	in_map;
 	char	old_char;
 	char	new_char;
 }	t_check_map;
@@ -297,15 +298,15 @@ typedef struct s_cub3d
 
 /*----- Parsing -----*/
 int				parsing(char *file, t_cub3d *map);
-char			**get_file(char *file);
+char			**get_file(t_cub3d *data, char *file);
 int				get_data(t_cub3d *data);
 int				get_sprites_path(t_cub3d *map);
 int				get_colors_rgb(t_cub3d *data);
 int				get_maps(t_cub3d *data);
 int				check_map(t_cub3d *data);
 int				check_file(t_cub3d *data);
+int				line_is_map(char *line, char c);
 int				algo_flood_fill(t_cub3d *data);
-void			flood_fill(t_cub3d *data, char **dup_map, int pos_x, int pos_y);
 void			free_split(char **map);
 void			free_data_map(t_map *data_map);
 void			exit_parsing(t_map *data_map, char *message);

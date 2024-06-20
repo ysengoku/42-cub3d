@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 16:59:04 by jmougel           #+#    #+#             */
-/*   Updated: 2024/06/19 15:01:51 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/20 11:12:37 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,15 +82,6 @@ int	check_map(t_cub3d *data)
 	{
 		free_texture_paths(data->wall, 12);
 		exit_parsing(&data->map, "Error\nCub3D: invalid treasure");
-	}
-	else if ((data->map.map_len_y > 200 && data->map.map_len_x > 200)
-		|| data->map.map_len_y > 300 || data->map.map_len_x > 300)
-	{
-		if (!BONUS)
-			free_texture_paths(data->wall, 4);
-		else
-			free_texture_paths(data->wall, 12);
-		exit_parsing(&data->map, "Error\nCub3D: map too big");
 	}
 	algo_flood_fill(data);
 	return (EXIT_SUCCESS);
