@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+         #
+#    By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/17 13:12:10 by yusengok          #+#    #+#              #
-#    Updated: 2024/06/05 15:35:45 by yusengok         ###   ########.fr        #
+#    Updated: 2024/06/20 10:50:06 by jmougel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,7 @@ FILES = ft_abs	\
 		ft_strncmp	\
 		ft_strnstr	\
 		ft_strnstr_r	\
+		ft_free_all	\
 		ft_strrchr	\
 		ft_tolower	\
 		ft_toupper	\

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_file.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 16:38:40 by jmougel           #+#    #+#             */
-/*   Updated: 2024/06/19 14:56:48 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/20 10:52:16 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,19 @@ static int	creat_file(char *file)
 	return (EXIT_SUCCESS);
 }
 
-static char	**split_file(int fd)
+static int	check_nl_in_map(t_cub3d *data, char *line)
+{
+	if (line[0] == '\n' && data->map.check.in_map)
+		return (EXIT_FAILURE);
+	else if (line_is_map(line, '\n') == EXIT_SUCCESS
+		&& data->map.check.nbr_data == 6)
+		data->map.check.in_map = true;
+	else if (line_is_map(line, '\n') == EXIT_FAILURE)
+		data->map.check.nbr_data++;
+	return (EXIT_SUCCESS);
+}
+
+static char	**split_file(t_cub3d *data, int fd)
 {
 	char	*line;
 	char	*line_tmp;
@@ -73,21 +85,21 @@ static char	**split_file(int fd)
 		tmp = get_next_line(fd);
 		if (!tmp)
 			break ;
+		if (check_nl_in_map(data, tmp) == EXIT_FAILURE)
+			return (ft_free_all(2, tmp, line)
+				, ft_error_exit("Error\nCub3D: nl in map", 1), NULL);
 		line_tmp = ft_strjoin(line, tmp);
-		free(line);
-		free(tmp);
+		ft_free_all(2, tmp, line);
 		if (!line_tmp)
 			return (NULL);
 		line = ft_strdup(line_tmp);
 		free(line_tmp);
 	}
 	map = ft_split(line, '\n');
-	if (!map)
-		return (free(line), NULL);
 	return (free(line), map);
 }
 
-char	**get_file(char *file)
+char	**get_file(t_cub3d *data, char *file)
 {
 	char	**map;
 	int		fd;
@@ -109,7 +121,7 @@ char	**get_file(char *file)
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
 		return (NULL);
-	map = split_file(fd);
+	map = split_file(data, fd);
 	close(fd);
 	if (!map)
 		return (NULL);
