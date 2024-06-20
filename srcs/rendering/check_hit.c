@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 08:07:02 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/20 10:35:34 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/20 14:04:50 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	check_door_hit(t_cub3d *data, t_ray *ray, int is_y_axis)
 	{
 		set_hit_data(data, ray, &ray->closed_d, is_y_axis);
 		if (ray->nearest_sprite_dist == 0)
-			ray->nearest_sprite_dist = ray->wall.dist;
+			ray->nearest_sprite_dist = ray->closed_d.dist;
 	}
 	if (data->map.map[ray->map_y][ray->map_x] == 'O'
 		&& !ray->open_d.hit)

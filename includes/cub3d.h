@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/20 13:34:18 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/20 13:43:02 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@
 # ifndef M_PI
 #  define M_PI 3.14159265358979323846
 # endif
-
 # define TWO_PI 6.28318530717958647692
 
 /*===== macro definition =====================================================*/
@@ -192,7 +191,7 @@ typedef struct s_hit
 
 typedef struct s_ray
 {
-	double		camera_p;
+	double		current_camera_x;
 	t_vector	dir;
 	int			map_x;
 	int			map_y;
