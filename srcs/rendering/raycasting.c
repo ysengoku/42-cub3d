@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 10:25:16 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/20 14:03:59 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/20 14:29:51 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ void	raycasting(t_cub3d *data, int x, t_xpm_img *door)
 	draw_ceiling_and_floor(data, x);
 	check_hit(data, &ray);
 	data->wall_zbuffer[x] = ray.nearest_sprite_dist;
-	draw_wall(data, x, &ray);
+	if (ray.wall.hit)
+		draw_wall(data, x, &ray);
 	if (BONUS)
 	{
 		if (ray.closed_d.hit)
