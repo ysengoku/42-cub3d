@@ -6,7 +6,7 @@
 /*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 16:52:08 by jmougel           #+#    #+#             */
-/*   Updated: 2024/06/19 11:40:30 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/20 07:46:17 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,24 +77,12 @@ static void	treat_rgb(t_cub3d *data, char *data_line, char c)
 {
 	if (c == 'F')
 	{
-		if (data->map.f_rgb[0] != 0 || data->map.f_rgb[1] != 0
-			|| data->map.f_rgb[2] != 0)
-		{
-			free_texture_paths(data->wall, 4);
-			exit_parsing(&data->map, "Error\nCub3D: multiple data");
-		}
 		data->map.f_rgb[0] = get_color_rgb(data_line, "F", 0);
 		data->map.f_rgb[1] = get_color_rgb(data_line, "F", 1);
 		data->map.f_rgb[2] = get_color_rgb(data_line, "F", 2);
 	}
 	else if (c == 'C')
 	{
-		if (data->map.c_rgb[0] != 0 || data->map.c_rgb[1] != 0
-			|| data->map.c_rgb[2] != 0)
-		{
-			free_texture_paths(data->wall, 4);
-			exit_parsing(&data->map, "Error\nCub3D: multiple data");
-		}
 		data->map.c_rgb[0] = get_color_rgb(data_line, "C", 0);
 		data->map.c_rgb[1] = get_color_rgb(data_line, "C", 1);
 		data->map.c_rgb[2] = get_color_rgb(data_line, "C", 2);

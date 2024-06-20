@@ -6,7 +6,7 @@
 /*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 16:53:25 by jmougel           #+#    #+#             */
-/*   Updated: 2024/06/19 11:52:08 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/20 07:49:54 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,26 +34,7 @@ static char	*get_path(char *line)
 	return (path);
 }
 
-static char	*get_sprite_path(char *sprite, t_map *data_map)
-{
-	char	*path;
-	int		i;
-
-	i = 0;
-	path = NULL;
-	while (data_map->data_map[i])
-	{
-		if (ft_strncmp(data_map->data_map[i], sprite, 2) == 0)
-		{
-			path = get_path(data_map->data_map[i]);
-			break ;
-		}
-		i++;
-	}
-	return (path);
-}
-
-static int	treat_path(t_cub3d *data, char *str)
+static int	treat_path(t_cub3d *data, char *line,  char *str)
 {
 	int	index;
 
@@ -67,14 +48,7 @@ static int	treat_path(t_cub3d *data, char *str)
 		index = 3;
 	else
 		return (EXIT_FAILURE);
-	if (data->wall[index].path)
-	{
-		free_texture_paths(data->wall, 4);
-		exit_parsing(&data->map, "Error\nCub3D: multiple data");
-		return (EXIT_FAILURE);
-	}
-	else
-		data->wall[index].path = get_sprite_path(str, &data->map);
+	data->wall[index].path = get_path(line);
 	return (EXIT_SUCCESS);
 }
 
@@ -86,13 +60,13 @@ int	get_sprites_path(t_cub3d *data)
 	while (data->map.data_map[i])
 	{
 		if (ft_strncmp(data->map.data_map[i], "NO ", 3) == 0)
-			treat_path(data, "NO");
+			treat_path(data, data->map.data_map[i], "NO");
 		else if (ft_strncmp(data->map.data_map[i], "SO ", 3) == 0)
-			treat_path(data, "SO");
+			treat_path(data, data->map.data_map[i], "SO");
 		else if (ft_strncmp(data->map.data_map[i], "WE ", 3) == 0)
-			treat_path(data, "WE");
+			treat_path(data, data->map.data_map[i], "WE");
 		else if (ft_strncmp(data->map.data_map[i], "EA ", 3) == 0)
-			treat_path(data, "EA");
+			treat_path(data, data->map.data_map[i], "EA");
 		i++;
 	}
 	if (!data->wall[NO].path || !data->wall[SO].path
