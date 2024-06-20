@@ -340,7 +340,7 @@ else
 	ray->sidedist_y = (ray->map_y + 1.0 - player->pos_y) * ray->delta_y;
 }
 ```   
-#### 2. Wall collision check
+#### 2. Wall hit check
 The ray continues until it hits a wall, using the DDA (Digital Differential Analyzer) algorithm.   
 The DDA algorithm steps through the map grid, moving the ray to the next grid line. When a wall is hit, the algorithm stops, and the distance to the hit is calculated. This distance is used to determine the height of the wall slice to be drawn, creating a 3D perspective from a 2D map.
 
