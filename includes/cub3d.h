@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/20 09:11:26 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/20 13:34:18 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@
 #  define M_PI 3.14159265358979323846
 # endif
 
+# define TWO_PI 6.28318530717958647692
+
 /*===== macro definition =====================================================*/
 # define WINNAME "cub3D"
 # define WIN_W 960
@@ -52,7 +54,7 @@
 #  define FOV 90
 # endif
 # define MOVE 0.1
-# define ROTATE 2
+# define ROTATE 0.03
 
 /*+++++ BONUS ++++++++++++++++++++++++++++++++++++++++++++++*/
 # define MINI_MAP_W 100
@@ -173,7 +175,7 @@ typedef struct s_player
 	double				fov;
 	t_vector			pos;
 	t_vector			start_pos;	
-	double				dir_degree;
+	double				dir_rad;
 	t_vector			dir;
 	double				plane_length;
 	t_vector			plane;
