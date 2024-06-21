@@ -6,14 +6,13 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 10:25:16 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/19 16:24:46 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/20 14:29:51 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 static void	set_ray(t_cub3d *data, t_ray *ray, int x);
-static void	reset_ray(t_cub3d *data, t_ray *ray);
 static void	set_sidedist(t_ray *ray, t_player *player);
 
 void	raycasting(t_cub3d *data, int x, t_xpm_img *door)
@@ -24,16 +23,17 @@ void	raycasting(t_cub3d *data, int x, t_xpm_img *door)
 	set_ray(data, &ray, x);
 	draw_ceiling_and_floor(data, x);
 	check_hit(data, &ray);
-	draw_wall(data, x, &ray);
+	data->wall_zbuffer[x] = ray.nearest_sprite_dist;
+	if (ray.wall.hit)
+		draw_wall(data, x, &ray);
 	if (BONUS)
 	{
 		if (ray.closed_d.hit)
 			draw_door(data, x, &ray, &ray.closed_d);
+		draw_treasure(data, &data->treasure, x);
 		if (ray.open_d.hit)
 			draw_door(data, x, &ray, &ray.open_d);
-		reset_ray(data, &ray);
-		check_door_hit(data, &ray, x, 'A');
-		if (ray.hit == DOOR_ANIM)
+		if (ray.anim_d.hit)
 			draw_anim_door(data, x, &ray, door);
 		if (data->keys.key_pressed_x == 1)
 			draw_ray_mmap(data, &ray);
@@ -44,22 +44,15 @@ static void	set_ray(t_cub3d *data, t_ray *ray, int x)
 {
 	ray->closed_d.tex = DR_C;
 	ray->open_d.tex = DR_O;
-	ray->camera_p = 2 * x / (double)WIN_W - 1;
-	ray->dir.x = data->player.dir.x + data->player.plane.x * ray->camera_p;
-	ray->dir.y = data->player.dir.y + data->player.plane.y * ray->camera_p;
+	ray->current_camera_x = 2 * x / (double)WIN_W - 1;
+	ray->dir.x = data->player.dir.x
+		+ data->player.plane.x * ray->current_camera_x;
+	ray->dir.y = data->player.dir.y
+		+ data->player.plane.y * ray->current_camera_x;
 	ray->map_x = (int)data->player.pos.x;
 	ray->map_y = (int)data->player.pos.y;
 	ray->delta.x = fabs(1 / ray->dir.x);
 	ray->delta.y = fabs(1 / ray->dir.y);
-	set_sidedist(ray, &data->player);
-}
-
-static void	reset_ray(t_cub3d *data, t_ray *ray)
-{
-	ray->hit = NOTHING;
-	ray->wall.dist = 0;
-	ray->map_x = (int)data->player.pos.x;
-	ray->map_y = (int)data->player.pos.y;
 	set_sidedist(ray, &data->player);
 }
 

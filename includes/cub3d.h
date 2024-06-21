@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/21 17:04:04 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/21 17:49:54 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@
 # include "mlx.h"
 # include "mlx_int.h"
 
-/*===== paths sprits ======================================================*/
+/*===== paths sprits =========================================================*/
 
 # define SPRITE_NO "./textures/walls/stone00.xpm"
 # define SPRITE_SO "./textures/walls/stone01.xpm"
 # define SPRITE_WE "./textures/walls/stone02.xpm"
 # define SPRITE_EA "./textures/walls/stone03.xpm"
 
-/*===== colors ======================================================*/
+/*===== colors ===============================================================*/
 
 # define RGB_F "169,169,169"
 # define RGB_C "52,52,52"
@@ -42,6 +42,7 @@
 # ifndef M_PI
 #  define M_PI 3.14159265358979323846
 # endif
+# define TWO_PI 6.28318530717958647692
 
 /*===== macro definition =====================================================*/
 # define WINNAME "cub3D"
@@ -52,7 +53,7 @@
 #  define FOV 90
 # endif
 # define MOVE 0.1
-# define ROTATE 2
+# define ROTATE 0.03
 
 /*+++++ BONUS ++++++++++++++++++++++++++++++++++++++++++++++*/
 # define MINI_MAP_W 100
@@ -60,7 +61,6 @@
 
 # define MOUSE_DOWN 4
 # define MOUSE_UP 5
-# define PITCH 1
 
 # define MMAP_SCALE 20
 # define MMAP_SIZE 9
@@ -89,7 +89,7 @@
 #  define BONUS 1
 # endif
 
-/*===== enum definition =====================================================*/
+/*===== enum definition ======================================================*/
 enum	e_direction
 {
 	N = 270,
@@ -112,15 +112,6 @@ enum	e_wallside
 	DR5,
 	DR_O,
 	TR
-};
-
-enum	e_hit
-{
-	NOTHING,
-	WALL,
-	DOOR_OPEN,
-	DOOR_CLOSE,
-	DOOR_ANIM
 };
 
 /*===== structures ===========================================================*/
@@ -184,7 +175,8 @@ typedef struct s_player
 {
 	double				fov;
 	t_vector			pos;
-	double				dir_degree;
+	t_vector			start_pos;	
+	double				dir_rad;
 	t_vector			dir;
 	double				plane_length;
 	t_vector			plane;
@@ -201,21 +193,19 @@ typedef struct s_hit
 
 typedef struct s_ray
 {
-	enum e_hit		hit;
-	// int				w_hit;
-	// int				dr_c_hit;
-	// int				dr_o_hit;
-	double			camera_p;
-	t_vector		dir;
-	int				map_x;
-	int				map_y;
-	int				step_x;
-	int				step_y;
-	t_vector		sidedist;
-	t_vector		delta;
-	t_hit			wall;
-	t_hit			closed_d;
-	t_hit			open_d;
+	double		current_camera_x;
+	t_vector	dir;
+	int			map_x;
+	int			map_y;
+	int			step_x;
+	int			step_y;
+	t_vector	sidedist;
+	t_vector	delta;
+	t_hit		wall;
+	t_hit		closed_d;
+	t_hit		open_d;
+	t_hit		anim_d;
+	double		nearest_sprite_dist;
 }			t_ray;
 
 typedef struct s_line
@@ -320,7 +310,6 @@ int				set_wall_texture(t_cub3d *data, t_xpm_img *wall);
 int				display(t_cub3d *data);
 void			raycasting(t_cub3d *data, int x, t_xpm_img *door);
 void			check_hit(t_cub3d *data, t_ray *ray);
-void			check_door_hit(t_cub3d *data, t_ray *ray, int x, char c);
 
 /*----- Image rendering -----*/
 int				game_loop(t_cub3d *data);
@@ -375,6 +364,6 @@ void			anim_door(t_cub3d *data, int target_y, int target_x);
 /*----- Treasures -----*/
 void			store_sprite_coordinates(t_cub3d *data);
 void			set_treasure_data(t_cub3d *data, t_treasure *treasures);
-void			draw_treasure(t_cub3d *data, t_treasure *treasure);
+void			draw_treasure(t_cub3d *data, t_treasure *treasure, int x);
 
 #endif

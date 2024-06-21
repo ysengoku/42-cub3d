@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+         #
+#    By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/23 08:07:54 by yusengok          #+#    #+#              #
-#    Updated: 2024/06/21 17:35:11 by jmougel          ###   ########.fr        #
+#    Updated: 2024/06/21 17:52:05 by yusengok         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,7 @@ FILES = main	\
 		colors	\
 		rendering	\
 		raycasting	\
-		check_collision	\
+		check_hit	\
 		event_handler	\
 		move	\
 		rotate	\
