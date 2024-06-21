@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 16:15:19 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/21 09:41:55 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/21 16:54:39 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,10 @@ static void	calculate_camera_coordinates(t_cub3d *data, t_treasure *treasure)
 {
 	double	inverse_matrix_factor;
 
-	inverse_matrix_factor = 1.0 / (data->player.plane.x * data->player.dir.y
-			- data->player.dir.x * data->player.plane.y);
 	treasure->relative_pos.x = treasure->map.x - data->player.pos.x;
 	treasure->relative_pos.y = treasure->map.y - data->player.pos.y;
+	inverse_matrix_factor = 1.0 / (data->player.plane.x * data->player.dir.y
+			- data->player.dir.x * data->player.plane.y);
 	treasure->camera.x = inverse_matrix_factor
 		* (data->player.dir.y * treasure->relative_pos.x
 			- data->player.dir.x * treasure->relative_pos.y);
