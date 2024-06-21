@@ -18,10 +18,10 @@ Raycasting is used to create a 3D effect by casting rays from the player's posit
 We will cast rays from the player's current position in the direction ranging from (player.dir - plane) to (player.dir + plane). The interval at which rays are cast depends on the screen's width in pixels (we cast the same number of rays as the screen's width).
 
 ### Raycasting steps:   
-1. Ray Initialization
+1. Ray Initialization   
 Start from the player's position and determine the direction the ray is cast based on the player's view.   
    
-2. Grid Traversal:
+2. Grid Traversal:   
 When casting rays, randomly casting them won't determine which wall they hit.   
 Therefore, we use a method called DDA (Digital Differential Analysis) to advance the ray incrementally through the grid, one cell at a time, in both x and y directions.   
 
@@ -51,24 +51,41 @@ After rendering all walls, render additional elements like sprites.
 
 ### < Data >
 ```c
+typedef struct s_keys
+{
+	int			key_pressed_left;
+	int			key_pressed_right;
+	int			key_pressed_w;
+	int			key_pressed_s;
+	int			key_pressed_a;
+	int			key_pressed_d;
+	int			key_pressed_m;
+	int			key_pressed_x;
+}	t_keys;
+
 typedef struct s_cub3d
 {
 	void		*mlx_ptr;
 	void		*win_ptr;
-	t_imgdata	img;
+	int		win_half_w; // half width of window
+	int		win_half_h; // half height of window
+	t_imgdata	img; // main image
 	t_map		map;
 	t_player	player;
 	int		ceiling_color;
 	int		floor_color;
-	t_xpm_img	wall[8]; // 4 wall textures & 4 door textures
-	int		key_pressed_left; // flag for key event (press & release)
-	int		key_pressed_right; // flag for key event (press & release)
-	int		key_pressed_w; // flag for key event (press & release)
-	int		key_pressed_s; // flag for key event (press & release)
-	int		key_pressed_a; // flag for key event (press & release)
-	int		key_pressed_d; // flag for key event (press & release)
-	int		previous_mouse_x; // x-coordinate of mouse pointer (to handle mouse move)
+	t_xpm_img	wall[12]; // array of wall & door texture
+	t_keys		keys; // flags for key event
+	/*++++++ Bonus +++++++++++++++++++*/
+	int			previous_mouse_x;
 	t_minimap	mmap;
+	bool		anim_open;
+	bool		anim_close;
+	bool		anim;
+	int			animation;
+	t_treasure	treasure;
+	double		wall_zbuffer[WIN_W];
+	/*+++++++++++++++++++++++++++++++++*/
 }				t_cub3d;
 ```
 
@@ -109,52 +126,69 @@ typedef struct s_map
 #define FOV 90
 #define M_PI 3.14159265358979323846
 
-ypedef struct s_player
+typedef struct s_vector
 {
-	double	fov; // FOV in radians (FOV° * M_PI / 180.0)
-	double	pos_x; // player's X-coordinate on the map
-	double	pos_y; // player's Y-coordinate on the map
-	double	dir; // direction in degree
-	double	dir_x; // direction vector of player
-	double	dir_y; // direction vector of player
-	double	plane_length;
-	double	plane_x;
-	double	plane_y;
-	int	moved; // Flag to signal player's movement
-	int	pitch; // Used for look up/down with mouse scroll
-}		t_player;
+	double	x;
+	double	y;
+}				t_vector;
+
+typedef struct s_player
+{
+	double				fov; // FOV in radians (FOV° * M_PI / 180.0)
+	t_vector			pos; // player's coordinate on the map
+	t_vector			start_pos; // player's coordinate on the map at game start
+	double				dir_rad; // player's direction in radians
+	t_vector			dir; // player's direction vector
+	double				plane_length;
+	t_vector			plane;
+}				t_player;
+
 ```
-
-
 
 ### < Ray >
 In raycasting, each vertical stripe on the screen corresponds to a ray cast.   
 ```c
 enum	e_wallside
 {
-	NO = 0,
-	SO = 1,
-	WE = 2,
-	EA = 3
+	NO,
+	SO,
+	WE,
+	EA,
+	DR_C, // closed door
+	DR1, // opening/closing door frame 1
+	DR2, // opening/closing door frame 2
+	DR3, // opening/closing door frame 3
+	DR4, // opening/closing door frame 4
+	DR5, // opening/closing door frame 5
+	DR_O, // open door
+	TR
 };
+
+typedef struct s_hit
+{
+	int		hit; // if the rays hit the sprite or not
+	double		dist; // distance from player to the sprite
+	int		h; // height of the sprite
+	enum e_wallside	side; // side to which the ray hits (the player sees): North, South, East or West
+	enum e_wallside	tex; // texture index of sprite
+}				t_hit;
 
 typedef struct s_ray
 {
-	double		camera_p; // current X coordinate in camera space
-	double		dir_x; // direction vector of ray
-	double		dir_y; // direction vector of ray
+	double		current_camera_x; // current X coordinate in camera space
+	t_vector	dir; // direction vector of ray
 	int		map_x; // current X coordinate of the ray on the map
 	int		map_y; // current Y coordinate of the ray on the map
 	int		step_x; // direction to go in x-axis (-1 or 1)
 	int		step_y; // direction to go in y-axis (-1 or 1)
-	double		sidedist_x; // distance the ray travels on x-axis
-	double		sidedist_y; // distance the ray travels on y-axis
-	double		delta_x; // distance the ray has to travel to go from a x-side to the next one
-	double		delta_y; // distance the ray has to travel to go from a y-side to the next one
-	double		distance; // distance from the player position to wall
-	int		wall_height; // will be calculated from 'distance'
-	enum e_wallside	wall_side; // wall side to which the ray hits (the player sees)
-}	t_ray;
+	t_vector	sidedist; // distance the ray travels on x-axis or y-axis
+	t_vector	delta; // distance the ray has to travel to go from a x-side or y-side to the next one
+	t_hit		wall; // wall hit data structure
+	t_hit		closed_d; // closed door hit data structure
+	t_hit		open_d; // open door hit data structure
+	t_hit		anim_d; // animated door (opening or closing) hit data structure
+	double		nearest_sprite_dist; // distance from player to the nearest sprite (wall or closed door)
+}			t_ray;
 ```
 
 ## Detailed explanation 
@@ -340,32 +374,51 @@ else
 	ray->sidedist_y = (ray->map_y + 1.0 - player->pos_y) * ray->delta_y;
 }
 ```   
-#### 2. Wall collision check
-The ray continues until it hits a wall, using the DDA (Digital Differential Analyzer) algorithm.   
-The DDA algorithm steps through the map grid, moving the ray to the next grid line. When a wall is hit, the algorithm stops, and the distance to the hit is calculated. This distance is used to determine the height of the wall slice to be drawn, creating a 3D perspective from a 2D map.
+#### 2. Wall (& door for bonus) hit check
+The ray continues until it hits a wall (or a closed door), using the DDA (Digital Differential Analyzer) algorithm.   
+The DDA algorithm steps through the map grid, moving the ray to the next grid line. When a wall (or a closed door) is hit, the algorithm stops, and the distance to the hit is calculated. This distance is used to determine the height of the wall (or the closed door) slice to be drawn, creating a 3D perspective from a 2D map.
 
 ```c
-void	check_wall_hit(t_cub3d *data, t_ray *ray)
+void	check_hit(t_cub3d *data, t_ray *ray)
 {
 	int		is_y_axis;
 
 	is_y_axis = 0;
-	while (ray->hit == NOTHING)
+	while (!ray->wall.hit && !ray->closed_d.hit)
 	{
-		// data->map.map[ray->map_y][ray->map_x] is current map coordinates of the ray
+		// Check if current map coordinates of the ray(data->map.map[ray->map_y][ray->map_x]) is a wall ('1')
 		if (data->map.map[ray->map_y][ray->map_x] == '1')
-			ray->hit = WALL;
-		else
-			next_step(ray, &is_y_axis);
+		{
+			set_hit_data(data, ray, &ray->wall, is_y_axis);
+			if (ray->nearest_sprite_dist == 0)
+				ray->nearest_sprite_dist = ray->wall.dist;
+		}
+		if (BONUS)
+			check_door_hit(data, ray, is_y_axis);
+		next_step(ray, &is_y_axis);
 	}
-	if (is_y_axis)
-		ray->w_dist = ray->sidedist_y - ray->delta_y;
-	else
-		ray->w_dist = ray->sidedist_x - ray->delta_x;
-	if (ray->w_dist < 0.0001)
-		ray->w_dist = 0.0001;
-	ray->w_side = get_wall_side(ray, &data->player, is_y_axis);
-	ray->wall_height = (int)(WIN_H / ray->w_dist);
+}
+
+static void	check_door_hit(t_cub3d *data, t_ray *ray, int is_y_axis)
+{
+	// Check if current map coordinates of the ray is a closed door ('D')
+	if (data->map.map[ray->map_y][ray->map_x] == 'D'
+		&& !ray->closed_d.hit)
+	{
+		set_hit_data(data, ray, &ray->closed_d, is_y_axis);
+		if (ray->nearest_sprite_dist == 0)
+			ray->nearest_sprite_dist = ray->closed_d.dist;
+	}
+
+	// Check if current map coordinates of the ray is an open door ('O')
+	if (data->map.map[ray->map_y][ray->map_x] == 'O'
+		&& !ray->open_d.hit)
+		set_hit_data(data, ray, &ray->open_d, is_y_axis);
+
+	// Check if current map coordinates of the ray is an opening or closing door ('d' or 'o')
+	if ((data->map.map[ray->map_y][ray->map_x] == 'd'
+		|| data->map.map[ray->map_y][ray->map_x] == 'o'))
+		set_anim_door_hit_data(data, ray, is_y_axis);
 }
 ```
    
@@ -390,71 +443,138 @@ static void	next_step(t_ray *ray, int *is_y_axis)
 	}
 }
 ```
-<p align="center"><img style="width: 80%;" src="https://github.com/ysengoku/42-cub3d-macOS/assets/130462445/54b67e9a-0a9c-4b9f-ac15-e15375d340a2"</p>
+<p align="center"><img style="width: 90%;" src="https://github.com/ysengoku/42-cub3d-macOS/assets/130462445/54b67e9a-0a9c-4b9f-ac15-e15375d340a2"></p>
 
-<p align="center"><img style="width: 80%;" src="https://github.com/ysengoku/42-cub3d-macOS/assets/130462445/02958f20-c40a-4d7d-a94c-c9bf464d2bbc"</p>
+<p align="center"><img style="width: 90%;" src="https://github.com/ysengoku/42-cub3d-macOS/assets/130462445/02958f20-c40a-4d7d-a94c-c9bf464d2bbc"></p>
 
-
-The `get_wall_side function` determines which side of a wall the ray has hit.   
-If the hit is on a vertical wall, it checks whether the ray's y-coordinate on the map is less than the player's y-coordinate. If it is, the function returns NO (North), otherwise it returns SO (South).   
-If the hit is not on a vertical wall, it checks whether the ray's x-coordinate on the map is less than the player's x-coordinate. If it is, the function returns WE (West), otherwise it returns EA (East).
+If the ray hits a sprite (wall, closed door, open door or animated door), we stock the hit side and distance and calculate the height of the line to draw on screen.   
 
 ```c
-static int	get_wall_side(t_ray *ray, t_player *player, int is_y_axis)
+static void	set_hit_data(t_cub3d *data, t_ray *ray, t_hit *sprite, int y_axis)
 {
-	if (is_y_axis == 1)
-	{
-		if (ray->map_y < player->pos_y) // ray's y-coordinate on the map is less than the player's y-coordinate
-			return (NO);
-		return (SO);
-	}
-	if (ray->map_x < player->pos_x)
-		return (WE);
-	return (EA);
+	// set 'hit' to 1(true)
+	sprite->hit = 1;
+
+	// Calculate the perpendicular distance from camera plane to the sprite
+	if (y_axis)
+		sprite->dist = ray->sidedist.y - ray->delta.y;
+	else
+		sprite->dist = ray->sidedist.x - ray->delta.x;
+	if (sprite->dist < 0.0001)
+		sprite->dist = 0.0001;
+
+	// Determines which side of a wall the ray has hit 
+	if (y_axis && ray->map_y < data->player.pos.y)
+		sprite->side = SO;
+	else if (y_axis && ray->map_y > data->player.pos.y)
+		sprite->side = NO;
+	else if (!y_axis && ray->map_x < data->player.pos.x)
+		sprite->side = EA;
+	else
+		sprite->side = WE;
+
+	// Calculate the height of line to draw on screen
+	sprite->h = (int)(WIN_H / sprite->dist);
 }
 ```
 
+##### Calculate the perpendicular distance from camera plane to the sprite
+The `ray->sidedist.x` and `ray->sidedist.y` values represent the distance the ray has to travel along the x and y axes, respectively, to hit a sprite.   
+If the ray has hit on Y-axis grid line, the distance from the player to the sprite is calculated as `ray->sidedist.y - ray->delta.y`.   
+If the ray has hit on X-axis grid line, the distance from the player to the wall is calculated as `ray->sidedist.x - ray->delta.x`.   
+(Due to how deltaDist and sideDist were scaled by a factor of |rayDir|, the length of sideDist already almost equals perpWallDist.)   
+
+##### Determines which side of a wall the ray has hit   
+If the hit is on a vertical wall, it checks whether the ray's y-coordinate on the map is less than the player's y-coordinate. If it is, the function returns NO (North), otherwise it returns SO (South).   
+If the hit is not on a vertical wall, it checks whether the ray's x-coordinate on the map is less than the player's x-coordinate. If it is, the function returns WE (West), otherwise it returns EA (East).   
+
+##### Calculate the height of line to draw on screen
+The height of the line on the screen is inversely proportional to the distance to the sprite. This means that as the distance to the sprite increases, the height of the line on the screen decreases. Therefore, we calculate the height of the line by dividing the height of the window by the distance to the sprite. This can be represented as `Height of line = Window height / Distance to the sprite`. It ensures that distant sprites appear smaller on the screen, providing a sense of depth and perspective in the game.
+
+
 #### 3. Draw wall
+The function `draw_wall` draws a vertical slice of a wall on the screen. We have same type of functions for closed/open door and animated door.
+
 ```c
 void	draw_wall(t_cub3d *data, int x, t_ray *r)
 {
 	t_line	line;
 	double	wall_x;
 
+	// Initialize a line structure
 	ft_memset(&line, 0, sizeof(line));
-	line.y_start = data->win_half_h - r->wall_height * 0.5 + data->player.pitch;
+	line.y_start = data->win_half_h - r->wall.h * 0.5;
 	if (line.y_start < 0)
 		line.y_start = 0;
-	line.y_end = data->win_half_h + r->wall_height * 0.5 + data->player.pitch;
+	line.y_end = data->win_half_h + r->wall.h * 0.5;
 	if (line.y_end > WIN_H)
 		line.y_end = WIN_H -1;
 	line.y = line.y_start;
-	wall_x = get_wall_x(data, r);
-	if (r->wall_height != 0)
-		line.span = (double)data->wall[r->w_side].h / r->wall_height;
-	line.tx_x = (int)(wall_x * (double)data->wall[r->w_side].w);
-	if (r->wall_height > WIN_H)
-		line.tx_start_y = (r->wall_height - WIN_H) * 0.5;
+
+	// Get the exact horizontal position of a wall hit by a ray
+	wall_x = get_wall_x(data, r, &r->wall);
+
+	// Calculate span
+	if (r->wall.h != 0)
+		line.span = (double)data->wall[r->wall.side].h / r->wall.h;
+
+	// Calculate the horizontal position in the texture corresponding to wall_x
+	line.tx_x = (int)(wall_x * (double)data->wall[r->wall.side].w);
+
+	// Recalculate the vertical offset in the texture if wall height is grater than window height
+	if (r->wall.h > WIN_H)
+		line.tx_start_y = (r->wall.h - WIN_H) * 0.5;
+
+	// Draw each pixel in the wall slice
 	while (++line.y < line.y_end)
 	{
-		line.tx_y = (int)(((double)line.y - (double)line.y_start + line.tx_start_y) * line.span);
-		line.color = get_txcolor(&data->wall[r->w_side], line.tx_x, line.tx_y);
+		line.tx_y = (int)(((double)line.y - (double)line.y_start
+					+ line.tx_start_y) * line.span);
+		line.color = get_txcolor(&data->wall[r->wall.side],
+				line.tx_x, line.tx_y);
 		put_pxl_color(&data->img, x, line.y, line.color);
 	}
 }
+```
 
-static double	get_wall_x(t_cub3d *data, t_ray *ray)
+1. Initializes a `line` structure, which represents the vertical line to be drawn on the screen.
+The `y_start` and `y_end` values are calculated based on the height of the wall (`r->wall.h`) and the vertical midpoint of the window (`data->win_half_h`).   
+These values are clamped to be within the window's height (`WIN_H`).   
+
+2. Get `wall_x` value   
+It is calculated by calling the `get_wall_x` function. This value represents the exact horizontal position where a ray hits a wall block, which is used for texture mapping.   
+
+3. Calculate the `span` value is calculated as the ratio of the texture height to the wall height.   
+This is used to correctly map the texture to the wall slice.   
+
+4. Calculate the `tx_x` value   
+It is the horizontal position in the texture that corresponds to the `wall_x` value.   
+This is used to get the correct color from the texture for each pixel in the wall slice.   
+
+5. Recalculate the `tx_start_y` value if the wall height is greater than the window height.   
+This is the vertical offset in the texture that corresponds to the top of the wall slice.   
+
+6. Loop to draw each pixel in the wall slice.   
+For each pixel, the `tx_y` value is calculated as the vertical position in the texture that corresponds to the current pixel.   
+The color of the pixel is then retrieved from the texture using the `get_txcolor` function, and the pixel is drawn on the screen.   
+   
+##### wall_x
+The `wall_x` value represents the exact position where a ray hits a wall block.
+This is used to determine which part of the texture to display for that wall slice.
+
+```c
+static double	get_wall_x(t_cub3d *data, t_ray *ray, t_hit *sprite)
 {
 	double	wall_x;
 
-	if (ray->w_side == EA)
-		wall_x = data->wall[EA].w - (data->player.pos_y + ray->w_dist * ray->dir_y);
-	else if (ray->w_side == WE)
-		wall_x = data->player.pos_y + ray->w_dist * ray->dir_y;
-	else if (ray->w_side == SO)
-		wall_x = data->wall[SO].w - (data->player.pos_x + ray->w_dist * ray->dir_x);
+	if (sprite->side == WE)
+		wall_x = data->player.pos.y + sprite->dist * ray->dir.y;
+	else if (sprite->side == EA)
+		wall_x = data->wall[WE].w - (data->player.pos.y + sprite->dist * ray->dir.y);
+	else if (sprite->side == SO)
+		wall_x = data->player.pos.x + sprite->dist * ray->dir.x;
 	else
-		wall_x = data->player.pos_x + ray->w_dist * ray->dir_x;
+		wall_x = data->wall[SO].w - (data->player.pos.x + sprite->dist * ray->dir.x);
 	if (wall_x != floor(wall_x))
 		wall_x -= floor(wall_x);
 	else
@@ -462,10 +582,143 @@ static double	get_wall_x(t_cub3d *data, t_ray *ray)
 	return (wall_x);
 }
 ```
+* The wall hit is on the west (`WE`) or east (`EA`)
+`wall_x` is calculated using the player's y position, the distance to the wall (`sprite->dist`), and the y direction of the ray (`ray->dir.y`). 
+If the wall is on the east, the calculation is inverted by subtracting it from the width of the west wall.
 
-### Player's movement
+* The wall hit is on the south (`SO`) or north ('NO')
+`wall_x` is calculated using the player's x position, the distance to the wall, and the x direction of the ray. 
+If the wall is on the north, the calculation is inverted by subtracting it from the width of the south wall.
+   
+The fractional part is kept by subtracting the floor of `wall_x` from `wall_x`. 
+If the fractional part is zero, it is set to 1 to avoid a division by zero error later in the texture mapping process.   
 
-### 
+<p align="center"><img style="width: 50%;" src="https://github.com/ysengoku/42-cub3d-macOS/assets/130462445/03aebd3c-dd90-4f07-beaf-e3e2023c0f59"></p>
+
+##### Retrieve the color of the pixel from the texture
+```c
+typedef struct s_xpm_img
+{
+	void		*img;
+	char		*addr; // memory address of the texture image
+	int		bpp; // number of bytes per pixel
+	int		line_len; // length of each line of pixels
+	int		endian;
+	int		w;
+	int		h;
+	char		*path;
+}				t_xpm_img;
+
+unsigned int	get_txcolor(t_xpm_img *texture, int x, int y)
+{
+	char	*pxl; // pointer to the color data of the specified pixel
+
+	pxl = texture->addr + (y * texture->line_len + x * (texture->bpp / 8));
+	return (*(unsigned int *)pxl);
+}
+```
+The `pxl` variable is a pointer to the color data of the specified pixel. It's calculated by adding the offset of the pixel to the start address of the texture. The offset is calculated as `y * texture->line_len + x * (texture->bpp / 8)`, which gives the number of bytes from the start of the texture to the pixel.   
+
+The function returns the color of the pixel as an `unsigned int`. This is done by dereferencing the `pxl` pointer with `(unsigned int *)pxl`. This casts the `pxl` pointer to an `unsigned int` pointer, and then dereferences it to get the `unsigned int` value that it points to, which is the color of the pixel.   
+
+
+### Sprite draw (perspective projection transformation)
+We use another method to draw sprites  (like objects or characters).   
+Instead of using Ray casting, it involves calculating the position and size of the 2D image based on the the relative position of the sprite to the player. This determines where and how large the sprite should appear on the screen. Technically, this method is known as perspective projection transformation.
+
+#### Overview
+1. During the Raycasting loop, we store the perpendicular distance to the wall or closed door (which is for each ray in an array called `wall_zbuffer`.
+2. Convert the coordinates of the sprites from the map coordinates to coordinates relative to the player.
+3. By applying the inverse of the camera matrix, we determine the x-coordinate on the screen and the depth of the sprite (Z-axis in 3D space) from the player.
+4. Calculate the width and height for rendering the sprite based on the x-coordinate on the screen and the sprite's depth. 
+5. For each x-coordinate from the left edge to the right edge of the sprite on the screen, the sprite is drawn. During this process, if the wall_zbuffer[x] value is greater than the sprite's depth (indicating the sprite is closer to the player than the wall), the sprite is rendered.
+
+```c
+typedef struct s_treasure
+{
+	/* map world coordinates */
+	t_vector	map; // sprite x and y coodinate on map
+	t_vector	relative_pos; // sprite x and y coodinate relative to playeryer
+
+	/* camera coordinates */
+	t_vector	camera; // treasure's position relative to the player's perspective
+		// X = whether the sprite is to the left or right of the player's viewpoint and by how much.
+		// Y = distance(depth, Z-axis in 3D space) of the sprite from player
+
+	/* screen coordinates */
+	int		screen_x; // sprite x-coodinate on screen
+	int		draw_height; // sprite height on screen
+	int		draw_width; // sprite width on screen
+	int		start_x; // start x-coodinate to draw sprite
+	int		end_x; // end x-coodinate to draw sprite
+	int		start_y; //	start y-coodinate to draw sprite
+	int		end_y; // end y-coodinate to draw sprite
+	int		visible; // whether the sprite is visible or not
+}		t_treasure;
+
+void	set_treasure_data(t_cub3d *data, t_treasure *treasure)
+{
+	treasure->visible = 0;
+	calculate_camera_coordinates(data, treasure);
+	if (treasure->camera.y > 0 && fabs(treasure->camera.x / treasure->camera.y) < data->player.plane_length)
+	{
+		get_draw_range(data, treasure);
+		treasure->visible = 1;
+	}
+}
+
+static void	calculate_camera_coordinates(t_cub3d *data, t_treasure *treasure)
+{
+	double	inverse_matrix_factor;
+
+	// This is a value used to scale these positions based on the player's direction and field of view.
+	// The `1.0 /` part is calculating the inverse (or reciprocal) of the value.
+	inverse_matrix_factor = 1.0 / (data->player.plane.x * data->player.dir.y - data->player.dir.x * data->player.plane.y);
+
+	// Calculate relative position of sprite to player
+	treasure->relative_pos.x = treasure->map.x - data->player.pos.x;
+	treasure->relative_pos.y = treasure->map.y - data->player.pos.y;
+
+	// Transform the treasure's position from map world coordinates to camera coordinates.
+	//`camera.x` and `camera.y` represent how far the sprite is from the center of the player's field of view, both horizontally and vertically. 
+	treasure->camera.x = inverse_matrix_factor * (data->player.dir.y * treasure->relative_pos.x - data->player.dir.x * treasure->relative_pos.y);
+	treasure->camera.y = inverse_matrix_factor * (-data->player.plane.y * treasure->relative_pos.x + data->player.plane.x * treasure->relative_pos.y);
+}
+
+static void	get_draw_range(t_cub3d *data, t_treasure *treasure)
+{
+	
+	// Calculate the x-coordinate on the screen where the sprite should be displayed
+	// By dividing the sprite's camera-relative x-coordinate by the sprite's camera-relative y-coordinate,
+	// we calculate the direction and distance of the sprite from the camera.
+	// Adding this value to the screen center (WIN_W / 2) gives the x-coordinate on the screen where the sprite should be displayed.
+	treasure->screen_x = (int)(data->win_half_w * (1 + treasure->camera.x / treasure->camera.y));
+
+	// Calculate the height that the sprite should occupy on the screen
+	treasure->draw_height = ft_abs((int)(WIN_H / treasure->camera.y));
+	// Calculate the y-coordinate range on the screen where the sprite should be displayed
+	treasure->start_y = -treasure->draw_height / 2 + data->win_half_h;
+	if (treasure->start_y < 0)
+		treasure->start_y = 0;
+	treasure->end_y = treasure->draw_height / 2 + data->win_half_h;
+	if (treasure->end_y >= WIN_H)
+		treasure->end_y = WIN_H - 1;
+
+	// Calculate the width that the sprite should occupy on the screen
+	treasure->draw_width = treasure->draw_height;
+	// Calculate the x-coordinate range on the screen where the sprite should be displayed
+	treasure->start_x = -treasure->draw_width / 2 + treasure->screen_x;
+	if (treasure->start_x < 0)
+		treasure->start_x = 0;
+	treasure->end_x = treasure->draw_width / 2 + treasure->screen_x;
+	if (treasure->end_x >= WIN_W)
+		treasure->end_x = WIN_W - 1;
+}
+```
+##### Sprite's coordinates relative to the player
+<p align="center"><img style="width: 50%;" src="https://github.com/ysengoku/42-cub3d-macOS/assets/130462445/4aae7d77-c3eb-4e4e-b26c-9c8c03fee23b"></p>
+
+
 
 ## References
 ### Tutorials
@@ -485,6 +738,7 @@ static double	get_wall_x(t_cub3d *data, t_ray *ray)
 
 ### Turorial in Japanese
 * [42Tokyo C言語で一人称視点のゲームを作った](https://qiita.com/susasaki/items/c74a228d7ddd48b818bd)
+* [C言語で3Dゲームを作った](https://jun-networks.hatenablog.com/entry/2021/03/04/130629)
 
 ### Textures
 Treasure texture credit: <a href="https://www.freepik.com/free-vector/wooden-chest-realistic-set-with-images-opened-closed-empty-treasure-coffers-white_7497393.htm#query=treasure%20box&position=10&from_view=keyword&track=ais_user&uuid=aac9961d-90f6-43f3-aba7-2832a8b81de0">macrovector</a> on Freepik

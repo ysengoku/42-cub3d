@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 16:31:39 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/18 15:57:48 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/21 08:19:50 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,14 @@
 
 static void	draw_line(t_cub3d *data, t_treasure *treasure, int x);
 
-void	draw_treasure(t_cub3d *data, t_treasure *treasure)
+void	draw_treasure(t_cub3d *data, t_treasure *treasure, int x)
 {
-	int	x;
-
 	if (!treasure->visible)
 		return ;
-	x = treasure->start_x;
 	if (treasure->camera.y >= data->wall_zbuffer[treasure->screen_x])
 		return ;
-	while (x < treasure->end_x)
-	{
+	if (x >= treasure->start_x && x < treasure->end_x)
 		draw_line(data, treasure, x);
-		x++;
-	}
 }
 
 static void	draw_line(t_cub3d *data, t_treasure *treasure, int x)
@@ -52,11 +46,4 @@ static void	draw_line(t_cub3d *data, t_treasure *treasure, int x)
 			y++;
 		}
 	}
-}
-
-void	finish_game(t_cub3d *data)
-{
-	printf("\033[1m\033[32mCONGRATULATION ! You won !\033[0m\n");
-	sleep(1);
-	close_window(data);
 }
