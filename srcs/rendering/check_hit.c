@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 08:07:02 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/20 14:04:50 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/20 15:14:30 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,8 @@ static void	set_hit_data(t_cub3d *data, t_ray *ray, t_hit *sprite, int y_axis)
 		sprite->dist = ray->sidedist.y - ray->delta.y;
 	else
 		sprite->dist = ray->sidedist.x - ray->delta.x;
-	if (sprite->dist < 0.0001)
-		sprite->dist = 0.0001;
+	if (sprite->dist < 0.1)
+		sprite->dist = 0.1;
 	if (y_axis && ray->map_y < data->player.pos.y)
 		sprite->side = SO;
 	else if (y_axis && ray->map_y > data->player.pos.y)
@@ -96,8 +96,8 @@ static void	set_anim_door_hit_data(t_cub3d *data, t_ray *ray, int y_axis)
 		ray->anim_d.dist = ray->sidedist.y - ray->delta.y;
 	else
 		ray->anim_d.dist = ray->sidedist.x - ray->delta.x;
-	if (ray->anim_d.dist < 0.0001)
-		ray->anim_d.dist = 0.0001;
+	if (ray->anim_d.dist < 0.1)
+		ray->anim_d.dist = 0.1;
 	if (y_axis && ray->map_y < data->player.pos.y)
 		ray->anim_d.side = SO;
 	else if (y_axis && ray->map_y > data->player.pos.y)
