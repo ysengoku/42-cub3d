@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/20 13:43:02 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/21 08:14:57 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@
 # include "mlx.h"
 # include "mlx_int.h"
 
-/*===== paths sprits ======================================================*/
+/*===== paths sprits =========================================================*/
 
 # define SPRITE_NO "./textures/walls/stone00.xpm"
 # define SPRITE_SO "./textures/walls/stone01.xpm"
 # define SPRITE_WE "./textures/walls/stone02.xpm"
 # define SPRITE_EA "./textures/walls/stone03.xpm"
 
-/*===== colors ======================================================*/
+/*===== colors ===============================================================*/
 
 # define RGB_F "169,169,169"
 # define RGB_C "52,52,52"
@@ -61,7 +61,6 @@
 
 # define MOUSE_DOWN 4
 # define MOUSE_UP 5
-# define PITCH 1
 
 # define MMAP_SCALE 20
 # define MMAP_SIZE 9
@@ -90,7 +89,7 @@
 #  define BONUS 1
 # endif
 
-/*===== enum definition =====================================================*/
+/*===== enum definition ======================================================*/
 enum	e_direction
 {
 	N = 270,
