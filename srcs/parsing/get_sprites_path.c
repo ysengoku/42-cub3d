@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_sprites_path.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 16:53:25 by jmougel           #+#    #+#             */
-/*   Updated: 2024/06/20 07:49:54 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/21 18:50:20 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static char	*get_path(char *line)
 	return (path);
 }
 
-static int	treat_path(t_cub3d *data, char *line,  char *str)
+static void	treat_path(t_cub3d *data, char *line,  char *str)
 {
 	int	index;
 
@@ -46,10 +46,7 @@ static int	treat_path(t_cub3d *data, char *line,  char *str)
 		index = 2;
 	else if (ft_strncmp(str, "EA", 3) == 0)
 		index = 3;
-	else
-		return (EXIT_FAILURE);
 	data->wall[index].path = get_path(line);
-	return (EXIT_SUCCESS);
 }
 
 int	get_sprites_path(t_cub3d *data)
