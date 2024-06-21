@@ -443,9 +443,9 @@ static void	next_step(t_ray *ray, int *is_y_axis)
 	}
 }
 ```
-<p align="center"><img style="width: 80%;" src="https://github.com/ysengoku/42-cub3d-macOS/assets/130462445/54b67e9a-0a9c-4b9f-ac15-e15375d340a2"></p>
+<p align="center"><img style="width: 90%;" src="https://github.com/ysengoku/42-cub3d-macOS/assets/130462445/54b67e9a-0a9c-4b9f-ac15-e15375d340a2"></p>
 
-<p align="center"><img style="width: 80%;" src="https://github.com/ysengoku/42-cub3d-macOS/assets/130462445/02958f20-c40a-4d7d-a94c-c9bf464d2bbc"></p>
+<p align="center"><img style="width: 90%;" src="https://github.com/ysengoku/42-cub3d-macOS/assets/130462445/02958f20-c40a-4d7d-a94c-c9bf464d2bbc"></p>
 
 If the ray hits a sprite (wall, closed door, open door or animated door), we stock the hit side and distance and calculate the height of the line to draw on screen.   
 
@@ -622,9 +622,103 @@ The `pxl` variable is a pointer to the color data of the specified pixel. It's c
 The function returns the color of the pixel as an `unsigned int`. This is done by dereferencing the `pxl` pointer with `(unsigned int *)pxl`. This casts the `pxl` pointer to an `unsigned int` pointer, and then dereferences it to get the `unsigned int` value that it points to, which is the color of the pixel.   
 
 
-### Player's movement
+### Sprite draw (perspective projection transformation)
+We use another method to draw sprites  (like objects or characters).   
+Instead of using Ray casting, it involves calculating the position and size of the 2D image based on the the relative position of the sprite to the player. This determines where and how large the sprite should appear on the screen. Technically, this method is known as perspective projection transformation.
 
-### 
+#### Overview
+1. During the Raycasting loop, we store the perpendicular distance to the wall or closed door (which is for each ray in an array called `wall_zbuffer`.
+2. Convert the coordinates of the sprites from the map coordinates to coordinates relative to the player.
+3. By applying the inverse of the camera matrix, we determine the x-coordinate on the screen and the depth of the sprite (Z-axis in 3D space) from the player.
+4. Calculate the width and height for rendering the sprite based on the x-coordinate on the screen and the sprite's depth. 
+5. For each x-coordinate from the left edge to the right edge of the sprite on the screen, the sprite is drawn. During this process, if the wall_zbuffer[x] value is greater than the sprite's depth (indicating the sprite is closer to the player than the wall), the sprite is rendered.
+
+```c
+typedef struct s_treasure
+{
+	/* map world coordinates */
+	t_vector	map; // sprite x and y coodinate on map
+	t_vector	relative_pos; // sprite x and y coodinate relative to playeryer
+
+	/* camera coordinates */
+	t_vector	camera; // treasure's position relative to the player's perspective
+		// X = whether the sprite is to the left or right of the player's viewpoint and by how much.
+		// Y = distance(depth, Z-axis in 3D space) of the sprite from player
+
+	/* screen coordinates */
+	int		screen_x; // sprite x-coodinate on screen
+	int		draw_height; // sprite height on screen
+	int		draw_width; // sprite width on screen
+	int		start_x; // start x-coodinate to draw sprite
+	int		end_x; // end x-coodinate to draw sprite
+	int		start_y; //	start y-coodinate to draw sprite
+	int		end_y; // end y-coodinate to draw sprite
+	int		visible; // whether the sprite is visible or not
+}		t_treasure;
+
+void	set_treasure_data(t_cub3d *data, t_treasure *treasure)
+{
+	treasure->visible = 0;
+	calculate_camera_coordinates(data, treasure);
+	if (treasure->camera.y > 0 && fabs(treasure->camera.x / treasure->camera.y) < data->player.plane_length)
+	{
+		get_draw_range(data, treasure);
+		treasure->visible = 1;
+	}
+}
+
+static void	calculate_camera_coordinates(t_cub3d *data, t_treasure *treasure)
+{
+	double	inverse_matrix_factor;
+
+	// This is a value used to scale these positions based on the player's direction and field of view.
+	// The `1.0 /` part is calculating the inverse (or reciprocal) of the value.
+	inverse_matrix_factor = 1.0 / (data->player.plane.x * data->player.dir.y - data->player.dir.x * data->player.plane.y);
+
+	// Calculate relative position of sprite to player
+	treasure->relative_pos.x = treasure->map.x - data->player.pos.x;
+	treasure->relative_pos.y = treasure->map.y - data->player.pos.y;
+
+	// Transform the treasure's position from map world coordinates to camera coordinates.
+	//`camera.x` and `camera.y` represent how far the sprite is from the center of the player's field of view, both horizontally and vertically. 
+	treasure->camera.x = inverse_matrix_factor * (data->player.dir.y * treasure->relative_pos.x - data->player.dir.x * treasure->relative_pos.y);
+	treasure->camera.y = inverse_matrix_factor * (-data->player.plane.y * treasure->relative_pos.x + data->player.plane.x * treasure->relative_pos.y);
+}
+
+static void	get_draw_range(t_cub3d *data, t_treasure *treasure)
+{
+	
+	// Calculate the x-coordinate on the screen where the sprite should be displayed
+	// By dividing the sprite's camera-relative x-coordinate by the sprite's camera-relative y-coordinate,
+	// we calculate the direction and distance of the sprite from the camera.
+	// Adding this value to the screen center (WIN_W / 2) gives the x-coordinate on the screen where the sprite should be displayed.
+	treasure->screen_x = (int)(data->win_half_w * (1 + treasure->camera.x / treasure->camera.y));
+
+	// Calculate the height that the sprite should occupy on the screen
+	treasure->draw_height = ft_abs((int)(WIN_H / treasure->camera.y));
+	// Calculate the y-coordinate range on the screen where the sprite should be displayed
+	treasure->start_y = -treasure->draw_height / 2 + data->win_half_h;
+	if (treasure->start_y < 0)
+		treasure->start_y = 0;
+	treasure->end_y = treasure->draw_height / 2 + data->win_half_h;
+	if (treasure->end_y >= WIN_H)
+		treasure->end_y = WIN_H - 1;
+
+	// Calculate the width that the sprite should occupy on the screen
+	treasure->draw_width = treasure->draw_height;
+	// Calculate the x-coordinate range on the screen where the sprite should be displayed
+	treasure->start_x = -treasure->draw_width / 2 + treasure->screen_x;
+	if (treasure->start_x < 0)
+		treasure->start_x = 0;
+	treasure->end_x = treasure->draw_width / 2 + treasure->screen_x;
+	if (treasure->end_x >= WIN_W)
+		treasure->end_x = WIN_W - 1;
+}
+```
+##### Sprite's coordinates relative to the player
+<p align="center"><img style="width: 50%;" src="https://github.com/ysengoku/42-cub3d-macOS/assets/130462445/4aae7d77-c3eb-4e4e-b26c-9c8c03fee23b"></p>
+
+
 
 ## References
 ### Tutorials
@@ -644,6 +738,7 @@ The function returns the color of the pixel as an `unsigned int`. This is done b
 
 ### Turorial in Japanese
 * [42Tokyo C言語で一人称視点のゲームを作った](https://qiita.com/susasaki/items/c74a228d7ddd48b818bd)
+* [C言語で3Dゲームを作った](https://jun-networks.hatenablog.com/entry/2021/03/04/130629)
 
 ### Textures
 Treasure texture credit: <a href="https://www.freepik.com/free-vector/wooden-chest-realistic-set-with-images-opened-closed-empty-treasure-coffers-white_7497393.htm#query=treasure%20box&position=10&from_view=keyword&track=ais_user&uuid=aac9961d-90f6-43f3-aba7-2832a8b81de0">macrovector</a> on Freepik
