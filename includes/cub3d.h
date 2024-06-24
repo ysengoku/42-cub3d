@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/24 11:06:30 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/24 13:01:11 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -306,7 +306,8 @@ int				line_is_map(char *line, char c);
 int				line_is_data(char *line);
 int				line_is_space(char *line);
 int				apply_flood_fill(t_cub3d *data);
-void			flood_fill_rec(t_cub3d *data, char **dup_map, int pos_x, int pos_y);
+void			flood_fill_rec(t_cub3d *data, char **dup_map, int pos_x,
+					int pos_y);
 void			flood_fill_iter(t_cub3d *data, char **dup_map);
 void			free_split(char **map);
 void			free_data_map(t_map *data_map);
