@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 15:25:44 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/18 14:13:42 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/24 08:50:59 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ void	free_texture_paths(t_xpm_img *wall, int size)
 	int	i;
 
 	i = 0;
+	if (!wall)
+		return ;
 	while (i < size)
 	{
 		if (wall[i].path)
