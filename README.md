@@ -482,7 +482,9 @@ static void	set_hit_data(t_cub3d *data, t_ray *ray, t_hit *sprite, int y_axis)
 The `ray->sidedist.x` and `ray->sidedist.y` values represent the distance the ray has to travel along the x and y axes, respectively, to hit a sprite.   
 If the ray has hit on Y-axis grid line, the distance from the player to the sprite is calculated as `ray->sidedist.y - ray->delta.y`.   
 If the ray has hit on X-axis grid line, the distance from the player to the wall is calculated as `ray->sidedist.x - ray->delta.x`.   
-(Due to how deltaDist and sideDist were scaled by a factor of |rayDir|, the length of sideDist already almost equals perpWallDist.)   
+
+<img width="100%" alt="perpenduclar_dist" src="https://github.com/ysengoku/42-cub3d-macOS/assets/130462445/9319549b-f68a-4ebe-81f6-882e6cb85fc7">
+
 
 ##### Determines which side of a wall the ray has hit   
 If the hit is on a vertical wall, it checks whether the ray's y-coordinate on the map is less than the player's y-coordinate. If it is, the function returns NO (North), otherwise it returns SO (South).   
@@ -671,16 +673,17 @@ static void	calculate_camera_coordinates(t_cub3d *data, t_treasure *treasure)
 {
 	double	inverse_matrix_factor;
 
-	// This is a value used to scale these positions based on the player's direction and field of view.
-	// The `1.0 /` part is calculating the inverse (or reciprocal) of the value.
-	inverse_matrix_factor = 1.0 / (data->player.plane.x * data->player.dir.y - data->player.dir.x * data->player.plane.y);
 
 	// Calculate relative position of sprite to player
 	treasure->relative_pos.x = treasure->map.x - data->player.pos.x;
 	treasure->relative_pos.y = treasure->map.y - data->player.pos.y;
 
+	// Value used to scale these positions based on the player's direction and field of view
+	// The '1.0 /' part is calculating the inverse (or reciprocal) of the value.
+	inverse_matrix_factor = 1.0 / (data->player.plane.x * data->player.dir.y - data->player.dir.x * data->player.plane.y);
+
 	// Transform the treasure's position from map world coordinates to camera coordinates.
-	//`camera.x` and `camera.y` represent how far the sprite is from the center of the player's field of view, both horizontally and vertically. 
+	// 'camera.x' and 'camera.y' represent how far the sprite is from the center of the player's field of view, both horizontally and vertically. 
 	treasure->camera.x = inverse_matrix_factor * (data->player.dir.y * treasure->relative_pos.x - data->player.dir.x * treasure->relative_pos.y);
 	treasure->camera.y = inverse_matrix_factor * (-data->player.plane.y * treasure->relative_pos.x + data->player.plane.x * treasure->relative_pos.y);
 }
@@ -739,6 +742,7 @@ static void	get_draw_range(t_cub3d *data, t_treasure *treasure)
 ### Turorial in Japanese
 * [42Tokyo C言語で一人称視点のゲームを作った](https://qiita.com/susasaki/items/c74a228d7ddd48b818bd)
 * [C言語で3Dゲームを作った](https://jun-networks.hatenablog.com/entry/2021/03/04/130629)
+* [3Dゲームを作る課題の振り返り](https://rio-1.hatenablog.com/entry/2022/02/16/114122)
 
 ### Textures
 Treasure texture credit: <a href="https://www.freepik.com/free-vector/wooden-chest-realistic-set-with-images-opened-closed-empty-treasure-coffers-white_7497393.htm#query=treasure%20box&position=10&from_view=keyword&track=ais_user&uuid=aac9961d-90f6-43f3-aba7-2832a8b81de0">macrovector</a> on Freepik
