@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fl_recursive.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 15:25:49 by jmougel           #+#    #+#             */
-/*   Updated: 2024/06/24 11:45:13 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/24 13:30:21 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,7 @@ void	flood_fill_rec(t_cub3d *data, char **dup_map, int pos_x, int pos_y)
 	}
 	else if (dup_map[pos_y][pos_x] == '0')
 		dup_map[pos_y][pos_x] = '1';
-	else if (dup_map[pos_y][pos_x] == 'N'
-		|| dup_map[pos_y][pos_x] == 'S'
-		|| dup_map[pos_y][pos_x] == 'E'
-		|| dup_map[pos_y][pos_x] == 'W')
+	else if (dup_map[pos_y][pos_x] == 'P')
 		dup_map[pos_y][pos_x] = '1';
 	else
 	{
