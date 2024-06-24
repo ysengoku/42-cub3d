@@ -485,7 +485,6 @@ If the ray has hit on X-axis grid line, the distance from the player to the wall
 
 <img width="100%" alt="perpenduclar_dist" src="https://github.com/ysengoku/42-cub3d-macOS/assets/130462445/9319549b-f68a-4ebe-81f6-882e6cb85fc7">
 
-
 ##### Determines which side of a wall the ray has hit   
 If the hit is on a vertical wall, it checks whether the ray's y-coordinate on the map is less than the player's y-coordinate. If it is, the function returns NO (North), otherwise it returns SO (South).   
 If the hit is not on a vertical wall, it checks whether the ray's x-coordinate on the map is less than the player's x-coordinate. If it is, the function returns WE (West), otherwise it returns EA (East).   
@@ -551,7 +550,9 @@ This is used to correctly map the texture to the wall slice.
 
 4. Calculate the `tx_x` value   
 It is the horizontal position in the texture that corresponds to the `wall_x` value.   
-This is used to get the correct color from the texture for each pixel in the wall slice.   
+This is used to get the correct color from the texture for each pixel in the wall slice.
+
+<p align="center"><img width="50%" alt="tex_x" src="https://github.com/ysengoku/42-cub3d-macOS/assets/130462445/17053af7-d475-4d70-ae7d-c72aac442932"></p>
 
 5. Recalculate the `tx_start_y` value if the wall height is greater than the window height.   
 This is the vertical offset in the texture that corresponds to the top of the wall slice.   
@@ -577,10 +578,7 @@ static double	get_wall_x(t_cub3d *data, t_ray *ray, t_hit *sprite)
 		wall_x = data->player.pos.x + sprite->dist * ray->dir.x;
 	else
 		wall_x = data->wall[SO].w - (data->player.pos.x + sprite->dist * ray->dir.x);
-	if (wall_x != floor(wall_x))
-		wall_x -= floor(wall_x);
-	else
-		wall_x = 1;
+	wall_x -= floor(wall_x);
 	return (wall_x);
 }
 ```
@@ -596,6 +594,10 @@ The fractional part is kept by subtracting the floor of `wall_x` from `wall_x`.
 If the fractional part is zero, it is set to 1 to avoid a division by zero error later in the texture mapping process.   
 
 <p align="center"><img style="width: 50%;" src="https://github.com/ysengoku/42-cub3d-macOS/assets/130462445/03aebd3c-dd90-4f07-beaf-e3e2023c0f59"></p>
+
+If wall hit side is North or East, we need to reverse the wall_x value as shown below.
+
+<p align="center"><img style="width: 50%;" src="https://github.com/ysengoku/42-cub3d-macOS/assets/130462445/f4ba6345-75a1-436f-b7d1-b19e5380355b"></p>
 
 ##### Retrieve the color of the pixel from the texture
 ```c
