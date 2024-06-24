@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_color_rgb.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 16:52:08 by jmougel           #+#    #+#             */
-/*   Updated: 2024/06/24 09:55:42 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/24 12:42:47 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,20 +73,27 @@ static int	get_color_rgb(char *data_line, char *c, int index)
 	return (color);
 }
 
-static void	treat_rgb(t_cub3d *data, char *data_line, char c)
+static int	treat_rgb(t_cub3d *data, char *data_line, char c)
 {
 	if (c == 'F')
 	{
+		if (data->map.f_rgb[0] != -1 || data->map.f_rgb[1] != -1
+			|| data->map.f_rgb[2] != -1)
+			return (EXIT_FAILURE);
 		data->map.f_rgb[0] = get_color_rgb(data_line, "F", 0);
 		data->map.f_rgb[1] = get_color_rgb(data_line, "F", 1);
 		data->map.f_rgb[2] = get_color_rgb(data_line, "F", 2);
 	}
 	else if (c == 'C')
 	{
+		if (data->map.c_rgb[0] != -1 || data->map.c_rgb[1] != -1
+			|| data->map.c_rgb[2] != -1)
+			return (EXIT_FAILURE);
 		data->map.c_rgb[0] = get_color_rgb(data_line, "C", 0);
 		data->map.c_rgb[1] = get_color_rgb(data_line, "C", 1);
 		data->map.c_rgb[2] = get_color_rgb(data_line, "C", 2);
 	}
+	return (EXIT_SUCCESS);
 }
 
 int	get_colors_rgb(t_cub3d *data)
@@ -94,17 +101,25 @@ int	get_colors_rgb(t_cub3d *data)
 	int	i;
 
 	i = 0;
+	ft_memset(data->map.f_rgb, -1, sizeof(int) * 3);
+	ft_memset(data->map.c_rgb, -1, sizeof(int) * 3);
 	while (data->map.data_map[i])
 	{
 		if (ft_strncmp(data->map.data_map[i], "F ", 2) == 0)
-			treat_rgb(data, data->map.data_map[i], 'F');
+		{
+			if (treat_rgb(data, data->map.data_map[i], 'F') == EXIT_FAILURE)
+				return (exit_parsing(data, "multiple definition of F", false));
+		}
 		else if (ft_strncmp(data->map.data_map[i], "C ", 2) == 0)
-			treat_rgb(data, data->map.data_map[i], 'C');
+		{
+			if (treat_rgb(data, data->map.data_map[i], 'C') == EXIT_FAILURE)
+				return (exit_parsing(data, "multiple definition of C", false));
+		}
 		i++;
 	}
 	if (data->map.f_rgb[0] == -1 || data->map.f_rgb[1] == -1
 		|| data->map.f_rgb[2] == -1 || data->map.c_rgb[0] == -1
 		|| data->map.c_rgb[1] == -1 || data->map.c_rgb[2] == -1)
-		return (EXIT_FAILURE);
+		return (exit_parsing(data, "invalid RGB", false));
 	return (EXIT_SUCCESS);
 }
