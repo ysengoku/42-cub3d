@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_color_rgb.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 16:52:08 by jmougel           #+#    #+#             */
-/*   Updated: 2024/06/24 12:42:47 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/24 12:58:38 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,24 @@ static int	split_color_rgb(char *color_rgb, int index)
 	return (color);
 }
 
+static int	check_comma(char *line)
+{
+	int	i;
+	int	comma;
+
+	i = 0;
+	comma = 0;
+	while (line[i])
+	{
+		if (line[i] == ',')
+			comma++;
+		i++;
+	}
+	if (comma != 2)
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
+}
+
 static int	extract_color_rgb(char *line, int index)
 {
 	char	**ar;
@@ -58,18 +76,10 @@ static int	extract_color_rgb(char *line, int index)
 		i++;
 	if (i != 2)
 		return (free_split(ar), -1);
+	if (check_comma(ar[1]) == EXIT_FAILURE)
+		return (-1);
 	color = split_color_rgb(ar[1], index);
 	free_split(ar);
-	return (color);
-}
-
-static int	get_color_rgb(char *data_line, char *c, int index)
-{
-	int	color;
-
-	color = -1;
-	if (ft_strncmp(data_line, c, 1) == 0)
-		color = extract_color_rgb(data_line, index);
 	return (color);
 }
 
@@ -80,18 +90,24 @@ static int	treat_rgb(t_cub3d *data, char *data_line, char c)
 		if (data->map.f_rgb[0] != -1 || data->map.f_rgb[1] != -1
 			|| data->map.f_rgb[2] != -1)
 			return (EXIT_FAILURE);
-		data->map.f_rgb[0] = get_color_rgb(data_line, "F", 0);
-		data->map.f_rgb[1] = get_color_rgb(data_line, "F", 1);
-		data->map.f_rgb[2] = get_color_rgb(data_line, "F", 2);
+		if (ft_strncmp(data_line, "F", 1) == 0)
+			data->map.f_rgb[0] = extract_color_rgb(data_line, 0);
+		if (ft_strncmp(data_line, "F", 1) == 0)
+			data->map.f_rgb[1] = extract_color_rgb(data_line, 1);
+		if (ft_strncmp(data_line, "F", 1) == 0)
+			data->map.f_rgb[2] = extract_color_rgb(data_line, 2);
 	}
 	else if (c == 'C')
 	{
 		if (data->map.c_rgb[0] != -1 || data->map.c_rgb[1] != -1
 			|| data->map.c_rgb[2] != -1)
 			return (EXIT_FAILURE);
-		data->map.c_rgb[0] = get_color_rgb(data_line, "C", 0);
-		data->map.c_rgb[1] = get_color_rgb(data_line, "C", 1);
-		data->map.c_rgb[2] = get_color_rgb(data_line, "C", 2);
+		if (ft_strncmp(data_line, "C", 1) == 0)
+			data->map.c_rgb[0] = extract_color_rgb(data_line, 0);
+		if (ft_strncmp(data_line, "C", 1) == 0)
+			data->map.c_rgb[1] = extract_color_rgb(data_line, 1);
+		if (ft_strncmp(data_line, "C", 1) == 0)
+			data->map.c_rgb[2] = extract_color_rgb(data_line, 2);
 	}
 	return (EXIT_SUCCESS);
 }
