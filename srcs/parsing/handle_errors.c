@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 17:00:58 by jmougel           #+#    #+#             */
-/*   Updated: 2024/06/24 13:43:07 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/24 14:01:22 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int	exit_parsing(t_cub3d *data, char *message, bool perror_msg)
 		ft_putstr_fd(message, 2);
 	else if (perror_msg == true)
 		perror(message);
-	write(2, "\n", 1);
+	if (perror_msg == false)
+		write(2, "\n", 1);
 	return (EXIT_FAILURE);
 }
