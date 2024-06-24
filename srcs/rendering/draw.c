@@ -126,9 +126,6 @@ static double	get_wall_x(t_cub3d *data, t_ray *ray, t_hit *sprite)
 	else
 		wall_x = data->wall[SO].w
 			- (data->player.pos.x + sprite->dist * ray->dir.x);
-	if (wall_x != floor(wall_x))
-		wall_x -= floor(wall_x);
-	else
-		wall_x = 1;
+	wall_x -= floor(wall_x);
 	return (wall_x);
 }

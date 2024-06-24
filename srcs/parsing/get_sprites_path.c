@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 16:53:25 by jmougel           #+#    #+#             */
-/*   Updated: 2024/06/21 18:50:20 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/24 08:41:25 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,11 @@ static char	*get_path(char *line)
 	return (path);
 }
 
-static void	treat_path(t_cub3d *data, char *line,  char *str)
+static void	treat_path(t_cub3d *data, char *line, char *str)
 {
 	int	index;
 
+	index = 0;
 	if (ft_strncmp(str, "NO", 3) == 0)
 		index = 0;
 	else if (ft_strncmp(str, "SO", 3) == 0)
