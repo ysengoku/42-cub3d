@@ -6,20 +6,25 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 16:59:04 by jmougel           #+#    #+#             */
-/*   Updated: 2024/06/24 12:59:35 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/24 13:24:24 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	assign_player(t_cub3d *data, int *i, int j)
+static int	assign_player(t_cub3d *data, int *i, int j)
 {
-	data->map.map[j][*i] = 'P';
-	data->map.player = data->map.dup_map[j][*i];
-	data->map.pos_x = *i;
-	data->map.pos_y = j;
-	data->map.check.player += 1;
-	*i += 1;
+	if (data->map.dup_map[j][*i] == 'N' || data->map.dup_map[j][*i] == 'S'
+		|| data->map.dup_map[j][*i] == 'E' || data->map.dup_map[j][*i] == 'W')
+	{
+		data->map.map[j][*i] = 'P';
+		data->map.dup_map[j][*i] = 'P';
+		data->map.player = data->map.dup_map[j][*i];
+		data->map.pos_x = *i;
+		data->map.pos_y = j;
+		data->map.check.player += 1;
+	}
+	return (EXIT_SUCCESS);
 }
 
 static int	check_map_closed(t_cub3d *data, int *i, int j)
@@ -42,10 +47,10 @@ static int	check_map_closed(t_cub3d *data, int *i, int j)
 static int	check_char(t_cub3d *data, int *i, int j)
 {
 	if (data->map.dup_map[j][*i] == 'N' || data->map.dup_map[j][*i] == 'S'
-		|| data->map.dup_map[j][*i] == 'E' || data->map.dup_map[j][*i] == 'W')
-		assign_player(data, i, j);
-	else if (data->map.dup_map[j][*i] == '0')
+		|| data->map.dup_map[j][*i] == 'E' || data->map.dup_map[j][*i] == 'W'
+		|| data->map.dup_map[j][*i] == '0')
 	{
+		assign_player(data, i, j);
 		if (check_map_closed(data, i, j) == EXIT_FAILURE)
 			return (exit_parsing(data, "map not close", false));
 		*i += 1;
