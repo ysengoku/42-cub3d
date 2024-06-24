@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free_all.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 10:01:39 by jmougel           #+#    #+#             */
-/*   Updated: 2024/06/20 10:49:04 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/24 13:58:33 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_free_all(int	nb_elem, ...)
+int	ft_free_all(int nb_elem, ...)
 {
 	va_list	elem;
 	void	*to_free;
@@ -35,4 +35,3 @@ int	ft_free_all(int	nb_elem, ...)
 	va_end(elem);
 	return (EXIT_SUCCESS);
 }
-
