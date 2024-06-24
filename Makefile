@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+         #
+#    By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/23 08:07:54 by yusengok          #+#    #+#              #
-#    Updated: 2024/06/24 09:24:35 by jmougel          ###   ########.fr        #
+#    Updated: 2024/06/24 11:52:00 by yusengok         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -87,7 +87,7 @@ BONUS = 0
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-INCLUDE = -I$(HEADERS_DIR) -I$(LIBFT_DIR) -I$(LIBMLX_DIR) -I/usr/include -g
+INCLUDE = -I$(HEADERS_DIR) -I$(LIBFT_DIR) -I$(LIBMLX_DIR) -I/usr/include
 MLXFLAGS = -lmlx -lXext -lX11 -lm
 RM = rm -f
 

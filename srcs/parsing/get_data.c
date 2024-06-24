@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_data.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 16:40:20 by jmougel           #+#    #+#             */
-/*   Updated: 2024/06/24 10:38:07 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/24 12:38:59 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 int	get_data(t_cub3d *data)
 {
 	if (get_sprites_path(data) == EXIT_FAILURE)
-		return (exit_parsing(data, "invalid wall texture", false));
+		return (EXIT_FAILURE);
 	if (get_colors_rgb(data) == EXIT_FAILURE)
-		return (exit_parsing(data, "invalid RGB", false));
+		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
