@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_errors.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 17:00:58 by jmougel           #+#    #+#             */
-/*   Updated: 2024/06/24 10:55:24 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/24 13:43:07 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	free_split(char **map)
 	int	i;
 
 	i = 0;
-	if (!map || !*map)
+	if (!map)
 		return ;
 	while (map[i])
 	{
