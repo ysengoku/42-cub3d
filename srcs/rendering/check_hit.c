@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 08:07:02 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/24 09:57:27 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/24 12:56:15 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,8 @@ static void	set_hit_data(t_cub3d *data, t_ray *ray, t_hit *sprite, int y_axis)
 		sprite->dist = ray->sidedist.y - ray->delta.y;
 	else
 		sprite->dist = ray->sidedist.x - ray->delta.x;
-	if (sprite->dist < 0.1)
-		sprite->dist = 0.1;
+	if (sprite->dist < 0.00001)
+		sprite->dist = 0.00001;
 	if (y_axis && ray->map_y < data->player.pos.y)
 		sprite->side = SO;
 	else if (y_axis && ray->map_y >= data->player.pos.y)
