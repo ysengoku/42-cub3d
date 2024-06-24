@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_errors.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 17:00:58 by jmougel           #+#    #+#             */
-/*   Updated: 2024/06/05 15:45:25 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/24 10:55:24 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	free_split(char **map)
 	int	i;
 
 	i = 0;
+	if (!map || !*map)
+		return ;
 	while (map[i])
 	{
 		free(map[i]);
@@ -48,8 +50,18 @@ void	free_data_map(t_map *data_map)
 	}
 }
 
-void	exit_parsing(t_map *data_map, char *message)
+int	exit_parsing(t_cub3d *data, char *message, bool perror_msg)
 {
-	free_data_map(data_map);
-	ft_error_exit(message, EXIT_FAILURE);
+	free_data_map(&data->map);
+	if (!BONUS)
+		free_texture_paths(data->wall, 4);
+	else if (BONUS)
+		free_texture_paths(data->wall, 12);
+	ft_putstr_fd("Error\nCub3D: ", 2);
+	if (perror_msg == false)
+		ft_putstr_fd(message, 2);
+	else if (perror_msg == true)
+		perror(message);
+	write(2, "\n", 1);
+	return (EXIT_FAILURE);
 }

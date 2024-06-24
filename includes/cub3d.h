@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/21 17:49:54 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/24 11:06:30 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,12 @@ typedef struct s_check_map
 	bool					catch_treasure;
 	bool					invalid_map;
 	bool					in_map;
+	bool					so;
+	bool					no;
+	bool					we;
+	bool					ea;
+	bool					f;
+	bool					c;
 }	t_check_map;
 
 typedef struct s_map
@@ -297,12 +303,14 @@ int				get_maps(t_cub3d *data);
 int				check_map(t_cub3d *data);
 int				check_file(t_cub3d *data);
 int				line_is_map(char *line, char c);
-int				choose_flood_fill(t_cub3d *data);
+int				line_is_data(char *line);
+int				line_is_space(char *line);
+int				apply_flood_fill(t_cub3d *data);
 void			flood_fill_rec(t_cub3d *data, char **dup_map, int pos_x, int pos_y);
 void			flood_fill_iter(t_cub3d *data, char **dup_map);
 void			free_split(char **map);
 void			free_data_map(t_map *data_map);
-void			exit_parsing(t_map *data_map, char *message);
+int				exit_parsing(t_cub3d *data, char *message, bool perror_msg);
 void			set_data(t_cub3d *data, t_player *player, t_map *map);
 int				set_wall_texture(t_cub3d *data, t_xpm_img *wall);
 
@@ -355,14 +363,13 @@ int				mousemove(int x, int y, t_cub3d *data);
 void			action_event(t_cub3d *data);
 
 /*----- Doors -----*/
-void			get_door_and_treasure_texture_paths(t_cub3d *data);
+int				get_door_and_treasure_texture_paths(t_cub3d *data);
 void			draw_door(t_cub3d *data, int x, t_ray *r, t_hit *door);
 void			draw_anim_door(t_cub3d *data, int x, t_ray *r, t_xpm_img *tex);
 void			animations(t_cub3d *data);
 void			anim_door(t_cub3d *data, int target_y, int target_x);
 
 /*----- Treasures -----*/
-void			store_sprite_coordinates(t_cub3d *data);
 void			set_treasure_data(t_cub3d *data, t_treasure *treasures);
 void			draw_treasure(t_cub3d *data, t_treasure *treasure, int x);
 

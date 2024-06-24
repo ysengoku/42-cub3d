@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+         #
+#    By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/23 08:07:54 by yusengok          #+#    #+#              #
-#    Updated: 2024/06/21 17:52:05 by yusengok         ###   ########.fr        #
+#    Updated: 2024/06/24 09:24:35 by jmougel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ FILES = main	\
 		get_maps \
 		check_map \
 		check_file	\
-		choose_flood_fill	\
+		apply_flood_fill	\
 		fl_iteratif	\
 		fl_recursive	\
 		handle_errors	\

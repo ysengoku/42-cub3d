@@ -6,7 +6,7 @@
 /*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 16:59:04 by jmougel           #+#    #+#             */
-/*   Updated: 2024/06/21 17:02:01 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/24 11:46:18 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,26 +22,19 @@ static void	assign_player(t_cub3d *data, int *i, int j)
 	*i += 1;
 }
 
-static int	check_empty_space(t_cub3d *data, int *i, int j)
+static int	check_map_closed(t_cub3d *data, int *i, int j)
 {
 	if (j - 1 < 0 || *i >= (int)ft_strlen(data->map.dup_map[j - 1])
-		|| (data->map.dup_map[j - 1][*i] != '1' && data->map.dup_map[j - 1][*i] != '0'
-		&& data->map.dup_map[j - 1][*i] != 'S' && data->map.dup_map[j - 1][*i] != 'N'
-		&& data->map.dup_map[j - 1][*i] != 'E' && data->map.dup_map[j - 1][*i] != 'W'))
+		|| ft_isalnum(data->map.dup_map[j - 1][*i]) == 0)
 		return (EXIT_FAILURE);
-	if (!data->map.dup_map[j + 1] || *i >= (int)ft_strlen(data->map.dup_map[j + 1])
-		|| (data->map.dup_map[j + 1][*i] != '1' && data->map.dup_map[j + 1][*i] != '0'
-		&& data->map.dup_map[j + 1][*i] != 'S' && data->map.dup_map[j + 1][*i] != 'N'
-		&& data->map.dup_map[j + 1][*i] != 'E' && data->map.dup_map[j + 1][*i] != 'W'))
+	if (!data->map.dup_map[j + 1]
+		|| *i >= (int)ft_strlen(data->map.dup_map[j + 1])
+		|| ft_isalnum(data->map.dup_map[j + 1][*i]) == 0)
 		return (EXIT_FAILURE);
-	if (*i + 1 >= (int)ft_strlen(data->map.dup_map[j]) || (!data->map.dup_map[j][*i + 1]
-		&& data->map.dup_map[j][*i + 1] != '1' && data->map.dup_map[j][*i + 1] != '0'
-		&& data->map.dup_map[j][*i + 1] != 'S' && data->map.dup_map[j][*i + 1] != 'N'
-		&& data->map.dup_map[j][*i + 1] != 'E' && data->map.dup_map[j][*i + 1] != 'W'))
+	if (*i + 1 >= (int)ft_strlen(data->map.dup_map[j])
+		|| ft_isalnum(data->map.dup_map[j][*i + 1]) == 0)
 		return (EXIT_FAILURE);
-	if (*i - 1 < 0 || (data->map.dup_map[j][*i - 1] != '1' && data->map.dup_map[j][*i - 1] != '0'
-		&& data->map.dup_map[j][*i - 1] != 'S' && data->map.dup_map[j][*i - 1] != 'N'
-		&& data->map.dup_map[j][*i - 1] != 'E' && data->map.dup_map[j][*i - 1] != 'W'))
+	if (*i - 1 < 0 || ft_isalnum(data->map.dup_map[j][*i - 1]) == 0)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
@@ -53,11 +46,8 @@ static int	check_char(t_cub3d *data, int *i, int j)
 		assign_player(data, i, j);
 	else if (data->map.dup_map[j][*i] == '0')
 	{
-		if (!BONUS && check_empty_space(data, i, j) == EXIT_FAILURE)
-		{
-			free_texture_paths(data->wall, 4);
-			exit_parsing(&data->map, "Error\nCub3D: map not close");
-		}
+		if (check_map_closed(data, i, j) == EXIT_FAILURE)
+			return (exit_parsing(data, "map not close", false));
 		*i += 1;
 	}
 	else if (data->map.dup_map[j][*i] == '1' || data->map.dup_map[j][*i] == 32)
@@ -66,11 +56,15 @@ static int	check_char(t_cub3d *data, int *i, int j)
 		|| data->map.dup_map[j][*i] == 'T'))
 	{
 		if (data->map.dup_map[j][*i] == 'T')
+		{
 			data->map.check.treasure += 1;
+			data->treasure.map.x = (double)*i + 0.5;
+			data->treasure.map.y = (double)j + 0.5;
+		}
 		*i += 1;
 	}
 	else
-		return (EXIT_FAILURE);
+		return (exit_parsing(data, "bad char in map detected", false));
 	return (EXIT_SUCCESS);
 }
 
@@ -84,14 +78,14 @@ int	check_valid_char(t_cub3d *data)
 	{
 		i = 0;
 		while (data->map.dup_map[j][i])
-		{
 			if (check_char(data, &i, j) == EXIT_FAILURE)
 				return (EXIT_FAILURE);
-		}
 	}
-	if (data->map.check.player != 1 || data->map.pos_x == 0
-		|| data->map.pos_y == 0 || data->map.pos_y == data->map.map_len_y - 1)
-		return (EXIT_FAILURE);
+	if (data->map.check.player != 1)
+		return (exit_parsing(data, "invalid number of player", false));
+	if (data->map.pos_x == 0 || data->map.pos_y == 0
+		|| data->map.pos_y == data->map.map_len_y - 1)
+		return (exit_parsing(data, "invalid player", false));
 	if (data->map.dup_map[data->map.pos_y][data->map.pos_x] == 'N')
 		data->map.p_dir = N;
 	else if (data->map.dup_map[data->map.pos_y][data->map.pos_x] == 'S')
@@ -106,19 +100,10 @@ int	check_valid_char(t_cub3d *data)
 int	check_map(t_cub3d *data)
 {
 	if (check_valid_char(data) == EXIT_FAILURE)
-	{
-		if (!BONUS)
-			free_texture_paths(data->wall, 4);
-		else
-			free_texture_paths(data->wall, 12);
-		exit_parsing(&data->map, "Error\nCub3D: invalid map");
-	}
+		return (EXIT_FAILURE);
 	if (BONUS && data->map.check.treasure != 1)
-	{
-		free_texture_paths(data->wall, 12);
-		exit_parsing(&data->map, "Error\nCub3D: invalid treasure");
-	}
-	if (BONUS)
-		choose_flood_fill(data);
+		return (exit_parsing(data, "invalid number of treasure", false));
+	if (BONUS && apply_flood_fill(data) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
