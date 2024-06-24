@@ -6,7 +6,7 @@
 /*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 16:52:08 by jmougel           #+#    #+#             */
-/*   Updated: 2024/06/20 07:46:17 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/24 09:55:42 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	split_color_rgb(char *color_rgb, int index)
 	while (ar[index][i])
 	{
 		if (ft_isdigit(ar[index][i++]) == 0)
-			return (-1);
+			return (free_split(ar), -1);
 	}
 	color = ft_atoi(ar[index]);
 	free_split(ar);

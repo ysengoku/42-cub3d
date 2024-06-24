@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_treasure_data_bonus.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 16:15:19 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/21 16:54:39 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/06/24 11:06:11 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,6 @@
 
 static void	calculate_camera_coordinates(t_cub3d *data, t_treasure *treasure);
 static void	get_draw_range(t_cub3d *data, t_treasure *treasure);
-
-void	store_sprite_coordinates(t_cub3d *data)
-{
-	int	x;
-	int	y;
-
-	y = 0;
-	while (data->map.map[y])
-	{
-		x = 0;
-		while (data->map.map[y][x])
-		{
-			if (data->map.map[y][x] == 'T')
-			{
-				data->treasure.map.x = (double)x + 0.5;
-				data->treasure.map.y = (double)y + 0.5;
-			}
-			x++;
-		}
-		y++;
-	}
-}
 
 void	set_treasure_data(t_cub3d *data, t_treasure *treasure)
 {

@@ -6,7 +6,7 @@
 /*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 15:25:49 by jmougel           #+#    #+#             */
-/*   Updated: 2024/06/21 17:37:27 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/24 11:45:13 by jmougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,23 @@ static void	recursive(t_cub3d *data, char **dup_map, int pos_x, int pos_y)
 		set_valid_to_true(data);
 }
 
+static int	limit_is_reach(t_cub3d *data, int pos_x, int pos_y)
+{
+	if (data->map.dup_map[pos_y][pos_x] != '1'
+		&& data->map.check.limit_recursiv > 100000)
+	{
+		data->map.dup_map[pos_y][pos_x] = 'P';
+		return (EXIT_SUCCESS);
+	}
+	else if (data->map.check.limit_recursiv > 100000)
+		return (EXIT_SUCCESS);
+	return (EXIT_FAILURE);
+}
+
 void	flood_fill_rec(t_cub3d *data, char **dup_map, int pos_x, int pos_y)
 {
 	data->map.check.limit_recursiv++;
-	if (dup_map[pos_y][pos_x] != '1' && data->map.check.limit_recursiv > 100000)
-	{
-		dup_map[pos_y][pos_x] = 'P';
-		return ;
-	}
-	else if (data->map.check.limit_recursiv > 100000)
+	if (limit_is_reach(data, pos_x, pos_y) == EXIT_SUCCESS)
 		return ;
 	if (dup_map[pos_y][pos_x] == '1')
 		return ;
