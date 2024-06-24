@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmougel <jmougel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 14:23:54 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/20 10:49:21 by jmougel          ###   ########.fr       */
+/*   Updated: 2024/06/24 13:57:56 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ char			*ft_strnstr_r(char *big, char *little);
 long			ft_atol(const char *s);
 long long		ft_atoll(const char *s);
 unsigned int	ft_abs(int n);
-int				ft_free_all(int	nb_elem, ...);
+int				ft_free_all(int nb_elem, ...);
 
 /* ----- ft_printf ----- */
 int				ft_printf(const char *format, ...);
@@ -116,12 +116,12 @@ int				ft_printf_uint(int n);
 int				ft_printf_hex(int n, char sp);
 
 /* ----- get_next_line ----- */
-char			*ft_strjoin_gnl(char *buf, char *stash);
-char			*ft_extract_line_gnl(char *stash);
-char			*ft_rebuild_stash_gnl(char *stash);
-char			*ft_strdup_gnl(const char *str);
-size_t			ft_verifn_gnl(char	*stash);
+// char			*ft_strjoin_gnl(char *buf, char *stash);
+// char			*ft_extract_line_gnl(char *stash);
+// char			*ft_rebuild_stash_gnl(char *stash);
+// char			*ft_strdup_gnl(const char *str);
+// size_t			ft_verifn_gnl(char	*stash);
 char			*get_next_line(int fd);
-char			*ft_error_gnl(char **buf, char **stash);
+// char			*ft_error_gnl(char **buf, char **stash);
 
 #endif
