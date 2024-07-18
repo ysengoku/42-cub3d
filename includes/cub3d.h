@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 08:09:43 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/24 13:01:11 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/07/12 12:00:32 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@
 # define WIN_H 720
 
 # ifndef FOV
-#  define FOV 90
+#  define FOV 66
 # endif
 # define MOVE 0.1
 # define ROTATE 0.03
@@ -82,7 +82,10 @@
 # define DOOR_TEX5 "./textures/door/door5.xpm"
 # define DOOR_TEX_OPEN "./textures/door/door6.xpm"
 
-# define TREASURE_TEX "./textures/treasure/treasure.xpm"
+//# define TREASURE_TEX "./textures/treasure/treasure.xpm"
+# define TREASURE_TEX "./textures/treasure/pikachu.xpm"
+# define CEILING "./textures/floor_ceiling/starry_sky.xpm"
+# define FLOOR "./textures/floor_ceiling/floor.xpm"
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
 # ifndef BONUS
@@ -111,7 +114,9 @@ enum	e_wallside
 	DR4,
 	DR5,
 	DR_O,
-	TR
+	TR,
+	CE,
+	FL
 };
 
 /*===== structures ===========================================================*/
@@ -277,7 +282,7 @@ typedef struct s_cub3d
 	t_player	player;
 	int			ceiling_color;
 	int			floor_color;
-	t_xpm_img	wall[12];
+	t_xpm_img	wall[14];
 	t_keys		keys;
 	/*++++++ Bonus +++++++++++++++++++*/
 	int			previous_mouse_x;
@@ -373,5 +378,6 @@ void			anim_door(t_cub3d *data, int target_y, int target_x);
 /*----- Treasures -----*/
 void			set_treasure_data(t_cub3d *data, t_treasure *treasures);
 void			draw_treasure(t_cub3d *data, t_treasure *treasure, int x);
+void 			draw_ceiling_and_floor_bonus(t_cub3d *data, int x, t_ray *ray);
 
 #endif

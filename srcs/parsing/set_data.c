@@ -6,7 +6,7 @@
 /*   By: yusengok <yusengok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 14:30:34 by yusengok          #+#    #+#             */
-/*   Updated: 2024/06/24 11:42:54 by yusengok         ###   ########.fr       */
+/*   Updated: 2024/07/12 11:43:49 by yusengok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	set_wall_texture(t_cub3d *data, t_xpm_img *wall)
 	if (!BONUS)
 		n = 4;
 	else
-		n = 12;
+		n = 14;
 	while (++i < n)
 		create_wall_teture_img(data, wall, n, i);
 	return (0);
